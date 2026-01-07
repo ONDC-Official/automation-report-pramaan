@@ -1,0 +1,245 @@
+const Mocha = require('mocha');
+const { expect } = require('chai');
+const contextTests = require("../v2.1.0/context");
+const { providerIdTest } = require('../../bussinessTests/mobilityBussiness');
+const response_verification = require("../../centralizedUtilities/responseVerification");
+
+module.exports = async function confirm({ context, message } = {}, previous_on_init_payment_id = "", settlementAmount = 0, logs = [],constants = {}) {
+    const testSuite = new Mocha.Suite('Confirm Request Verification');
+
+    contextTests(context, 'confirm', testSuite, logs,constants);
+
+    const messageTestSuite = Mocha.Suite.create(testSuite, 'Verification of Message');
+    const responseTestSuite = response_verification({ context, message }, logs);
+
+    messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message' object", function () {
+        expect(message, "Request body shouldn't be null and undefined").to.exist;
+    }));
+
+    messageTestSuite.addTest(new Mocha.Test("verify if 'message' has the order property", function () {
+        expect(message).to.have.property("order").that.is.an("object");
+    }));
+
+    messageTestSuite.addTest(new Mocha.Test(`'message.order' should have properties 'provider', 'items' and 'payments'`, function () {
+        expect(message?.order).to.include.all.keys("provider", "items", "payments");
+    }));
+
+    messageTestSuite.addTest(new Mocha.Test("Verify if 'message.order.provider.id' exists and is a string", function () {
+        const providerId = message?.order?.provider?.id;
+        expect(providerId, "Provider ID should exist and be a string").to.exist.and.to.be.a('string');
+    }));
+
+    providerIdTest(messageTestSuite, { context, message }, logs);
+
+    if (message?.order?.items && message?.order?.items.length > 0) {
+        message?.order.items.forEach((item, i) => {
+            messageTestSuite.addTest(new Mocha.Test(`verify that 'message.order.items[${i}]' should be an object`, function () {
+                expect(item).to.be.an("object").that.includes.all.keys("id", "xinput");
+            }));
+
+            messageTestSuite.addTest(new Mocha.Test(`verify that 'message.order.items[${i}].id' exists and is a string`, function () {
+                expect(item.id, "Item ID should exist").to.exist.and.to.be.a("string");
+            }));
+
+            messageTestSuite.addTest(new Mocha.Test(`verify that 'message.order.items[${i}].xinput' is an object and has properties 'form' and 'form_response'`, function () {
+                expect(item.xinput).to.exist.and.to.be.an("object").that.includes.all.keys("form", "form_response");
+            }));
+
+            messageTestSuite.addTest(new Mocha.Test(`verify that 'message.order.items[${i}].xinput.form' is an object and has property 'id'`, function () {
+                expect(item.xinput.form).to.exist.and.to.be.an("object").that.has.property("id");
+            }));
+
+            messageTestSuite.addTest(new Mocha.Test(`verify that 'message.order.items[${i}].form.id' is a string`, function () {
+                expect(item.xinput.form.id).to.exist.and.to.be.a("string");
+            }));
+
+            messageTestSuite.addTest(new Mocha.Test(`verify that 'message.order.items[${i}].xinput.form_response' is an object and has properties 'id' and 'submission_id'`, function () {
+                expect(item.xinput.form_response).to.exist.and.to.be.an("object").that.includes.all.keys("status", "submission_id");
+            }));
+
+            messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].xinput.form_response.status' should be a string`, function () {
+                expect(item.xinput.form_response.status).to.exist.and.to.be.a("string");
+            }));
+
+            messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].xinput.form_response.submission_id' should be a string`, function () {
+                expect(item.xinput.form_response.submission_id).to.exist.and.to.be.a("string");
+            }));
+        })
+    }
+
+    messageTestSuite.addTest(new Mocha.Test("Verify if 'message.order.payments' is an array that is not empty", function () {
+        expect(message.order.payments, "'message.order.payments should be a non-empty array'").to.be.an("array").that.is.not.empty;
+    }));
+
+    if (message?.order?.payments && message?.order?.payments.length > 0) {
+        message?.order?.payments.forEach((payment, index) => {
+            messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}]' should be an object`, function () {
+                expect(payment).to.exist.and.to.be.an("object");
+            }));
+
+            if (payment?.tags) {
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}]' should have all the required keys (OPTIONAL)`, function () {
+                    expect(payment).to.includes.all.keys("id", "collected_by", "type", "status", "params", "tags");
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].id' should exist and should be a string`, function () {
+                    expect(payment.id).to.exist.and.to.be.a("string").that.is.not.empty;
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].id' should exist and be equal to the 'payments.id' sent in the last on_init which is ${previous_on_init_payment_id}`, function () {
+                    expect(payment.id).to.be.equal(previous_on_init_payment_id);
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].collected_by' should exist and should be a string`, function () {
+                    expect(payment.collected_by).to.exist.and.to.be.a("string").that.is.not.empty;
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].collected_by' should be one of 'BPP' or 'BAP'`, function () {
+                    expect(payment.collected_by).to.be.oneOf(["BPP", "BAP"]);
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].type' should exist and should be a string (OPTIONAL)`, function () {
+                    expect(payment.type).to.exist.and.to.be.a("string").that.is.not.empty;
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].type' should be a valid ENUM (OPTIONAL)`, function () {
+                    expect(payment.type).to.be.oneOf(["PRE-ORDER", "PRE-FULFILLMENT", "ON-FULFILLMENT", "POST-FULFILLMENT", "ON-ORDER", "PRE_ORDER", "PRE_FULFILLMENT", "ON_FULFILLMENT", "POST_FULFILLMENT", "ON_ORDER"]);
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].status' should exist and should be a string (OPTIONAL)`, function () {
+                    expect(payment.status).to.exist.and.to.be.a("string").that.is.not.empty;
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].status' should be one of [ "PAID", "NOT-PAID", "DELAYED", "DEFERRED" ] (OPTIONAL)`, function () {
+                    expect(payment.status).to.be.oneOf(["PAID", "NOT-PAID", "DELAYED", "DEFERRED"]);
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].params' should exist and should be an object (OPTIONAL)`, function () {
+                    expect(payment.params).to.exist.and.to.be.an("object");
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].params' should include all the required keys (OPTIONAL)`, function () {
+                    expect(payment.params).to.includes.all.keys("bank_code", "bank_account_number", "virtual_payment_address");
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].params.bank_code' should exist and should be a string that is not empty (OPTIONAL)`, function () {
+                    expect(payment.params.bank_code).to.exist.and.to.be.a("string").that.is.not.empty;
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].params.bank_account_number' should exist and should be a string that is not empty (OPTIONAL)`, function () {
+                    expect(payment.params.bank_account_number).to.exist.and.to.be.a("string").that.is.not.empty;
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].params.virtual_payment_address' should exist and should be a string that is not empty (OPTIONAL)`, function () {
+                    expect(payment.params.virtual_payment_address).to.exist.and.to.be.a("string").that.is.not.empty;
+                }));
+
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags' should exist and should be an array that is not empty`, function () {
+                    expect(payment.tags).to.exist.and.to.be.an("array").that.is.not.empty;
+                }));
+
+                const arr = [{ code: "BUYER_FINDER_FEES", name: "buyer finder fees" }, { code: "SETTLEMENT_TERMS", name: "settlement terms" }];
+
+                arr.forEach((ele) => {
+                    const tagIndex = payment?.tags.findIndex((tag) => tag?.descriptor?.code === ele.code);
+                    const tagItem = payment?.tags[tagIndex];
+                    messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags' should have an object of ${ele.code}`, function () {
+                        expect(tagItem).to.exist.and.to.be.an("object").and.not.to.be.undefined;
+                    }));
+
+                    if (tagIndex !== -1) {
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags[${tagIndex}]' should have properties named 'descriptor', 'display' and 'list'`, function () {
+                            expect(tagItem).to.have.property("descriptor").that.is.an("object");
+                            expect(tagItem).to.have.property("display").that.is.a("boolean");
+                            expect(tagItem).to.have.property("list").that.is.an("array");
+                        }));
+
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags[${tagIndex}].descriptor' should have a property named 'code' which is a string`, function () {
+                            expect(tagItem.descriptor).to.have.property("code").that.is.a("string");
+                        }));
+
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags[${tagIndex}].descriptor.code' should have be equal to '${ele.code}'`, function () {
+                            expect(tagItem.descriptor.code).to.be.equal(ele.code);
+                        }));
+
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags[${tagIndex}].display' should have be equal to false`, function () {
+                            expect(tagItem.display).to.be.equal(false);
+                        }));
+
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags[${tagIndex}].list' should have be a non empty array`, function () {
+                            expect(tagItem.list).to.be.an("array").that.is.not.empty;
+                        }));
+
+                        const settlementTermsArr = [{ code: "DELAY_INTEREST", name: "delay interest" }, { code: "STATIC_TERMS", name: "static terms" }, { code: "SETTLEMENT_AMOUNT", name: "settlement amount" }, { code: "SETTLEMENT_TYPE", name: "settlement type" }, { code: "OFFLINE_CONTRACT", name: "offline contract" }];
+
+                        const buyerFinderFeeType = tagItem?.list?.find((listItem) => listItem?.descriptor?.code === "BUYER_FINDER_FEES_TYPE")?.value;
+                        const buyerFinderFeePercent = [{ code: "BUYER_FINDER_FEES_TYPE", name: "buyer finder fee type" }, { code: "BUYER_FINDER_FEES_PERCENTAGE" }]
+                        const buyerFinderFeeAmountArr = [{ code: "BUYER_FINDER_FEES_TYPE", name: "buyer finder fee type" }, { code: "BUYER_FINDER_FEES_AMOUNT" }];
+
+                        let array;
+                        switch (tagItem?.descriptor?.code) {
+                            case "BUYER_FINDER_FEES":
+                                switch (buyerFinderFeeType) {
+                                    case "amount":
+                                        array = buyerFinderFeeAmountArr;
+                                        break;
+                                    default:
+                                        array = buyerFinderFeePercent;
+                                        break;
+                                }
+                                break;
+                            case "SETTLEMENT_TERMS":
+                                array = settlementTermsArr;
+                                break;
+                            default:
+                                break;
+                        }
+
+
+                        if (array) {
+                            array.forEach((it) => {
+                                const listItemIndex = tagItem?.list?.findIndex((listItem) => listItem?.descriptor.code === it.code);
+                                const listItem = tagItem?.list[listItemIndex];
+
+                                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags[${tagIndex}].list' should have an object '${it.code}'`, function () {
+                                    expect(listItem).to.exist.and.to.be.an("object");
+                                }));
+
+                                if (listItemIndex !== -1) {
+                                    messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags[${tagIndex}].list[${listItemIndex}]' should have properties named 'descriptor' and 'value' which are strings`, function () {
+                                        expect(listItem).to.have.property("descriptor").that.is.an("object");
+                                        expect(listItem).to.have.property("value").that.is.a("string");
+                                    }));
+
+                                    messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags[${tagIndex}].list[${listItemIndex}].descriptor' should have properties named 'code' which is a string`, function () {
+                                        expect(listItem.descriptor).to.have.property("code").that.is.a("string");
+                                    }));
+
+                                    messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags[${tagIndex}].list[${listItemIndex}].descriptor.code' should be equal to '${it.code}'`, function () {
+                                        expect(listItem.descriptor.code).to.be.equal(it.code);
+                                    }));
+
+                                    messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags[${tagIndex}].list[${listItemIndex}].value' should be a string that is not empty`, function () {
+                                        expect(listItem.value).to.be.a('string').that.is.not.empty;
+                                    }));
+
+                                    switch (listItem?.descriptor?.code) {
+                                        case "SETTLEMENT_AMOUNT":
+                                            messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${index}].tags[${tagIndex}].list[${listItemIndex}].value' should be equal to ${settlementAmount.toFixed(2)} (SETTLEMENT_AMOUNT) (OPTIONAL)`, function () {
+                                                expect(listItem.value).to.be.oneOf([settlementAmount.toFixed(2)]);
+                                            }));
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        })
+    }
+
+     return [testSuite, responseTestSuite];
+};

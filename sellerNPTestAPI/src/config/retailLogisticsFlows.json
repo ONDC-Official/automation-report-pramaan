@@ -1,0 +1,6158 @@
+[
+    {
+        "id": "RET_1",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 1A: Order to confirm to fulfillment (Prepaid)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_rating",
+                "action": "on_rating"
+            }
+        ]
+    },
+    {
+        "id": "RET_1b",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 1B: Order to confirm to fulfillment (COD)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_3",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 2: Buyer Side Order Cancellation",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            }
+        ]
+    },
+    {
+        "id": "RET_4",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 3A: Merchant Side Partial Order Cancellation",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_4b",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 3B: Merchant Side Full Order Cancellation (RTO Flow)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_4c",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 3C: Merchant Side Full Order Cancellation",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            }
+        ]
+    },
+    {
+        "id": "RET_5A",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 4A: Buyer initiated Return (Full Order)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            }
+        ]
+    },
+    {
+        "id": "RET_5C",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 4A: Buyer initiated Return (Full Order)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            }
+        ]
+    },
+    {
+        "id": "RET_5d",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 4B: Buyer initiated Return (Partial Order)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            }
+        ]
+    },
+    {
+        "id": "RET_5b",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 4B: Buyer initiated Return (Partial Order)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            }
+        ]
+    },
+    {
+        "id": "RET_6",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 5: Out of Stock (Error code)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            }
+        ]
+    },
+    {
+        "id": "IGM_1",
+        "type": "IGMV2",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6B: IGM (REFUND)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_2",
+        "type": "IGMV2",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6C: IGM (REPLACEMENT)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_3",
+        "type": "IGMV2",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6D: IGM (CANCEL)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_4",
+        "type": "IGMV2",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6E: IGM (NO_ACTION)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            },
+            {
+                "test": "on_issue_close",
+                "action": "on_issue_close"
+            }
+        ]
+    },
+    {
+        "id": "IGM_5",
+        "type": "IGMV2",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6F: IGM (ESCALATE)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_escalation_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_7",
+        "type": "IGM",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6A: Issue and Grievance Management (IGM)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_issue",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            },
+            {
+                "test": "on_issue_close",
+                "action": "on_issue_close"
+            }
+        ]
+    },
+    {
+        "id": "IGM_1",
+        "type": "IGMV2",
+        "domain": "ONDC:RET",
+        "for": "RETAIL",
+        "version": "1.2.5",
+        "name": "Flow 6B: IGM(REFUND)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_need_more_information",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_2",
+        "type": "IGMV2",
+        "domain": "ONDC:RET",
+        "for": "RETAIL",
+        "version": "1.2.5",
+        "name": "Flow 6C: IGM(REPLACEMENT)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_need_more_information",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_3",
+        "type": "IGMV2",
+        "domain": "ONDC:RET",
+        "for": "RETAIL",
+        "version": "1.2.5",
+        "name": "Flow 6D: IGM(CANCEL)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_need_more_information",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_4",
+        "type": "IGMV2",
+        "domain": "ONDC:RET",
+        "for": "RETAIL",
+        "version": "1.2.5",
+        "name": "Flow 6E: IGM(NO_ACTION)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_need_more_information",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_5",
+        "type": "IGMV2",
+        "domain": "ONDC:RET",
+        "for": "RETAIL",
+        "version": "1.2.5",
+        "name": "Flow 6F: IGM (ESCALATE)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_escalation_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_8",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 7: Non Cancellable Flow (Error code)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_9_INC_PUSH",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 8C: Search and Custom Menu (Incremental Push)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            }
+        ]
+    },
+    {
+        "id": "RET_9_INC_PULL",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "name": "Flow 8B: Search and Custom Menu (Incremental Pull)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            }
+        ]
+    },
+    {
+        "id": "RET_9",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "name": "Flow 8A: Search and Custom Menu (Full Catalog / City)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            }
+        ]
+    },
+    {
+        "id": "RET_12",
+        "type": "RETAIL_1_2_5",
+        "version": "1.2.5",
+        "name": "Flow A1: Flow A1: Order to confirm to fulfillment (On-Network Logistics)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_12",
+        "version": "1.2.5",
+        "name": "Logistics Order to confirm to fulfillment (On-Network Logistics)",
+        "type": "LOGISTICS",
+        "description": "Logistics Order flow from order to fulfillment for on network retail seller",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_13",
+        "type": "RETAIL_1_2_5",
+        "version": "1.2.5",
+        "name": "Flow A2: Merchant Side Full Order Cancellation RTO Flow (On-Network Logistics)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_cancel_rto_initiated",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status_rto_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_13",
+        "version": "1.2.5",
+        "name": "Logistics Order - Merchant side full order cancellation (RTO On-Network Logistics)",
+        "type": "LOGISTICS",
+        "description": "Logistics Order flow from order to fulfillment for on network retail seller",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_15",
+        "type": "RETAIL_1_2_5",
+        "version": "1.2.5",
+        "name": "Flow A5: Buyer initiated Return (On-Network Logistics)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_update_buyer_return",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_approved",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_picked",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_delivered",
+                "action": "on_update"
+            }
+        ]
+    },
+    {
+        "id": "RET_15",
+        "version": "1.2.5",
+        "name": "Logistics Order - Buyer Initiated Return (On-Network Logistics)",
+        "type": "LOGISTICS",
+        "description": "Logistics Order flow from order to fulfillment for on network retail seller",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_10",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 9: Catalog Rejection",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            }
+        ]
+    },
+    {
+        "id": "RET_11",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 10: info",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_info",
+                "action": "on_info"
+            }
+        ]
+    },
+    {
+        "id": "MBL_RSF",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 10A: Reconciliation and Settlement Framework (RSF 2.0) - Collector",
+        "description": "Flows to handle reconciliation and settlement framework for RSF 2.0",
+        "flow": [
+            {
+                "test": "on_recon",
+                "action": "on_recon"
+            }
+        ]
+    },
+    {
+        "id": "MBL_RSF_A",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 10B:  Reconciliation and Settlement Framework (RSF 2.0) - Receiver",
+        "description": "Flows to handle reconciliation and settlement framework for RSF 2.0",
+        "flow": [
+            {
+                "test": "on_recon",
+                "action": "on_recon"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_001",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 001: Item availability",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_00A",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 00A: Commercial model",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_00B",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 00B: Replacement",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET12"
+        ]
+    },
+    {
+        "id": "RET_ENH_00C",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 00C: Exchange",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET14",
+            "ONDC:RET15"
+        ]
+    },
+    {
+        "id": "RET_ENH_00D",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 00D: Cancel return request",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET12"
+        ]
+    },
+    {
+        "id": "RET_ENH_00E",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 00E: Update sale invoice",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET11"
+        ]
+    },
+    {
+        "id": "RET_ENH_00F",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 00F: Update delivery address",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_01A",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 01A: Item unitized count",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET13",
+            "ONDC:RET18"
+        ]
+    },
+    {
+        "id": "RET_ENH_01B",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 01B: Minimum item qty",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET13",
+            "ONDC:RET18"
+        ]
+    },
+    {
+        "id": "RET_ENH_01C",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 01C: Identification of on-network LSP",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_01D",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 01D: Option for multi-fulfillment order",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_01E",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 01E: Cancellation terms",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_01F",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 01F: Codified static terms",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_002",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 002: Self-pickup",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_003",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 003: Slotted delivery",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_004",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 004: Fulfillment by BNP",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_005",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 005: Force cancel",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_cancel_one",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_cancel_two",
+                "action": "on_cancel"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_006",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 006: Return with Pickup/ReverseQC",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET12"
+        ]
+    },
+    {
+        "id": "RET_ENH_007",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 007: SNP collecting payment",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET14",
+            "ONDC:RET15"
+        ]
+    },
+    {
+        "id": "RET_ENH_008",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 008: Minimum order value",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET13",
+            "ONDC:RET18"
+        ]
+    },
+    {
+        "id": "RET_ENH_009",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 009: Offers",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET11",
+            "ONDC:RET10",
+            "ONDC:RET13",
+            "ONDC:RET18"
+        ]
+    },
+    {
+        "id": "RET_ENH_010",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 010: Update delivery auth",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_011",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 011: Buyer instructions",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_012",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 012: Cash on delivery",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET12"
+        ]
+    },
+    {
+        "id": "RET_ENH_013",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 013: Order price adjustment not tied to return or cancel",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_014",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 014: multi-category cart",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET13",
+            "ONDC:RET18"
+        ]
+    },
+    {
+        "id": "RET_ENH_015",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 015: Breakup of fulfillment-level taxes in quote",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET11"
+        ]
+    },
+    {
+        "id": "RET_ENH_016",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 016: Customization of input text",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET14",
+            "ONDC:RET15"
+        ]
+    },
+    {
+        "id": "RET_ENH_017",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 017: Seller creds",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET13",
+            "ONDC:RET18",
+            "ONDC:RET12"
+        ]
+    },
+    {
+        "id": "RET_ENH_018",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 018: Cross linking make-to-order item in qute trail",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET11"
+        ]
+    },
+    {
+        "id": "RET_ENH_019",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 019: streamline fulfillment attributes for hypherlocal",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_020",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 020: Fulfillment delay",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_022",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 022: BNP promos planned",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_025",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 025: BNP demand signals",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:RET10",
+            "ONDC:RET11",
+            "ONDC:RET12",
+            "ONDC:RET13",
+            "ONDC:RET14",
+            "ONDC:RET15",
+            "ONDC:RET16",
+            "ONDC:RET17",
+            "ONDC:RET18",
+            "ONDC:RET19",
+            "ONDC:RET1A"
+        ]
+    },
+    {
+        "id": "RET_ENH_0099",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 0099: Purchase finance",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_009_DISCOUNT",
+        "type": "RETAIL",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 009: Offers (Discount)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_009_BUYXGETY_A",
+        "type": "RETAIL",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 009: Offers (Buy X get Y) specific item(s) in cart ",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_009_BUYXGETY_B",
+        "type": "RETAIL",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 009: Offers (Buy X get Y) any item(s) in cart ",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_009_FREEBIE",
+        "type": "RETAIL",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 009: Offers (Freebie)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_009_SLAB",
+        "type": "RETAIL",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 009: Offers (Slab)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_009_COMBO",
+        "type": "RETAIL",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 009: Offers (Combo)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_009_DELIVERY",
+        "type": "RETAIL",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 009: Offers (Delivery)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_009_EXCHANGE",
+        "type": "RETAIL",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 009: Offers (Exchange)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_ENH_009_FINANCING",
+        "type": "RETAIL",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 009: Offers (Financing)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_TECH_1",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "techLog",
+        "name": "Flow 1: Custom Search",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            }
+        ]
+    },
+    {
+        "id": "RET_TECH_2",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "techLog",
+        "name": "Flow 2: Order to confirm to fulfillment",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ]
+    },
+    {
+        "id": "RET_TECH_3",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "techLog",
+        "name": "Flow 3: Trail Check (Out of stock)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ]
+    },
+    {
+        "id": "RET_TECH_4",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "techLog",
+        "name": "Flow 4: Buyer Side Order Cancellation",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            }
+        ]
+    },
+    {
+        "id": "RET_TECH_5",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "techLog",
+        "name": "Flow 5: Merchant Side Full Order Cancellation (RTO Flow)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status_rto_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_TECH_6",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "techLog",
+        "name": "Flow 6: Trail Check (Merchant Cancel Flow)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            }
+        ]
+    },
+    {
+        "id": "LOG10_1",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 1A: Order to confirm to fulfillment - Standard Delivery (Forward flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG10_2",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 1B: Order to confirm to fulfillment - Same Day Delivery (Forward flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG10_3",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 1C: Order to confirm to fulfillment - Next Day Delivery (Forward flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG10_4",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 1D: Order to confirm to fulfillment - Immediate Delivery (Forward flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG10_5",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 1E: Order to confirm to fulfillment - Express Delivery (Forward flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG10_6",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 2: Order to confirm to fulfillment - Return flow (RTO Disposed)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG10_7",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG10",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 3: Order to confirm to fulfillment - Return flow (RTO Delivered)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_cancelled",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG10COD",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 4: Cash On Delivery Flow",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG10SURGFEE",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 5: Surge Fee Flow",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG10_8",
+        "type": "IGM",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6A : Issue and Grievance Management (IGM)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            },
+            {
+                "test": "on_issue_close",
+                "action": "on_issue_close"
+            }
+        ]
+    },
+    {
+        "id": "IGM_1",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6B: IGM (REFUND)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_2",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6C: IGM (REPLACEMENT)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_3",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6D: IGM (CANCEL)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_4",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6E: IGM (NO_ACTION)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            },
+            {
+                "test": "on_issue_close",
+                "action": "on_issue_close"
+            }
+        ]
+    },
+    {
+        "id": "IGM_5",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6F: IGM (ESCALATE)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_escalation_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_1",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "for": "LOG",
+        "version": "1.2.5",
+        "name": "Flow 5b: IGM(REFUND)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_need_more_information",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_2",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "for": "LOG",
+        "version": "1.2.5",
+        "name": "Flow 5c: IGM(REPLACEMENT)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_need_more_information",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_3",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "for": "LOG",
+        "version": "1.2.5",
+        "name": "Flow 5d: IGM(CANCEL)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_need_more_information",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_4",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "for": "LOG",
+        "version": "1.2.5",
+        "name": "Flow 5E: IGM(NO_ACTION)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_need_more_information",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_5",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "for": "LOG",
+        "version": "1.2.5",
+        "name": "Flow 5F: IGM(ESCALATE)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_escalation_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "MBL_RSF",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 7A: Reconciliation and Settlement Framework (RSF 2.0) - Collector ",
+        "description": "Flows to handle reconciliation and settlement framework for RSF 2.0",
+        "flow": [
+            {
+                "test": "on_recon",
+                "action": "on_recon"
+            }
+        ]
+    },
+    {
+        "id": "MBL_RSF_A",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 7B:  Reconciliation and Settlement Framework (RSF 2.0) - Receiver ",
+        "description": "Flows to handle reconciliation and settlement framework for RSF 2.0",
+        "flow": [
+            {
+                "test": "on_recon",
+                "action": "on_recon"
+            }
+        ]
+    },
+    {
+        "id": "MBL_NO",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 8: Network Observability data submission (To be submitted on Portal)",
+        "description": "Submit Network observability data correctly",
+        "flow": []
+    },
+    {
+        "id": "LOG10_TECH_1",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "techLog",
+        "name": "Flow 1: Order to confirm to fulfillment",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ]
+    },
+    {
+        "id": "LOG10_TECH_2",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "techLog",
+        "name": "Flow 1: Order to confirm to fulfillment RTO Disposed (Return flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ]
+    },
+    {
+        "id": "LOG10_TECH_3",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "techLog",
+        "name": "Flow 3: Order to confirm to fulfillment RTO Delivered (Return flow )",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ]
+    },
+    {
+        "id": "LOG11_1",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 1A: Order to confirm to fulfillment - Standard Delivery (Forward flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_failed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_rescheduled",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_in_transit",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_destination_hub",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ]
+    },
+    {
+        "id": "LOG11_2",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 1B: Order to confirm to fulfillment - Same Day Delivery (Forward flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_failed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_rescheduled",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_in_transit",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_destination_hub",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ]
+    },
+    {
+        "id": "LOG11_3",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 1C: Order to confirm to fulfillment - Next Day Delivery (Forward flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_failed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_rescheduled",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_in_transit",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_destination_hub",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ]
+    },
+    {
+        "id": "LOG11_4",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 1D: Order to confirm to fulfillment - Immediate Delivery (Forward flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_failed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_rescheduled",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_in_transit",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_destination_hub",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ]
+    },
+    {
+        "id": "LOG11_5",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 1E: Order to confirm to fulfillment - Express Delivery (Forward flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_failed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_rescheduled",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_in_transit",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_destination_hub",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ]
+    },
+    {
+        "id": "LOG11_6",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 2: Order to confirm to fulfillment - Return flow (RTO Disposed)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_failed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_rescheduled",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_in_transit",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_destination_hub",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status_rto_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG11_7",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 3: Order to confirm to fulfillment - Return flow (RTO Delivered)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_failed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_rescheduled",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_in_transit",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_destination_hub",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status_rto_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG11_8",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 4: Order to confirm to fulfillment - Weight Diffrence ",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_failed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup_rescheduled",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_in_transit",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_destination_hub",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG11COD",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 5: Cash On Delivery Flow",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG11_9",
+        "type": "IGM",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6A : Issue and Grievance Management (IGM)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            },
+            {
+                "test": "on_issue_close",
+                "action": "on_issue_close"
+            }
+        ]
+    },
+    {
+        "id": "IGM_1",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6B: IGM (REFUND)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_2",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6C: IGM (REPLACEMENT)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_3",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6D: IGM (CANCEL)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "IGM_4",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6E: IGM (NO_ACTION)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            },
+            {
+                "test": "on_issue_close",
+                "action": "on_issue_close"
+            }
+        ]
+    },
+    {
+        "id": "IGM_5",
+        "type": "IGMV2",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 6F: IGM (ESCALATE)",
+        "description": "Issues and Grievance Flows",
+        "flow": [
+            {
+                "test": "on_issue_open",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_escalation_processing",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_option",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_resolution_provided",
+                "action": "on_issue"
+            },
+            {
+                "test": "on_issue_status",
+                "action": "on_issue_status"
+            }
+        ]
+    },
+    {
+        "id": "MBL_RSF",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 7A: Reconciliation and Settlement Framework (RSF 2.0) - Collector ",
+        "description": "Flows to handle reconciliation and settlement framework for RSF 2.0",
+        "flow": [
+            {
+                "test": "on_recon",
+                "action": "on_recon"
+            }
+        ]
+    },
+    {
+        "id": "MBL_RSF_A",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 7B:  Reconciliation and Settlement Framework (RSF 2.0) - Receiver ",
+        "description": "Flows to handle reconciliation and settlement framework for RSF 2.0",
+        "flow": [
+            {
+                "test": "on_recon",
+                "action": "on_recon"
+            }
+        ]
+    },
+    {
+        "id": "MBL_NO",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 8: Network Observability data submission (To be submitted on Portal)",
+        "description": "Submit Network observability data correctly",
+        "flow": []
+    },
+    {
+        "id": "LOG11_TECH_1",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "techLog",
+        "name": "Flow 1: Order to confirm to fulfillment (Forward flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            }
+        ]
+    },
+    {
+        "id": "LOG11_TECH_2",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "techLog",
+        "name": "Flow 1: Order to confirm to fulfillment RTO Disposed (Return flow)",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG11_TECH_3",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "techLog",
+        "name": "Flow 3: Order to confirm to fulfillment RTO Delivered (Return flow )",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            }
+        ]
+    },
+    {
+        "id": "LOG_ENH_00A",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 00A: Static OTP verification - RTO",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10"
+        ]
+    },
+    {
+        "id": "LOG_ENH_00B",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 00B: updated cancellation codes",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10",
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_00D",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 00D: Payment wallet",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10"
+        ]
+    },
+    {
+        "id": "LOG_ENH_00E",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 00E: Pickup & delivert attempt trail",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_00F",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 00F: ePOD",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_01A",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 01A: Cancellation terms",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10",
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_01B",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 01B: Reverse QC",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_01C",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 01C: SLA metrics",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10"
+        ]
+    },
+    {
+        "id": "LOG_ENH_01D",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 01D: Publish special capabilities",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10"
+        ]
+    },
+    {
+        "id": "LOG_ENH_01E",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 01E: RCM seld-declaration",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ]
+    },
+    {
+        "id": "LOG_ENH_01F",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 01F: Codified static terms",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10",
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_005",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 005: Quick commerce logistics",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10"
+        ]
+    },
+    {
+        "id": "LOG_ENH_006",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 006: Milk run logistics",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10"
+        ]
+    },
+    {
+        "id": "LOG_ENH_007",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 007: SPMD",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10"
+        ]
+    },
+    {
+        "id": "LOG_ENH_008",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 008: COD order",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10"
+        ]
+    },
+    {
+        "id": "LOG_ENH_009",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 009: Static OTP verification - pickup & delivery",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10"
+        ]
+    },
+    {
+        "id": "LOG_ENH_010",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 010: Call masking",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10",
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_011",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 011: Update Delivery address ",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10",
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_012",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 012: Update pickup & delivery authoization",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_013",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 013: Seller & buyer instruction",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10",
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_014",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 014: Seller creds",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_015",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 015: Dynamic OTP verification - pickup & delivery",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_016",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 016: Dynamic OTP verification - RTO",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_017",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 017: Surge fee",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10"
+        ]
+    },
+    {
+        "id": "LOG_ENH_018",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 018: Partial RTO",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10",
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_019",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 019: eWay bill",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_020",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 020: Exchange customer support contact details",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG10",
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_021",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 021: Differential weight charges",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG_ENH_022",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 022: RTO with return",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            }
+        ],
+        "enhFlows": [
+            "ONDC:LOG11"
+        ]
+    },
+    {
+        "id": "LOG11CAN",
+        "type": "B2C_1_2_5",
+        "version": "1.2.5",
+        "domain": "ONDC:LOG",
+        "flowType": "mandatory",
+        "name": "Flow 4: Buyer side cancellation",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            }
+        ]
+    },
+    {
+        "id": "LOG11MERCHANTCAN",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 5: Merchant side cancellation",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "LOG10CAN",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 4: Buyer side cancellation",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            }
+        ]
+    },
+    {
+        "id": "LOG10MERCHANTCAN",
+        "type": "B2C_1_2_5",
+        "domain": "ONDC:LOG",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 5: Merchant side cancellation",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            }
+        ]
+    }
+]

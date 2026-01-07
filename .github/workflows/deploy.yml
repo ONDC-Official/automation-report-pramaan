@@ -1,0 +1,163 @@
+# .github/workflows/deploy.yml
+name: ONDC TESTING BETA DEPLOYMENT
+
+on: 
+  push:
+    branches:
+      prod-beta-deployment2
+
+jobs:
+  copy-files:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
+        chmod 600 ssh-key.pem
+    
+    - name: Copy files
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'sudo docker stop beta-mongo'
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ssh-key.pem" --progress ./* amit.sequelstring@3.108.155.220:~/beta/testing-backend/
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ssh-key.pem" --progress ./.env amit.sequelstring@3.108.155.220:~/beta/testing-backend/
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ssh-key.pem" --progress ./.env.preprod amit.sequelstring@3.108.155.220:~/beta/testing-backend/
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ssh-key.pem" --progress ./.env.staging amit.sequelstring@3.108.155.220:~/beta/testing-backend/
+        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker network create --subnet=192.168.161.0/24 beta-nginx-network --attachable || true'
+
+  deploy-referenceBuyerAPI-staging:
+    needs: [copy-files]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
+        chmod 600 ssh-key.pem
+
+    - name: Deploy to Staging
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_staging_project --env-file .env.staging up --build -d referenceBuyerAPI'
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}
+
+  deploy-referenceBuyerAPI-preprod:
+    needs: [copy-files, deploy-referenceBuyerAPI-staging]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
+        chmod 600 ssh-key.pem
+
+    - name: Deploy to Preprod
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_preprod_project --env-file .env.preprod up --build -d referenceBuyerAPI'
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}
+        
+  deploy-referenceSellerAPI-staging:
+    needs: [copy-files]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
+        chmod 600 ssh-key.pem
+
+    - name: Deploy to Staging
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_staging_project --env-file .env.staging up --build -d referenceSellerAPI'
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}
+
+  deploy-referenceSellerAPI-preprod:
+    needs: [copy-files, deploy-referenceSellerAPI-staging]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
+        chmod 600 ssh-key.pem
+    
+    - name: Deploy to Preprod
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_preprod_project --env-file .env.preprod up --build -d referenceSellerAPI'
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}
+
+  deploy-buyerNPTestAPI:
+    needs: [copy-files]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
+        chmod 600 ssh-key.pem
+
+    - name: Deploy
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_preprod_project --env-file .env up --build -d buyerNPTestAPI'
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}
+
+  deploy-sellerNPTestAPI:
+    needs: [copy-files]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
+        chmod 600 ssh-key.pem
+
+    - name: Deploy
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_preprod_project --env-file .env up --build -d sellerNPTestAPI'
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}
+
+  deploy-finvuAAServer:
+    needs: [copy-files]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
+        chmod 600 ssh-key.pem
+
+    - name: Deploy
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_preprod_project --env-file .env up --build -d finvuAAServer'
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}    
+    
+  start-beta-mongo:
+    needs: [deploy-referenceSellerAPI-preprod, deploy-referenceBuyerAPI-preprod]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
+        chmod 600 ssh-key.pem
+
+    - name: Deploy
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'sudo docker start beta-mongo'
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}    

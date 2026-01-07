@@ -1,0 +1,29 @@
+const Mocha = require("mocha");
+const contextTests = require("./context");
+const trackSchema = require("./schema/track.schema");
+const { generateTests } = require("./common");
+
+function trackMessageTests(message) {
+    try {
+        // generating the tests using recursive methods
+        const messageTestSuite = generateTests(message, trackSchema, "Verification of Message for track");
+
+        return messageTestSuite;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+module.exports = async function track({ context, message }, testCaseId, flowId, logs = [], constants = {}) {
+    try {
+        const testSuite = new Mocha.Suite("track request verification");
+        const constants = { action: "track", core_version: "1.2.5" };
+
+        testSuite.addSuite(contextTests(context, constants, logs));
+        testSuite.addSuite(trackMessageTests(message));
+
+        return testSuite;
+    } catch (err) {
+        console.log(err);
+    }
+}

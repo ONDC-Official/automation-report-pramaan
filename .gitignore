@@ -1,0 +1,6 @@
+#ignore nodemodules of finvuAAServer
+finvuAAServer/node_modules/
+.vscode/settings.json
+ondc-finance.code-workspace
+buyerNPTestAPI/.env
+sellerNPTestAPI/.env

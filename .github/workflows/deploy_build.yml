@@ -1,0 +1,205 @@
+name: ONDC TESTING BETA BACKEND DEPLOYMENT
+
+on:
+  push:
+    branches:
+      - prod-beta-deployment2
+
+jobs:
+  build-and-push-images:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [staging, preprod]
+        service:
+          - referenceBuyerAPI
+          - referenceSellerAPI
+          - buyerNPTestAPI
+          - sellerNPTestAPI
+          - finvuAAServer
+          - analyticsAPI
+        exclude:
+          - environment: staging
+            service: buyerNPTestAPI
+          - environment: staging
+            service: sellerNPTestAPI
+          - environment: staging
+            service: finvuAAServer
+          - environment: staging
+            service: analyticsAPI
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GHRC_TOKEN }}" | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+
+      - name: Build and Push Image
+        run: |
+          # Determine image prefix
+          if [[ "${{ matrix.service }}" == "referenceBuyerAPI" || "${{ matrix.service }}" == "referenceSellerAPI" ]]; then
+            IMAGE_PREFIX="beta-mock"
+          else
+            IMAGE_PREFIX="beta-testing-api"
+          fi
+
+          # Select the appropriate environment file
+          if [[ "${{ matrix.service }}" == "analyticsAPI" || "${{ matrix.service }}" == "buyerNPTestAPI" || "${{ matrix.service }}" == "sellerNPTestAPI" || "${{ matrix.service }}" == "finvuAAServer" ]]; then
+            ENV_FILE=".env"
+          else
+            ENV_FILE=".env.${{ matrix.environment }}"
+          fi
+
+          # Determine image tag based on environment
+          if [[ "${{ matrix.service }}" == "analyticsAPI" || "${{ matrix.service }}" == "buyerNPTestAPI" || "${{ matrix.service }}" == "sellerNPTestAPI" || "${{ matrix.service }}" == "finvuAAServer" ]]; then
+            IMAGE_TAG="prod"
+          else
+            IMAGE_TAG="${{matrix.environment}}"
+          fi
+
+          # Convert service name to lowercase
+          IMAGE_SERVICE=$(echo "${{ matrix.service }}" | tr '[:upper:]' '[:lower:]')
+          IMAGE_NAME="ghcr.io/${{ github.repository_owner }}/${IMAGE_PREFIX}/${IMAGE_SERVICE}:${IMAGE_TAG}"
+          echo "Building Docker Image: $IMAGE_NAME"
+
+          # Determine Dockerfile to use
+          DOCKERFILE=$([[ "${{ matrix.service }}" == "buyerNPTestAPI" || "${{ matrix.service }}" == "sellerNPTestAPI" ]] && echo './Dockerfile.js' || echo './Dockerfile')
+          echo "Using Dockerfile: $DOCKERFILE"
+
+          # Build and push the image
+          docker build \
+            --no-cache \
+            --build-arg NODE_ENV=${{ matrix.environment }} \
+            --build-arg ENV_FILE=$ENV_FILE \
+            -t $IMAGE_NAME \
+            -f $DOCKERFILE \
+            ./${{ matrix.service }}
+
+          docker push $IMAGE_NAME
+
+  copy-files:
+    needs: build-and-push-images
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up SSH key
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
+          chmod 600 ssh-key.pem
+
+      - name: Copy files
+        run: |
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ssh-key.pem" --progress docker-compose.yml amit.sequelstring@3.108.155.220:~/beta/testing-backend/
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ssh-key.pem" --progress .env.* amit.sequelstring@3.108.155.220:~/beta/testing-backend/
+
+  deploy-backend:
+    needs: [copy-files]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [staging, preprod]
+        service:
+          - referenceBuyerAPI
+          - referenceSellerAPI
+          - buyerNPTestAPI
+          - sellerNPTestAPI
+          - finvuAAServer
+          - analyticsAPI
+        exclude:
+          - environment: staging
+            service: buyerNPTestAPI
+          - environment: staging
+            service: sellerNPTestAPI
+          - environment: staging
+            service: finvuAAServer
+          - environment: staging
+            service: analyticsAPI
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up SSH key
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
+          chmod 600 ssh-key.pem
+
+      - name: Deploy Backend Services
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 << 'EOF'  
+            # Perform docker login inside the SSH session
+            echo "$GHCR_PAT" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+
+            echo "Docker login succeeded."
+            
+            # Export GitHub variables for use inside the SSH session
+            export GHCR_PAT="${{ secrets.GHRC_TOKEN }}"
+            export GITHUB_ACTOR="${{ github.actor }}"
+            source ~/deployment/repo_info.sh
+
+            DEPLOY_DIR=~/deployment 
+            
+            echo "Repository (lowercase): $REPO_LOWER"  
+            cd $DEPLOY_DIR
+          
+            # Determine image prefix
+            if [[ "${{ matrix.service }}" == "referenceBuyerAPI" || "${{ matrix.service }}" == "referenceSellerAPI" ]]; then
+              IMAGE_PREFIX="beta-mock"
+            else
+              IMAGE_PREFIX="beta-testing-api"
+            fi
+
+            # Select the appropriate environment file
+            if [[ "${{ matrix.service }}" == "analyticsAPI" || "${{ matrix.service }}" == "buyerNPTestAPI" || "${{ matrix.service }}" == "sellerNPTestAPI" || "${{ matrix.service }}" == "finvuAAServer" ]]; then
+              ENV_FILE=".env"
+            else
+              ENV_FILE=".env.${{ matrix.environment }}"
+            fi
+
+            # Determine image tag based on environment
+            if [[ "${{ matrix.service }}" == "analyticsAPI" || "${{ matrix.service }}" == "buyerNPTestAPI" || "${{ matrix.service }}" == "sellerNPTestAPI" || "${{ matrix.service }}" == "finvuAAServer" ]]; then
+              IMAGE_TAG="prod"
+            else
+              IMAGE_TAG="${{matrix.environment}}"
+            fi
+            
+            # Convert service name to lowercase
+            IMAGE_SERVICE=$(echo "${{ matrix.service }}" | tr '[:upper:]' '[:lower:]')
+            IMAGE_NAME="ghcr.io/${{ github.repository_owner }}/${IMAGE_PREFIX}/${IMAGE_SERVICE}:${IMAGE_TAG}"
+          
+            LOCAL_TAG="${IMAGE_PREFIX}/${IMAGE_SERVICE}:${IMAGE_TAG}"
+
+            echo "Deploying Docker Image: $IMAGE_NAME"
+
+            cd ~/beta/testing-backend/
+
+            sudo docker login ghcr.io -u ${{ github.actor }} --password ${{ secrets.GHRC_TOKEN }}
+
+            # Pull the latest image from GHCR
+            echo "Pulling latest Docker image: $IMAGE_NAME"
+
+            sudo docker pull $IMAGE_NAME
+
+            # Tag the image for local use with docker-compose
+            echo "Tagging image for local use... $IMAGE_NAME $LOCAL_TAG"
+
+            sudo docker tag $IMAGE_NAME  $LOCAL_TAG
+
+            sudo docker-compose -p beta_${{ matrix.environment }}_project --env-file $ENV_FILE up -d --no-build ${{ matrix.service }}
+
+          EOF
+
+  restart-nginx:
+    needs: [deploy-backend]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up SSH key
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
+          chmod 600 ssh-key.pem
+
+      - name: Deploy
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker restart beta-nginx'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}

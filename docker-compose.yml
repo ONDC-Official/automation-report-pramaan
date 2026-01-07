@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  buyer:
+    build: 
+      context: ./buyerNPTestAPI
+      dockerfile: ../Dockerfile.js
+      args:
+        - NODE_ENV=${NODE_ENV}
+        - ENV_FILE=${ENV_FILE} 
+    # image: beta-testing-api/buyernptestapi:prod
+    container_name: beta-testing-api-buyer-prod
+    ports:
+      - "5063:3005"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    networks:
+      - beta-nginx-network
+    restart: always
+
+  seller:
+    build: 
+      context: ./sellerNPTestAPI
+      dockerfile: ../Dockerfile.js
+      args:
+        - NODE_ENV=${NODE_ENV}
+        - ENV_FILE=${ENV_FILE} 
+    # image: beta-testing-api/sellernptestapi:prod
+    container_name: beta-testing-api-seller-prod
+    ports:
+      - "5055:3005"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    networks:
+      - beta-nginx-network
+    restart: always
+
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"   # remove if you don't want host access
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - beta-nginx-network
+networks:
+  beta-nginx-network:
+    external: false
+    
+volumes:
+  mongo-data:

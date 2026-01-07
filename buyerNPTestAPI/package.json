@@ -1,0 +1,43 @@
+{
+  "name": "buyernptestapi",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "axios": "^1.7.9",
+    "chai": "^4.3.10",
+    "chai-as-promised": "^7.1.1",
+    "chai-http": "^4.4.0",
+    "chai-uuid": "^1.0.6",
+    "cors": "^2.8.5",
+    "csv-writer": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "iso8601-duration": "^2.1.2",
+    "joi": "^17.12.1",
+    "luxon": "^3.6.1",
+    "mocha": "^7.2.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0",
+    "module-alias": "^2.2.3",
+    "mongodb": "^6.5.0",
+    "morgan": "^1.10.0",
+    "node-cron": "^3.0.3",
+    "nodemon": "^3.0.2",
+    "path": "^0.12.7",
+    "unzipper": "^0.12.3"
+  },
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
+  },
+  "keywords": [],
+  "author": "Sequelstring",
+  "license": "ISC",
+  "description": "",
+  "_moduleAliases": {
+    "~": "./src"
+  }
+}

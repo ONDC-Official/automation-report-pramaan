@@ -1,0 +1,7 @@
+{
+    "ignore": [
+        "*.json",
+        "./src/analyticsReports",
+        "./src/output"
+    ]
+}
