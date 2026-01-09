@@ -50,13 +50,13 @@ if (!analyticsAPI) {
     process.exit(1);
 }
 
-const PW_LOGS_API = "https://workbench.ondc.tech/report";
+const PW_LOGS_API = process.env['PW_LOGS_API'];
 if (!PW_LOGS_API) {
     console.log("No PW_LOGS_API string. Set PW_LOGS_API environment variable");
     process.exit(1);
 }
 
-const PW_LOGS_API_KEY = 'D33A76D111B4BDFCB96A2AC34B85E';
+const PW_LOGS_API_KEY = process.env['PW_LOGS_API_KEY'];
 if (!PW_LOGS_API_KEY) {
     console.log("No PW_LOGS_API_KEY string. Set PW_LOGS_API_KEY environment variable");
     process.exit(1);
