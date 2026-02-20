@@ -743,6 +743,14 @@
       {
         "test": "confirm",
         "action": "confirm"
+      },
+      {
+        "test": "update_buyer_return",
+        "action": "update"
+      },
+      {
+        "test": "cancel_return",
+        "action": "cancel"
       }
     ],
     "enhFlows": [
@@ -1134,6 +1142,14 @@
       {
         "test": "confirm",
         "action": "confirm"
+      },
+      {
+        "test": "update_pickup",
+        "action": "update"
+      },
+      {
+        "test": "update_delivered",
+        "action": "update"
       }
     ],
     "enhFlows": [

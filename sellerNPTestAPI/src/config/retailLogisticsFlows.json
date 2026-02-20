@@ -1484,6 +1484,38 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_update_buyer_return",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_approved",
+                "action": "on_update"
+            },
+            {
+                "test": "on_cancel_return_cancelled",
+                "action": "on_cancel"
             }
         ],
         "enhFlows": [
@@ -1903,6 +1935,10 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
             }
         ],
         "enhFlows": [

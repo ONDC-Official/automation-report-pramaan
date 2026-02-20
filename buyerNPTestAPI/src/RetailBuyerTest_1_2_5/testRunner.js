@@ -3,7 +3,9 @@ const { search, select, init, cancel, confirm, update, track, info, rating, cata
 const UPDATE_TYPES = {
     "update_buyer_return": "Buyer Initiated Return",
     "update_buyer_replacement": "Buyer Initiated Replacement",
-    "update_settlement_trail": "Update Settlement Trail"
+    "update_settlement_trail": "Update Settlement Trail",
+    "update_pickup": "Update Picked Up",
+    "update_delivered": "Update Delivered"
 }
 
 const SEARCH_TYPES = {
@@ -14,8 +16,17 @@ const SEARCH_TYPES = {
 
 const cancelIndex = {
     "cancel": 0,
+    "cancel_return": 0,
     "cancel_not_cancellable": 0,
     "cancel_forced": 1
+}
+
+const updateIndex = {
+    "update_buyer_return": 0,
+    "update_buyer_replacement": 0,
+    "update_settlement_trail": 0,
+    "update_pickup": 0,
+    "update_delivered": 1
 }
 
 module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
@@ -28,7 +39,6 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                     case "select":
                     case "init":
                     case "confirm":
-                    case "update":
                     case "track":
                     case "rating":
                     case "info":
@@ -38,6 +48,7 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                         break;
                     case "search":
                     case "cancel":
+                    case "update":
                         particularLogs = logs.filter((log) => log.action === currentStep.action);
                         break;
                     default:
@@ -83,6 +94,7 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                     case "cancel":
                     case "cancel_not_cancellable":
                     case "cancel_forced":
+                    case "cancel_return":
                         if (particularLogs[cancelIndex[currentStep.test]]?.request)
                             return () => cancel(particularLogs[cancelIndex[currentStep.test]]?.request, logs, constants);
                         return () => cancel({}, logs, constants);
@@ -105,8 +117,10 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                     case "update_buyer_return":
                     case "update_settlement_trail":
                     case "update_buyer_replacement":
-                        if (particularLogs?.request)
-                            return () => update(particularLogs?.request, logs, UPDATE_TYPES[currentStep.test], constants);
+                    case "update_pickup":
+                    case "update_delivered":
+                        if (particularLogs[updateIndex[currentStep.test]]?.request)
+                            return () => update(particularLogs[updateIndex[currentStep.test]]?.request, logs, UPDATE_TYPES[currentStep.test], constants);
                         return () => update({}, logs, UPDATE_TYPES[currentStep.test], constants);
                     default:
                         return null;

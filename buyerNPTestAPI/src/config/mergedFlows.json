@@ -83,5 +83,63 @@
                 "action": "confirm"
             }
         ]
+    },
+    {
+        "id": "RET_MRGD_4",
+        "type": "RETAIL",
+        "domain": "ONDC:RET",
+        "version": "1.2.0",
+        "flowType": "mandatory",
+        "name": "Flow: RTO And Part Cancellation Flow",
+        "description": "RTO And Part Cancellation Flow",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "select",
+                "action": "select"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_MRGD_5",
+        "type": "RETAIL",
+        "domain": "ONDC:RET",
+        "version": "1.2.0",
+        "flowType": "mandatory",
+        "name": "Flow: Return Flow",
+        "description": "Return Flow",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "select",
+                "action": "select"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            },
+            {
+                "test": "update_buyer_return",
+                "action": "update"
+            }
+        ]
     }
 ]

@@ -25,7 +25,8 @@ const cancelIndex = {
     "on_cancel": 0,
     "on_cancel_one": 0,
     "on_cancel_two": 1,
-    "on_cancel_rto_initiated": 0
+    "on_cancel_rto_initiated": 0,
+    "on_cancel_return_cancelled": 0
 }
 
 const onStatusEnumMap = {
@@ -34,6 +35,7 @@ const onStatusEnumMap = {
     "on_update_buyer_instructions": "Pending",
     "on_status_assign_agent": "Agent-assigned",
     "on_status_pickup": "Order-picked-up",
+    "on_cancel_return_cancelled": "Cancelled",
     "on_status_out_for_delivery": "Out-for-delivery",
     "on_status_delivered": "Order-delivered",
     "on_status_rto_delivered": "RTO-Delivered",
@@ -232,6 +234,12 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                         if (particularLogs?.response)
                             return () => cancel_response_check(particularLogs?.response);
                         return () => cancel_response_check({});
+                    case "on_cancel_return_cancelled":
+                        const on_cancel_return_log = findAppropriateOnStatus(logs, "on_cancel", "Return", onStatusEnumMap[currentStep.test]);
+                        if (on_cancel_return_log?.request) {
+                            return () => on_cancel(on_cancel_return_log?.request, currentStep.test, logs, constants);
+                        }
+                        return () => on_cancel({}, currentStep.test, logs, constants);
                     default:
                         return null;
                 }
