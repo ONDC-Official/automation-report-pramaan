@@ -5411,10 +5411,6 @@
         "action": "confirm"
       },
       {
-        "test": "status",
-        "action": "status"
-      },
-      {
         "test": "track",
         "action": "track"
       }
