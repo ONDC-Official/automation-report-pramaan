@@ -81,15 +81,15 @@ module.exports = function testRunnerHotelBooking(givenTest, logs) {
             return () => confirm({}, testCaseId, logs, constants);
           case "status":
             if (particularLogs?.request)
-              return () => status(particularLogs?.request);
+              return () => status(particularLogs?.request, logs);
             return () => status();
           case "update":
             if (particularLogs?.request)
-              return () => update(particularLogs?.request);
+              return () => update(particularLogs?.request, logs);
             return () => update();
           case "cancel":
             if (particularLogs?.request)
-              return () => cancel(particularLogs?.request);
+              return () => cancel(particularLogs?.request, logs);
             return () => cancel();
           default:
             return null;
