@@ -5815,7 +5815,7 @@
   },
   {
     "id": "B2C_1A",
-    "type": "B2C",
+    "type": "LOGISTICS",
     "version": "1.2.0",
     "name": "Flow 1A: Order to confirm to fulfillment - Standard Delivery",
     "description": "B2C Logistic Flows",
@@ -5856,7 +5856,7 @@
   },
   {
     "id": "B2C_1B",
-    "type": "B2C",
+    "type": "LOGISTICS",
     "version": "1.2.0",
     "name": "Flow 1B: Order to confirm to fulfillment - Same Day Delivery",
     "description": "B2C Logistic Flows",
@@ -5897,7 +5897,7 @@
   },
   {
     "id": "B2C_1C",
-    "type": "B2C",
+    "type": "LOGISTICS",
     "version": "1.2.0",
     "name": "Flow 1C: Order to confirm to fulfillment - Next Day Delivery",
     "description": "B2C Logistic Flows",
@@ -5938,7 +5938,7 @@
   },
   {
     "id": "B2C_1D",
-    "type": "B2C",
+    "type": "LOGISTICS",
     "version": "1.2.0",
     "name": "Flow 1D: Order to confirm to fulfillment - Immediate Delivery",
     "description": "B2C Logistic Flows",
@@ -5979,7 +5979,7 @@
   },
   {
     "id": "B2C_1E",
-    "type": "B2C",
+    "type": "LOGISTICS",
     "version": "1.2.0",
     "name": "Flow 1E: Order to confirm to fulfillment - Express Delivery",
     "description": "B2C Logistic Flows",
@@ -6020,7 +6020,7 @@
   },
   {
     "id": "B2C_2",
-    "type": "B2C",
+    "type": "LOGISTICS",
     "version": "1.2.0",
     "name": "Flow 2: RTO Flow (Return Back to Seller / Liquidation) ",
     "description": "B2C Logistic Flows",
@@ -6061,7 +6061,7 @@
   },
   {
     "id": "B2C_3",
-    "type": "B2C",
+    "type": "LOGISTICS",
     "version": "1.2.0",
     "name": "Flow 3: Order to confirm to fulfillment (Deferred RTS Flow) ",
     "description": "B2C Logistic Flows",
@@ -6102,7 +6102,7 @@
   },
   {
     "id": "B2C_5",
-    "type": "B2C",
+    "type": "LOGISTICS",
     "version": "1.2.0",
     "name": "Flow 4: Buyer Side Full Order Cancellation ",
     "description": "B2C Logistic Flows",

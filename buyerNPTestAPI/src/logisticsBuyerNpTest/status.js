@@ -18,7 +18,13 @@ module.exports = async function status({ context, message, constants }) {
     try {
         const testSuite = new Mocha.Suite("status request verification");
         const constants = { action: "status", core_version: "1.2.0" };
-
+        if (!context && !message) {
+            const failTest = new Mocha.Test("status request", function () {
+                throw new Error("Status log not found in provided logs")
+            })
+            testSuite.addTest(failTest)
+            return testSuite
+        }
         testSuite.addSuite(contextTests(context, constants));
         testSuite.addSuite(statusMessageTests(message, constants));
 

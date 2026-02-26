@@ -196,9 +196,11 @@ module.exports = async function (
             testFunctions = testRunnerentryPass(givenTest, logs);
             break;
           case "B2C":
+          case "LOGISTICS":
             testFunctions = testRunnerLogistics(givenTest, logs);
             break;
           case "B2C_1_2_5":
+          case "LOGISTICS_1_2_5":
             testFunctions = testRunnerLogistics_1_2_5(givenTest, logs);
             break;
           case "GIFTCARD":

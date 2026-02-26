@@ -22,6 +22,7 @@ function findAppropriateCall(logs, action = "", type = "", key = "") {
             if (requiredLog) {
                 break;
             }
+            return requiredLog;
         }
 
         if (!requiredLog) {
@@ -40,7 +41,7 @@ module.exports = function testRunnerLogistics(givenTest, logs) {
                 const type = givenTest.type;
                 const constants = {
                     type: type,
-                    action: currentStep.action,
+                    action: currentStep?.action,
                     state: "Created",
                     core_version: "1.2.0"
                 }
@@ -52,7 +53,7 @@ module.exports = function testRunnerLogistics(givenTest, logs) {
                     case "cancel":
                     case "status":
                     case "update":
-                        particularLogs = logs.find((log) => log.action === currentStep.action);
+                        particularLogs = logs.find((log) => log?.action === currentStep?.action);
                         break;
                     default:
                         break;
@@ -87,11 +88,22 @@ module.exports = function testRunnerLogistics(givenTest, logs) {
                     case "status_assign_agent":
                     case "status_pickup":
                     case "status_out_for_delivery":
-                        const status_log = findAppropriateCall(logs, "status", "DELIVERY", statusEnumMap[currentStep.test])
-                        if (status_log) {
-                            return () => status((particularLogs?.request), statusEnumMap[currentStep.test])
+                        const status_log = findAppropriateCall(
+                            logs, "status", "DELIVERY", statusEnumMap[currentStep?.test]
+                        )
+                        if (!status_log || Object.keys(status_log).length === 0) {
+                            return () => status({
+                                context: null,
+                                message: null,
+                                constants: { action: "status", core_version: "1.2.0" }
+                            })
                         }
-                        return () => status();
+
+                        return () => status({
+                            context: status_log?.request?.context,
+                            message: status_log?.request?.message,
+                            constants: { action: "status", core_version: "1.2.0" }
+                        });
                     default:
                         return null;
                 }

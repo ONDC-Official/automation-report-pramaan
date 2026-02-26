@@ -141,5 +141,63 @@
                 "action": "update"
             }
         ]
+    },
+    {
+        "id": "B2C_1",
+        "type": "LOGISTICS",
+        "version": "1.2.0",
+        "name": "Flow 1A: Order to confirm to fulfillment with Deffered RTS",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            },
+            {
+                "test": "status",
+                "action": "status"
+            },
+            {
+                "test": "track",
+                "action": "track"
+            }
+        ]
+    },
+    {
+        "id": "B2C_1_WORTS",
+        "type": "LOGISTICS",
+        "version": "1.2.0",
+        "name": "Flow 1A: Order to confirm to fulfillment w/o Deferred RTS",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            },
+            {
+                "test": "status",
+                "action": "status"
+            },
+            {
+                "test": "track",
+                "action": "track"
+            }
+        ]
     }
 ]

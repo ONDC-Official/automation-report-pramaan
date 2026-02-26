@@ -281,5 +281,91 @@
                 "action": "on_update"
             }
         ]
+    },
+    {
+        "id": "B2C_1",
+        "type": "LOGISTICS",
+        "version": "1.2.0",
+        "name": "Flow: Order to confirm to fulfillment with Deferred RTS",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "B2C_1_WORTS",
+        "type": "LOGISTICS",
+        "version": "1.2.0",
+        "name": "Flow: Order to confirm to fulfillment w/o Deferred RTS",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
     }
 ]
