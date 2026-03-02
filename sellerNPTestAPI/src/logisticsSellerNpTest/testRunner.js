@@ -94,6 +94,7 @@ module.exports = function testRunnerLogistics(givenTest, logs) {
                     case "on_status_pickup":
                     case "on_status_out_for_delivery":
                     case "on_status_delivered":
+                    case "on_status_rto_delivered":
                         const on_status_log = findAppropriateOnStatus(logs, "on_status", "Delivery", onStatusEnumMap[currentStep.test])
                         if (on_status_log) {
                             return () => on_status(on_status_log?.request, onStatusEnumMap[currentStep.test], logs)

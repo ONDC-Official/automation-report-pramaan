@@ -121,24 +121,24 @@ module.exports = function testRunnerV2_2_0(givenTest, logs) {
                     case "search_three":
                     case "search_four":
                         if (particularLogs[searchIndex[currentStep.test]]?.request)
-                            return () => search(particularLogs[searchIndex[currentStep.test]]?.request, romanIndex[searchIndex[currentStep.test] + 1], testCaseId,logs,constants);
-                        return () => search({}, romanIndex[searchIndex[currentStep.test] + 1], testCaseId,logs,constants);
+                            return () => search(particularLogs[searchIndex[currentStep.test]]?.request, romanIndex[searchIndex[currentStep.test] + 1], testCaseId, logs, constants);
+                        return () => search({}, romanIndex[searchIndex[currentStep.test] + 1], testCaseId, logs, constants);
                     case "select_one":
                     case "select_two":
                     case "select_three":
                         if (particularLogs[selectIndex[currentStep.test]]?.request)
-                            return () => select(particularLogs[selectIndex[currentStep.test]]?.request, romanIndex[selectIndex[currentStep.test] + 1], testCaseId, logs,constants);
-                        return () => select({}, romanIndex[selectIndex[currentStep.test] + 1], testCaseId,logs,constants);
+                            return () => select(particularLogs[selectIndex[currentStep.test]]?.request, romanIndex[selectIndex[currentStep.test] + 1], testCaseId, logs, constants);
+                        return () => select({}, romanIndex[selectIndex[currentStep.test] + 1], testCaseId, logs, constants);
                     case "init_one":
                     case "init_two":
                     case "init_three":
                         if (particularLogs[initIndex[currentStep.test]]?.request)
-                            return () => init(particularLogs[initIndex[currentStep.test]]?.request, romanIndex[initIndex[currentStep.test] + 1], previous_init_payment_id, testCaseId, logs,constants);
-                        return () => init({}, romanIndex[initIndex[currentStep.test] + 1], testCaseId,logs,constants);
+                            return () => init(particularLogs[initIndex[currentStep.test]]?.request, romanIndex[initIndex[currentStep.test] + 1], previous_init_payment_id, testCaseId, logs, constants);
+                        return () => init({}, romanIndex[initIndex[currentStep.test] + 1], testCaseId, logs, constants);
                     case "confirm":
                         if (particularLogs?.request)
-                            return () => confirm(particularLogs?.request, previous_init_payment_id, testCaseId, logs,constants);
-                        return () => confirm({},logs,constants);
+                            return () => confirm(particularLogs?.request, previous_init_payment_id, testCaseId, logs, constants);
+                        return () => confirm({}, logs, constants);
                     case "status":
                         if (particularLogs[statusIndex]?.request)
                             return () => status(particularLogs[statusIndex++]?.request, testCaseId, logs);

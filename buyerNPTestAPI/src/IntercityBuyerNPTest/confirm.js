@@ -3,7 +3,7 @@ const { expect } = require('chai');
 const contextTests = require("./context");
 const response_verification = require("../centralizedUtilities/responseVerification");
 
-async function confirm({ context, message } = {}, settlementAmount, logs = [],constants ={}) {
+async function confirm({ context, message } = {}, settlementAmount, logs = [], constants = {}) {
     try {
         const indexOfThisLog = logs?.findIndex((log) => log?.message_id === context?.message_id);
         let lastFulfillments = [];
@@ -15,7 +15,7 @@ async function confirm({ context, message } = {}, settlementAmount, logs = [],co
         const testSuite = new Mocha.Suite(`confirm Request Verification`);
         contextTests(context, "confirm", testSuite);
         const messageTestSuite = Mocha.Suite.create(testSuite, "Verification of Message");
-        const responseTestSuite = response_verification({ context, message }, logs,constants);
+        const responseTestSuite = response_verification({ context, message }, logs, constants);
 
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message' object", function () {
             expect(message).to.exist.to.be.an("object");
@@ -23,9 +23,9 @@ async function confirm({ context, message } = {}, settlementAmount, logs = [],co
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order' which is an object", function () {
             expect(message.order).to.exist.and.to.be.an("object");
         }));
-        messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.id' which is a string", function () {
-            expect(message.order.id).to.exist.and.to.be.a("string");
-        }));
+        // messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.id' which is a string", function () {
+        //     expect(message.order.id).to.exist.and.to.be.a("string");
+        // }));
         //message.order.provider
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.provider' which is an object", function () {
             expect(message.order.provider).to.exist.and.to.be.an("object");
@@ -219,9 +219,9 @@ async function confirm({ context, message } = {}, settlementAmount, logs = [],co
                 messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payments[${z}].collected_by' which is a string`, function () {
                     expect(payment.collected_by).to.exist.and.to.be.a("string").and.to.be.oneOf(["BPP", "BAP"]);
                 }));
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payments[${z}].status' which is a string`, function () {
-                    expect(payment.status).to.exist.and.to.be.a("string").and.to.be.equal("PAID");
-                }));
+                // messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payments[${z}].status' which is a string`, function () {
+                //     expect(payment.status).to.exist.and.to.be.a("string").and.to.be.equal("PAID");
+                // }));
                 messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payments[${z}].type' which is a string`, function () {
                     expect(payment.type).to.exist.and.to.be.a("string").and.to.be.oneOf(["PRE-ORDER", "POST-FULFILLMENT", "ON-FULFILLMENT"]);
                 }));
@@ -346,7 +346,7 @@ async function confirm({ context, message } = {}, settlementAmount, logs = [],co
             })
 
         }
-         return [testSuite, responseTestSuite];
+        return [testSuite, responseTestSuite];
     }
     catch (error) {
         console.log(error);

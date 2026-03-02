@@ -169,9 +169,15 @@ module.exports = async function init({ context, message } = {}, logs = [], const
                                 buyerFinderFeeArr.forEach((it) => {
                                     const listItemIndex = tag?.list?.findIndex((listItem) => listItem?.descriptor?.code === it);
 
-                                    messageTestSuite.addTest(new Mocha.Test(`'message.order.payment[${z}].tags[${tagIndex}].list[${listItemIndex}]' should contain ${it}`, function () {
-                                        expect(listItemIndex, `'message.order.payment[${z}].tags[${tagIndex}].list' should contain ${it}`).to.not.equal(-1);
-                                    }));
+                                    if (it === "BUYER_FINDER_FEES_TYPE") {
+                                        messageTestSuite.addTest(new Mocha.Test(`'message.order.payment[${z}].tags[${tagIndex}].list[${listItemIndex}]' should contain ${it} (OPTIONAL)`, function () {
+                                            expect(listItemIndex, `'message.order.payment[${z}].tags[${tagIndex}].list' should contain ${it}`).to.not.equal(-1);
+                                        }));
+                                    } else {
+                                        messageTestSuite.addTest(new Mocha.Test(`'message.order.payment[${z}].tags[${tagIndex}].list[${listItemIndex}]' should contain ${it}`, function () {
+                                            expect(listItemIndex, `'message.order.payment[${z}].tags[${tagIndex}].list' should contain ${it}`).to.not.equal(-1);
+                                        }));
+                                    }
 
                                     if (listItemIndex !== -1 && tag?.list[listItemIndex]) {
                                         const listItem = tag?.list[listItemIndex];
@@ -264,9 +270,9 @@ module.exports = async function init({ context, message } = {}, logs = [], const
 
         settlementTermsListTests(messageTestSuite, { context, message }, logs);
 
-    return [testSuite, responseTestSuite,];
-} catch (error) {
-    console.log(error);
-    return error;
-}
+        return [testSuite, responseTestSuite,];
+    } catch (error) {
+        console.log(error);
+        return error;
+    }
 }

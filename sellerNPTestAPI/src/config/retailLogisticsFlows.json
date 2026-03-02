@@ -170,27 +170,27 @@
                 "action": "on_confirm"
             },
             {
-                "test": "on_update",
+                "test": "on_update_merchant_partial_cancel",
                 "action": "on_update"
             },
             {
-                "test": "on_status",
+                "test": "on_status_packed",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_assign_agent",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_pickup",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_out_for_delivery",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_delivered",
                 "action": "on_status"
             }
         ]
@@ -221,27 +221,27 @@
                 "action": "on_confirm"
             },
             {
-                "test": "on_cancel",
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_cancel_rto_initiated",
                 "action": "on_cancel"
             },
             {
-                "test": "on_status",
-                "action": "on_status"
-            },
-            {
-                "test": "on_status",
-                "action": "on_status"
-            },
-            {
-                "test": "on_status",
-                "action": "on_status"
-            },
-            {
-                "test": "on_status",
-                "action": "on_status"
-            },
-            {
-                "test": "on_status",
+                "test": "on_status_rto_delivered",
                 "action": "on_status"
             }
         ]
@@ -272,7 +272,7 @@
                 "action": "on_confirm"
             },
             {
-                "test": "on_cancel",
+                "test": "on_cancel_merchant",
                 "action": "on_cancel"
             }
         ]
@@ -303,39 +303,39 @@
                 "action": "on_confirm"
             },
             {
-                "test": "on_status",
+                "test": "on_status_packed",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_assign_agent",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_pickup",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_out_for_delivery",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_delivered",
                 "action": "on_status"
             },
             {
-                "test": "on_update",
+                "test": "on_update_buyer_return",
                 "action": "on_update"
             },
             {
-                "test": "on_update",
+                "test": "on_update_buyer_return_approved",
                 "action": "on_update"
             },
             {
-                "test": "on_update",
+                "test": "on_update_buyer_return_picked",
                 "action": "on_update"
             },
             {
-                "test": "on_update",
+                "test": "on_update_return_delivered",
                 "action": "on_update"
             }
         ]
@@ -366,31 +366,39 @@
                 "action": "on_confirm"
             },
             {
-                "test": "on_status",
+                "test": "on_status_packed",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_assign_agent",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_pickup",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_out_for_delivery",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_delivered",
                 "action": "on_status"
             },
             {
-                "test": "on_update",
+                "test": "on_update_buyer_return",
                 "action": "on_update"
             },
             {
-                "test": "on_update",
+                "test": "on_update_buyer_return_approved",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_buyer_return_picked",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_delivered",
                 "action": "on_update"
             }
         ]
@@ -421,31 +429,39 @@
                 "action": "on_confirm"
             },
             {
-                "test": "on_status",
+                "test": "on_status_packed",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_assign_agent",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_pickup",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_out_for_delivery",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_delivered",
                 "action": "on_status"
             },
             {
-                "test": "on_update",
+                "test": "on_update_buyer_return",
                 "action": "on_update"
             },
             {
-                "test": "on_update",
+                "test": "on_update_buyer_return_approved",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_buyer_return_picked",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_delivered",
                 "action": "on_update"
             }
         ]
@@ -476,39 +492,39 @@
                 "action": "on_confirm"
             },
             {
-                "test": "on_status",
+                "test": "on_status_packed",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_assign_agent",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_pickup",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_out_for_delivery",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_delivered",
                 "action": "on_status"
             },
             {
-                "test": "on_update",
+                "test": "on_update_buyer_return",
                 "action": "on_update"
             },
             {
-                "test": "on_update",
+                "test": "on_update_buyer_return_approved",
                 "action": "on_update"
             },
             {
-                "test": "on_update",
+                "test": "on_update_buyer_return_picked",
                 "action": "on_update"
             },
             {
-                "test": "on_update",
+                "test": "on_update_return_delivered",
                 "action": "on_update"
             }
         ]
@@ -1351,6 +1367,62 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_update_buyer_return",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_approved",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_picked",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_delivered",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_replacement_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_replacement_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_replacement_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_replacement_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_replacement_delivered",
+                "action": "on_status"
             }
         ],
         "enhFlows": [
@@ -1412,6 +1484,38 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_update_buyer_return",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_approved",
+                "action": "on_update"
+            },
+            {
+                "test": "on_cancel_return_cancelled",
+                "action": "on_cancel"
             }
         ],
         "enhFlows": [
@@ -1723,6 +1827,14 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
             }
         ],
         "enhFlows": [
@@ -1763,6 +1875,26 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
             }
         ],
         "enhFlows": [
@@ -1803,6 +1935,10 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
             }
         ],
         "enhFlows": [
@@ -1845,11 +1981,19 @@
                 "action": "on_confirm"
             },
             {
-                "test": "on_cancel_one",
-                "action": "on_cancel"
+                "test": "on_status_packed",
+                "action": "on_status"
             },
             {
-                "test": "on_cancel_two",
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_cancel_forced",
                 "action": "on_cancel"
             }
         ]
@@ -1971,6 +2115,26 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
             }
         ],
         "enhFlows": [
@@ -2542,6 +2706,26 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
             }
         ]
     },
@@ -2568,6 +2752,26 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
             }
         ]
     },
@@ -2594,6 +2798,26 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
             }
         ]
     },
@@ -2620,6 +2844,26 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
             }
         ]
     },
@@ -2646,6 +2890,26 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
             }
         ]
     },
@@ -2672,6 +2936,26 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
             }
         ]
     },
@@ -2698,6 +2982,26 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
             }
         ]
     },
@@ -2724,6 +3028,26 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
             }
         ]
     },
@@ -2750,6 +3074,26 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
             }
         ]
     },
@@ -2776,6 +3120,26 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
             }
         ]
     },
@@ -3067,7 +3431,7 @@
     },
     {
         "id": "LOG10_1",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -3122,7 +3486,7 @@
     },
     {
         "id": "LOG10_2",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -3177,7 +3541,7 @@
     },
     {
         "id": "LOG10_3",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -3232,7 +3596,7 @@
     },
     {
         "id": "LOG10_4",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -3287,7 +3651,7 @@
     },
     {
         "id": "LOG10_5",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -3342,7 +3706,7 @@
     },
     {
         "id": "LOG10_6",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -3366,34 +3730,34 @@
                 "action": "on_update"
             },
             {
-                "test": "on_cancel",
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_at_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_cancel_rto_initiated",
                 "action": "on_cancel"
             },
             {
-                "test": "on_status",
-                "action": "on_status"
-            },
-            {
-                "test": "on_status",
-                "action": "on_status"
-            },
-            {
-                "test": "on_status",
-                "action": "on_status"
-            },
-            {
-                "test": "on_status",
-                "action": "on_status"
-            },
-            {
-                "test": "on_status",
+                "test": "on_status_rto_delivered",
                 "action": "on_status"
             }
         ]
     },
     {
         "id": "LOG10_7",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG10",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -3417,10 +3781,6 @@
                 "action": "on_update"
             },
             {
-                "test": "on_cancel",
-                "action": "on_cancel"
-            },
-            {
                 "test": "on_status_assign_agent",
                 "action": "on_status"
             },
@@ -3433,18 +3793,22 @@
                 "action": "on_status"
             },
             {
-                "test": "on_status_delivered",
+                "test": "on_status_out_for_delivery",
                 "action": "on_status"
             },
             {
-                "test": "on_status_cancelled",
+                "test": "on_cancel_rto_initiated",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status_rto_delivered",
                 "action": "on_status"
             }
         ]
     },
     {
         "id": "LOG10COD",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -3499,7 +3863,7 @@
     },
     {
         "id": "LOG10SURGFEE",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -3939,7 +4303,7 @@
     },
     {
         "id": "MBL_RSF",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -3954,7 +4318,7 @@
     },
     {
         "id": "MBL_RSF_A",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -3969,7 +4333,7 @@
     },
     {
         "id": "MBL_NO",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -3979,7 +4343,7 @@
     },
     {
         "id": "LOG10_TECH_1",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "techLog",
@@ -4030,7 +4394,7 @@
     },
     {
         "id": "LOG10_TECH_2",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "techLog",
@@ -4081,7 +4445,7 @@
     },
     {
         "id": "LOG10_TECH_3",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "techLog",
@@ -4132,7 +4496,7 @@
     },
     {
         "id": "LOG11_1",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -4199,7 +4563,7 @@
     },
     {
         "id": "LOG11_2",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -4266,7 +4630,7 @@
     },
     {
         "id": "LOG11_3",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -4333,7 +4697,7 @@
     },
     {
         "id": "LOG11_4",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -4400,7 +4764,7 @@
     },
     {
         "id": "LOG11_5",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -4467,7 +4831,7 @@
     },
     {
         "id": "LOG11_6",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -4538,7 +4902,7 @@
     },
     {
         "id": "LOG11_7",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -4605,7 +4969,7 @@
     },
     {
         "id": "LOG11_8",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -4664,7 +5028,7 @@
     },
     {
         "id": "LOG11COD",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -4917,7 +5281,7 @@
     },
     {
         "id": "MBL_RSF",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -4932,7 +5296,7 @@
     },
     {
         "id": "MBL_RSF_A",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -4947,7 +5311,7 @@
     },
     {
         "id": "MBL_NO",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -4957,7 +5321,7 @@
     },
     {
         "id": "LOG11_TECH_1",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "techLog",
@@ -5008,7 +5372,7 @@
     },
     {
         "id": "LOG11_TECH_2",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "techLog",
@@ -5055,7 +5419,7 @@
     },
     {
         "id": "LOG11_TECH_3",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "techLog",
@@ -5082,7 +5446,7 @@
     },
     {
         "id": "LOG_ENH_00A",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5112,7 +5476,7 @@
     },
     {
         "id": "LOG_ENH_00B",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5143,7 +5507,7 @@
     },
     {
         "id": "LOG_ENH_00D",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5173,7 +5537,7 @@
     },
     {
         "id": "LOG_ENH_00E",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5203,7 +5567,7 @@
     },
     {
         "id": "LOG_ENH_00F",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5233,7 +5597,7 @@
     },
     {
         "id": "LOG_ENH_01A",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5264,7 +5628,7 @@
     },
     {
         "id": "LOG_ENH_01B",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5294,7 +5658,7 @@
     },
     {
         "id": "LOG_ENH_01C",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5324,7 +5688,7 @@
     },
     {
         "id": "LOG_ENH_01D",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5354,7 +5718,7 @@
     },
     {
         "id": "LOG_ENH_01E",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5381,7 +5745,7 @@
     },
     {
         "id": "LOG_ENH_01F",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5412,7 +5776,7 @@
     },
     {
         "id": "LOG_ENH_005",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5450,7 +5814,7 @@
     },
     {
         "id": "LOG_ENH_006",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5496,7 +5860,7 @@
     },
     {
         "id": "LOG_ENH_007",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5542,7 +5906,7 @@
     },
     {
         "id": "LOG_ENH_008",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5600,7 +5964,7 @@
     },
     {
         "id": "LOG_ENH_009",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5630,7 +5994,7 @@
     },
     {
         "id": "LOG_ENH_010",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5661,7 +6025,7 @@
     },
     {
         "id": "LOG_ENH_011",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5692,7 +6056,7 @@
     },
     {
         "id": "LOG_ENH_012",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5722,7 +6086,7 @@
     },
     {
         "id": "LOG_ENH_013",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5753,7 +6117,7 @@
     },
     {
         "id": "LOG_ENH_014",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5783,7 +6147,7 @@
     },
     {
         "id": "LOG_ENH_015",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5813,7 +6177,7 @@
     },
     {
         "id": "LOG_ENH_016",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5843,7 +6207,7 @@
     },
     {
         "id": "LOG_ENH_017",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5873,7 +6237,7 @@
     },
     {
         "id": "LOG_ENH_018",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5904,7 +6268,7 @@
     },
     {
         "id": "LOG_ENH_019",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5934,7 +6298,7 @@
     },
     {
         "id": "LOG_ENH_020",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5965,7 +6329,7 @@
     },
     {
         "id": "LOG_ENH_021",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -5995,7 +6359,7 @@
     },
     {
         "id": "LOG_ENH_022",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "additional",
@@ -6025,7 +6389,7 @@
     },
     {
         "id": "LOG11CAN",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "version": "1.2.5",
         "domain": "ONDC:LOG",
         "flowType": "mandatory",
@@ -6056,7 +6420,7 @@
     },
     {
         "id": "LOG11MERCHANTCAN",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -6091,7 +6455,7 @@
     },
     {
         "id": "LOG10CAN",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",
@@ -6122,7 +6486,7 @@
     },
     {
         "id": "LOG10MERCHANTCAN",
-        "type": "B2C_1_2_5",
+        "type": "LOGISTICS_1_2_5",
         "domain": "ONDC:LOG",
         "version": "1.2.5",
         "flowType": "mandatory",

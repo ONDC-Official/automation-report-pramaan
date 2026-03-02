@@ -834,7 +834,8 @@
     "type": "IGM",
     "version": [
       "2.0.0",
-      "2.0.1"
+      "2.0.1",
+      "2.0.2"
     ],
     "name": "Flow 7A: IGM flows",
     "description": "Flow from issue open to issue close",
@@ -859,7 +860,8 @@
     "domain": "ONDC:FIS12",
     "version": [
       "2.0.0",
-      "2.0.1"
+      "2.0.1",
+      "2.0.2"
     ],
     "for": "PERSONAL_LOAN",
     "name": "Flow 7B: IGM Flow 2.0.0",
@@ -893,7 +895,8 @@
     "domain": "ONDC:FIS12",
     "version": [
       "2.0.0",
-      "2.0.1"
+      "2.0.1",
+      "2.0.2"
     ],
     "for": "PERSONAL_LOAN",
     "name": "Flow 7C: IGM Flow 2.0.0",
@@ -927,7 +930,8 @@
     "domain": "ONDC:FIS12",
     "version": [
       "2.0.0",
-      "2.0.1"
+      "2.0.1",
+      "2.0.2"
     ],
     "for": "PERSONAL_LOAN",
     "name": "Flow 7D: IGM Flow 2.0.0",
@@ -961,7 +965,8 @@
     "domain": "ONDC:FIS12",
     "version": [
       "2.0.0",
-      "2.0.1"
+      "2.0.1",
+      "2.0.2"
     ],
     "for": "PERSONAL_LOAN",
     "name": "Flow 7E: IGM Flow 2.0.0",
@@ -995,7 +1000,8 @@
     "domain": "ONDC:FIS12",
     "version": [
       "2.0.0",
-      "2.0.1"
+      "2.0.1",
+      "2.0.2"
     ],
     "for": "PERSONAL_LOAN",
     "name": "Flow 7F: IGM Flow 2.0.0 Escalation",
@@ -5405,10 +5411,6 @@
         "action": "confirm"
       },
       {
-        "test": "status",
-        "action": "status"
-      },
-      {
         "test": "track",
         "action": "track"
       }
@@ -6059,6 +6061,160 @@
     "id": "IGM_5",
     "type": "IGMV2",
     "domain": "ONDC:RET",
+    "version": "1.2.0",
+    "name": "Flow 6F: IGM (ESCALATE)",
+    "description": "Issues and Grievance Flows",
+    "flow": [
+      {
+        "test": "issue_open",
+        "action": "issue"
+      },
+      {
+        "test": "issue_select_resolution_option",
+        "action": "issue"
+      },
+      {
+        "test": "issue_escalate",
+        "action": "issue"
+      },
+      {
+        "test": "issue_select_resolution_option",
+        "action": "issue"
+      },
+      {
+        "test": "issue_close",
+        "action": "issue"
+      },
+      {
+        "test": "issue_status",
+        "action": "issue_status"
+      }
+    ]
+  },
+  {
+    "id": "IGM_1",
+    "type": "IGMV2",
+    "domain": "ONDC:AGR",
+    "version": "1.2.0",
+    "name": "Flow 6b: IGM (REFUND)",
+    "description": "Issues and Grievance Flows",
+    "flow": [
+      {
+        "test": "issue_open",
+        "action": "issue"
+      },
+      {
+        "test": "issue_provide_more_information",
+        "action": "issue"
+      },
+      {
+        "test": "issue_select_resolution_option",
+        "action": "issue"
+      },
+      {
+        "test": "issue_close",
+        "action": "issue"
+      },
+      {
+        "test": "issue_status",
+        "action": "issue_status"
+      }
+    ]
+  },
+  {
+    "id": "IGM_2",
+    "type": "IGMV2",
+    "domain": "ONDC:AGR",
+    "version": "1.2.0",
+    "name": "Flow 6c: IGM (REPLACEMENT)",
+    "description": "Issues and Grievance Flows",
+    "flow": [
+      {
+        "test": "issue_open",
+        "action": "issue"
+      },
+      {
+        "test": "issue_provide_more_information",
+        "action": "issue"
+      },
+      {
+        "test": "issue_select_resolution_option",
+        "action": "issue"
+      },
+      {
+        "test": "issue_close",
+        "action": "issue"
+      },
+      {
+        "test": "issue_status",
+        "action": "issue_status"
+      }
+    ]
+  },
+  {
+    "id": "IGM_3",
+    "type": "IGMV2",
+    "domain": "ONDC:AGR",
+    "version": "1.2.0",
+    "name": "Flow 6d: IGM (CANCEL)",
+    "description": "Issues and Grievance Flows",
+    "flow": [
+      {
+        "test": "issue_open",
+        "action": "issue"
+      },
+      {
+        "test": "issue_provide_more_information",
+        "action": "issue"
+      },
+      {
+        "test": "issue_select_resolution_option",
+        "action": "issue"
+      },
+      {
+        "test": "issue_close",
+        "action": "issue"
+      },
+      {
+        "test": "issue_status",
+        "action": "issue_status"
+      }
+    ]
+  },
+  {
+    "id": "IGM_4",
+    "type": "IGMV2",
+    "domain": "ONDC:AGR",
+    "version": "1.2.0",
+    "name": "Flow 6e: IGM(NO_ACTION)",
+    "description": "Issues and Grievance Flows",
+    "flow": [
+      {
+        "test": "issue_open",
+        "action": "issue"
+      },
+      {
+        "test": "issue_provide_more_information",
+        "action": "issue"
+      },
+      {
+        "test": "issue_select_resolution_option",
+        "action": "issue"
+      },
+      {
+        "test": "issue_close",
+        "action": "issue"
+      },
+      {
+        "test": "issue_status",
+        "action": "issue_status"
+      }
+    ]
+  },
+  {
+    "id": "IGM_5",
+    "type": "IGMV2",
+    "domain": "ONDC:AGR",
     "version": "1.2.0",
     "name": "Flow 6F: IGM (ESCALATE)",
     "description": "Issues and Grievance Flows",

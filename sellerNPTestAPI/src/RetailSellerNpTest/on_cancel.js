@@ -59,11 +59,18 @@ function onCancelMessageTests({ context, message }, constants, logs) {
         const confirmLogs = lastActionLog(logs, "confirm")
         const confirmCreatedAt = confirmLogs?.message?.order?.created_at
         const confirmUpdatedAt = confirmLogs?.message?.order?.updated_at
+        const cancelTimestamp = context?.timestamp
+        const updatedAtDate = new Date(message.order.updated_at);
+        const cancelDate = new Date(cancelTimestamp);
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.created_at' which is an object", function () {
             expect(message.order.created_at).to.be.a("string").and.to.be.equal(confirmCreatedAt);
         }));
+        // messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.updated_at' which is a string (OPTIONAL)", function () {
+        //     // expect(message.order.updated_at).to.exist.and.to.be.a("string").and.to.be.greaterThanOrEqual(cancelTimestamp);
+        // }));
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.updated_at' which is a string (OPTIONAL)", function () {
-            expect(message.order.updated_at).to.exist.and.to.be.a("string").and.to.be.equal(confirmUpdatedAt);
+            expect(message.order.updated_at).to.exist.and.to.be.a("string");
+            expect(updatedAtDate).to.be.greaterThanOrEqual(cancelDate);
         }));
         return messageTestSuite;
     } catch (err) {

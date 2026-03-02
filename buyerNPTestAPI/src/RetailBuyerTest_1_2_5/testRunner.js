@@ -2,13 +2,31 @@ const { search, select, init, cancel, confirm, update, track, info, rating, cata
 
 const UPDATE_TYPES = {
     "update_buyer_return": "Buyer Initiated Return",
-    "update_settlement_trail": "Update Settlement Trail"
+    "update_buyer_replacement": "Buyer Initiated Replacement",
+    "update_settlement_trail": "Update Settlement Trail",
+    "update_pickup": "Update Picked Up",
+    "update_delivered": "Update Delivered"
 }
 
 const SEARCH_TYPES = {
     "search": 0,
     "search_mode_start": 0,
     "search_mode_end": 1
+}
+
+const cancelIndex = {
+    "cancel": 0,
+    "cancel_return": 0,
+    "cancel_not_cancellable": 0,
+    "cancel_forced": 1
+}
+
+const updateIndex = {
+    "update_buyer_return": 0,
+    "update_buyer_replacement": 0,
+    "update_settlement_trail": 0,
+    "update_pickup": 0,
+    "update_delivered": 1
 }
 
 module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
@@ -21,8 +39,6 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                     case "select":
                     case "init":
                     case "confirm":
-                    case "update":
-                    case "cancel":
                     case "track":
                     case "rating":
                     case "info":
@@ -31,6 +47,8 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                         particularLogs = logs.find((log) => log.action === currentStep.action);
                         break;
                     case "search":
+                    case "cancel":
+                    case "update":
                         particularLogs = logs.filter((log) => log.action === currentStep.action);
                         break;
                     default:
@@ -74,12 +92,11 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                             return () => confirm(particularLogs?.request, logs, constants);
                         return () => confirm({}, logs, constants);
                     case "cancel":
-                        if (particularLogs?.request)
-                            return () => cancel(particularLogs?.request, logs, constants);
-                        return () => cancel({}, logs, constants);
                     case "cancel_not_cancellable":
-                        if (particularLogs?.request)
-                            return () => cancel(particularLogs?.request, logs, constants);
+                    case "cancel_forced":
+                    case "cancel_return":
+                        if (particularLogs[cancelIndex[currentStep.test]]?.request)
+                            return () => cancel(particularLogs[cancelIndex[currentStep.test]]?.request, logs, constants);
                         return () => cancel({}, logs, constants);
                     case "catalog_rejection":
                         if (particularLogs?.request)
@@ -99,8 +116,11 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                         return () => info({}, logs, constants);
                     case "update_buyer_return":
                     case "update_settlement_trail":
-                        if (particularLogs?.request)
-                            return () => update(particularLogs?.request, logs, UPDATE_TYPES[currentStep.test], constants);
+                    case "update_buyer_replacement":
+                    case "update_pickup":
+                    case "update_delivered":
+                        if (particularLogs[updateIndex[currentStep.test]]?.request)
+                            return () => update(particularLogs[updateIndex[currentStep.test]]?.request, logs, UPDATE_TYPES[currentStep.test], constants);
                         return () => update({}, logs, UPDATE_TYPES[currentStep.test], constants);
                     default:
                         return null;

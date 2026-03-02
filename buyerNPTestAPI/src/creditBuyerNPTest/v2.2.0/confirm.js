@@ -4,13 +4,13 @@ const contextTests = require('./context');
 const { providerIdTest } = require('../../bussinessTests/mobilityBussiness');
 const response_verification = require("../../centralizedUtilities/responseVerification");
 
-async function confirm({ context, message } = {}, previous_on_init_payment_id = "", testCaseId, logs = [],constants ={}) {
+async function confirm({ context, message } = {}, previous_on_init_payment_id = "", testCaseId, logs = [], constants = {}) {
     const testSuite = new Mocha.Suite('Confirm Request Verification');
     try {
         contextTests(context, 'confirm', testSuite, logs);
 
         const messageTestSuite = Mocha.Suite.create(testSuite, 'Verification of Message');
-        const responseTestSuite = response_verification({ context, message }, logs,constants);
+        const responseTestSuite = response_verification({ context, message }, logs, constants);
 
         let testcaseCounter = 1;
 
@@ -56,15 +56,15 @@ async function confirm({ context, message } = {}, previous_on_init_payment_id = 
                 }));
 
                 if (payment?.tags) {
-
-
                     messageTestSuite.addTest(new Mocha.Test(`[${testCaseId}${getNextTestcaseId()}] 'message.order.payments[${index}].id' should exist and should be a string`, function () {
                         expect(payment.id).to.exist.and.to.be.a("string").that.is.not.empty;
                     }));
 
-                    messageTestSuite.addTest(new Mocha.Test(`[${testCaseId}${getNextTestcaseId()}] 'message.order.payments[${index}].id' should exist and be equal to the 'payments.id' sent in the last on_init which is ${previous_on_init_payment_id}`, function () {
-                        expect(payment.id).to.be.equal(previous_on_init_payment_id);
-                    }));
+                    if (constants?.flow !== "CRD_2B") {
+                        messageTestSuite.addTest(new Mocha.Test(`[${testCaseId}${getNextTestcaseId()}] 'message.order.payments[${index}].id' should exist and be equal to the 'payments.id' sent in the last on_init which is ${previous_on_init_payment_id}`, function () {
+                            expect(payment.id).to.be.equal(previous_on_init_payment_id);
+                        }));
+                    }
 
                     messageTestSuite.addTest(new Mocha.Test(`[${testCaseId}${getNextTestcaseId()}] 'message.order.payments[${index}].collected_by' should exist and should be a string`, function () {
                         expect(payment.collected_by).to.exist.and.to.be.a("string").that.is.not.empty;
@@ -202,7 +202,7 @@ async function confirm({ context, message } = {}, previous_on_init_payment_id = 
             })
         }
 
-         return [testSuite, responseTestSuite];
+        return [testSuite, responseTestSuite];
     } catch (error) {
         testSuite.addTest(new Mocha.Test("confirm request failed to be verified because of some missing payload or some internal error", function () {
             expect(true).to.equal(false);

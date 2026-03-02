@@ -917,7 +917,7 @@ module.exports = {
                     "code": {
                       "id": "retail_bap_confirm_message_69",
                       "type": "string",
-                      "enum": ["tax_number","provider_tax_number","delay_interest","provider_tax_number","np_type","max_liability","max_liability_cap","accept_bpp_terms","delay_interest","mandatory_arbitration","court_jurisdiction"],
+                      "enum": ["static_terms", "tax_number", "provider_tax_number", "delay_interest", "provider_tax_number", "np_type", "max_liability", "max_liability_cap", "accept_bpp_terms", "delay_interest", "mandatory_arbitration", "court_jurisdiction"],
                       "minLength": 1
                     },
                     "value": {

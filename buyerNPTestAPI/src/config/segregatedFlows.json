@@ -1,0 +1,64 @@
+[
+    {
+        "id": "INS_SGRTD_1",
+        "type": "SACHET_INSURANCE",
+        "version": "2.0.0",
+        "domain": "ONDC:FIS13",
+        "name": "Flow: Discovery of Insurance Providers and Master Policies",
+        "description": "Discovery of Insurance Providers and Master Policies",
+        "flow": [
+            {
+                "test": "search_one",
+                "action": "search"
+            }
+        ]
+    },
+    {
+        "id": "INS_SGRTD_2",
+        "type": "SACHET_INSURANCE",
+        "version": "2.0.0",
+        "domain": "ONDC:FIS13",
+        "name": "Flow: Discovery of Products from Master Policies",
+        "description": "Discovery of Products from Master Policies",
+        "flow": [
+            {
+                "test": "search_two",
+                "action": "search"
+            }
+        ]
+    },
+    {
+        "id": "INS_SGRTD_3",
+        "type": "SACHET_INSURANCE",
+        "version": "2.0.0",
+        "domain": "ONDC:FIS13",
+        "name": "Flow: Order to Confirm to Fulfilment - Accidental",
+        "description": "Flow from search to confirm - Accidental",
+        "flow": [
+            {
+                "test": "search_one",
+                "action": "search"
+            },
+            {
+                "test": "search_two",
+                "action": "search"
+            },
+            {
+                "test": "search_three",
+                "action": "search"
+            },
+            {
+                "test": "select",
+                "action": "select"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            }
+        ]
+    }
+]

@@ -231,8 +231,8 @@ function settlementTermsListTests(messageTestSuite, { context, message }, logs) 
                                 const settlementAmount = calculateSettlementAmount(payment?.collected_by, quotePrice, buyerFinderFee);
                                 const ceilVal = Math.ceil(Number(settlementAmount))
                                 const floorVal = Math.floor(Number(settlementAmount))
-                                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${i}].tags[${j}].list[${k}].value' should be equal to one of [${Math.floor(settlementAmount)}, ${Math.ceil(settlementAmount)}, ${settlementAmount}]`, function () {
-                                    expect(ls.value).to.exist.and.to.be.oneOf([ceilVal.toString(), floorVal.toString(), settlementAmount])
+                                messageTestSuite.addTest(new Mocha.Test(`'message.order.payments[${i}].tags[${j}].list[${k}].value' should be equal to one of [${ceilVal.toFixed(2)}, ${floorVal.toFixed(2)}, ${settlementAmount}]`, function () {
+                                    expect(ls.value).to.exist.and.to.be.oneOf([ceilVal.toFixed(2), floorVal.toFixed(2), settlementAmount])
                                 }));
                                 break;
                             default:

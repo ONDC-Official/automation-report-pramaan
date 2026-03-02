@@ -1,0 +1,203 @@
+[
+    {
+        "id": "RET_MRGD_1",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow: RTO And Part Cancellation Flow",
+        "description": "RTO And Part Cancellation Flow",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "select",
+                "action": "select"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_MRGD_2",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow: Return Flow",
+        "description": "Return Flow",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "select",
+                "action": "select"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            },
+            {
+                "test": "update_buyer_return",
+                "action": "update"
+            }
+        ]
+    },
+    {
+        "id": "RET_MRGD_3_OOF_011",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow: Buyer instruction and delivery update flow",
+        "description": "Buyer instruction and delivery update flow",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "select",
+                "action": "select"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_MRGD_4",
+        "type": "RETAIL",
+        "domain": "ONDC:RET",
+        "version": "1.2.0",
+        "flowType": "mandatory",
+        "name": "Flow: RTO And Part Cancellation Flow",
+        "description": "RTO And Part Cancellation Flow",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "select",
+                "action": "select"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            }
+        ]
+    },
+    {
+        "id": "RET_MRGD_5",
+        "type": "RETAIL",
+        "domain": "ONDC:RET",
+        "version": "1.2.0",
+        "flowType": "mandatory",
+        "name": "Flow: Return Flow",
+        "description": "Return Flow",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "select",
+                "action": "select"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            },
+            {
+                "test": "update_buyer_return",
+                "action": "update"
+            }
+        ]
+    },
+    {
+        "id": "B2C_1",
+        "type": "LOGISTICS",
+        "version": "1.2.0",
+        "name": "Flow 1A: Order to confirm to fulfillment with Deffered RTS",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            },
+            {
+                "test": "status",
+                "action": "status"
+            },
+            {
+                "test": "track",
+                "action": "track"
+            }
+        ]
+    },
+    {
+        "id": "B2C_1_WORTS",
+        "type": "LOGISTICS",
+        "version": "1.2.0",
+        "name": "Flow 1A: Order to confirm to fulfillment w/o Deferred RTS",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            },
+            {
+                "test": "status",
+                "action": "status"
+            },
+            {
+                "test": "track",
+                "action": "track"
+            }
+        ]
+    }
+]

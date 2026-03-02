@@ -25,6 +25,7 @@ const testRunnerRSF2_0 = require("../rsf2.0/testRunner");
 
 // Metro Mobility Test Runner
 const testRunnerMetro = require("../metroSellerNPTest/testRunner");
+const testRunnerMetro_2_0_1 = require("../metroSellerNPTest_2_0_1/testRunner");
 
 // Logistics Test Runner
 const testRunnerLogistics = require("../logisticsSellerNpTest/testRunner");
@@ -149,7 +150,14 @@ module.exports = async function (
         switch (givenTest?.type) {
           case "METRO":
           case "BUS":
-            testFunctions = testRunnerMetro(givenTest, logs, givenTest?.type);
+            switch (version) {
+              case "2.0.0":
+                testFunctions = testRunnerMetro(givenTest, logs, givenTest?.type);
+                break;
+              case "2.0.1":
+                testFunctions = testRunnerMetro_2_0_1(givenTest, logs, givenTest?.type);
+                break;
+            }
             break;
           case "INVESTMENT":
             switch (version) {
@@ -188,9 +196,11 @@ module.exports = async function (
             testFunctions = testRunnerentryPass(givenTest, logs);
             break;
           case "B2C":
+          case "LOGISTICS":
             testFunctions = testRunnerLogistics(givenTest, logs);
             break;
           case "B2C_1_2_5":
+          case "LOGISTICS_1_2_5":
             testFunctions = testRunnerLogistics_1_2_5(givenTest, logs);
             break;
           case "GIFTCARD":

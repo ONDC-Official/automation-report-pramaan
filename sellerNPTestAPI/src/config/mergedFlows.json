@@ -1,0 +1,371 @@
+[
+    {
+        "id": "RET_MRGD_1",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow: RTO And Part Cancellation Flow",
+        "description": "RTO And Part Cancellation Flow",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_cancel_rto_initiated",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status_rto_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_MRGD_2",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow: Return Flow",
+        "description": "Return Flow",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_update_buyer_return",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_buyer_return_approved",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_buyer_return_picked",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_delivered",
+                "action": "on_update"
+            }
+        ]
+    },
+    {
+        "id": "RET_MRGD_3_OOF_011",
+        "type": "RETAIL_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow: Buyer instruction and delivery update flow",
+        "description": "Buyer instruction and delivery update flow",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update_address",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_buyer_instructions",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_MRGD_4",
+        "type": "RETAIL",
+        "domain": "ONDC:RET",
+        "version": "1.2.0",
+        "flowType": "mandatory",
+        "name": "Flow: RTO And Part Cancellation Flow",
+        "description": "RTO And Part Cancellation Flow",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_cancel_rto_initiated",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status_rto_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_MRGD_5",
+        "type": "RETAIL",
+        "domain": "ONDC:RET",
+        "version": "1.2.0",
+        "flowType": "mandatory",
+        "name": "Flow: Return Flow",
+        "description": "Return Flow",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_update_buyer_return",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_buyer_return_approved",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_buyer_return_picked",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_delivered",
+                "action": "on_update"
+            }
+        ]
+    },
+    {
+        "id": "B2C_1",
+        "type": "LOGISTICS",
+        "version": "1.2.0",
+        "name": "Flow: Order to confirm to fulfillment with Deferred RTS",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "B2C_1_WORTS",
+        "type": "LOGISTICS",
+        "version": "1.2.0",
+        "name": "Flow: Order to confirm to fulfillment w/o Deferred RTS",
+        "description": "B2C Logistic Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    }
+]

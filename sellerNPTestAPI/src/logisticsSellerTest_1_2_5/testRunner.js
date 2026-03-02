@@ -19,7 +19,6 @@ const onStatusEnumMap = {
     "on_status_out_for_delivery": "Out-for-delivery",
     "on_status_delivered": "Order-delivered",
     "on_status_rto_delivered": "RTO-Delivered",
-    "on_status_cancelled": "Cancelled"
 };
 
 
@@ -111,7 +110,6 @@ module.exports = function testRunnerLogistics(givenTest, logs) {
                             return () => on_cancel(particularLogs[cancelIndex[currentStep.test]]?.request, currentStep.test, logs, flowId)
                         }
                         return () => on_cancel({}, currentStep.test, logs, flowId);
-
                     case "on_status_out_for_pickup":
                     case "on_status_pickup_failed":
                     case "on_status_pickup_rescheduled":
@@ -124,7 +122,6 @@ module.exports = function testRunnerLogistics(givenTest, logs) {
                     case "on_status_out_for_delivery":
                     case "on_status_delivered":
                     case "on_status_rto_delivered":
-                    case "on_status_cancelled":
                         const on_status_log = findAppropriateOnStatus(logs, "on_status", "Delivery", onStatusEnumMap[currentStep.test])
                         if (on_status_log) {
                             return () => on_status(on_status_log?.request, onStatusEnumMap[currentStep.test], logs, flowId, testCaseId)

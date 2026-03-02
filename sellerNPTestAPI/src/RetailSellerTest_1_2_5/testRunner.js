@@ -21,16 +21,21 @@ const romanIndex = {
 };
 const cancelIndex = {
     "on_cancel_merchant": 0,
+    "on_cancel_forced": 0,
     "on_cancel": 0,
     "on_cancel_one": 0,
     "on_cancel_two": 1,
-    "on_cancel_rto_initiated": 0
+    "on_cancel_rto_initiated": 0,
+    "on_cancel_return_cancelled": 0
 }
 
 const onStatusEnumMap = {
     "on_status_packed": "Packed",
+    "on_update_address": "Pending",
+    "on_update_buyer_instructions": "Pending",
     "on_status_assign_agent": "Agent-assigned",
     "on_status_pickup": "Order-picked-up",
+    "on_cancel_return_cancelled": "Cancelled",
     "on_status_out_for_delivery": "Out-for-delivery",
     "on_status_delivered": "Order-delivered",
     "on_status_rto_delivered": "RTO-Delivered",
@@ -38,7 +43,12 @@ const onStatusEnumMap = {
     "on_update_return_delivered": "Return_Delivered",
     "on_update_return_approved": "Return_Approved",
     "on_update_return_picked": "Return_Picked",
-    "on_update_merchant_partial_cancel": "Cancelled"
+    "on_update_merchant_partial_cancel": "Cancelled",
+    "on_status_replacement_packed": "Packed",
+    "on_status_replacement_assign_agent": "Agent-assigned",
+    "on_status_replacement_pickup": "Order-picked-up",
+    "on_status_replacement_out_for_delivery": "Out-for-delivery",
+    "on_status_replacement_delivered": "Order-delivered"
 }
 
 /**
@@ -50,28 +60,30 @@ const onStatusEnumMap = {
  * @param {string} key - The key to match within the fulfillment state descriptor.
  * @returns {Object} - The first matching log entry or an empty object if none are found.
  */
-function findAppropriateOnStatus(logs = [], action = "", type = "", key = "") {
-    if (!Array.isArray(logs) || typeof action !== "string" || typeof type !== "string" || typeof key !== "string") {
-        throw new Error("Invalid input: logs should be an array, and action, type, and key should be strings.");
+function findAppropriateOnStatus(logs = [], action = "", type = "", key = "", skip = 0) {
+    if (!Array.isArray(logs) || [action, type, key].some(v => typeof v !== "string")) {
+        throw new Error("Invalid input");
     }
 
-    try {
-        // Filter logs by the specified action
-        const filteredLogs = logs.filter(log => log?.action === action);
+    let matchCount = 0;
+    for (const log of logs) {
+        if (log?.action !== action) continue;
 
-        // Find the first log that meets the criteria
-        const matchingLog = filteredLogs.find(log =>
-            log?.request?.message?.order?.fulfillments?.some(fulfillment =>
-                fulfillment?.type === type && fulfillment?.state?.descriptor?.code === key
-            )
+        const ok = log?.request?.message?.order?.fulfillments?.some(f =>
+            f?.type === type && f?.state?.descriptor?.code === key
         );
 
-        // Return the matching log or an empty object
-        return matchingLog || {};
-    } catch (error) {
-        console.error("Error finding appropriate log:", error);
-        return {};
+        if (!ok) continue;
+
+        if (matchCount < skip) {
+            matchCount++;
+            continue;
+        }
+
+        return log;
     }
+
+    return {};
 }
 
 
@@ -157,11 +169,10 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                         return () => on_cancel({}, currentStep.test, logs, constants);
                     case "on_cancel_one":
                     case "on_cancel_two":
-
+                    case "on_cancel_forced":
                         if (particularLogs[cancelIndex[currentStep.test]]?.request)
                             return () => on_cancel(particularLogs[cancelIndex[currentStep.test]]?.request, currentStep.test, logs, constants);
                         return () => on_cancel({}, currentStep.test, logs, constants);
-
                     case "on_status_packed":
                     case "on_status_assign_agent":
                     case "on_status_pickup":
@@ -170,6 +181,16 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                         const on_status_forward_log = findAppropriateOnStatus(logs, "on_status", "Delivery", onStatusEnumMap[currentStep.test])
                         if (on_status_forward_log?.request) {
                             return () => on_status((on_status_forward_log?.request), onStatusEnumMap[currentStep.test], logs, constants)
+                        }
+                        return () => on_status({}, onStatusEnumMap[currentStep.test], logs, constants);
+                    case "on_status_replacement_packed":
+                    case "on_status_replacement_assign_agent":
+                    case "on_status_replacement_pickup":
+                    case "on_status_replacement_out_for_delivery":
+                    case "on_status_replacement_delivered":
+                        const on_status_forward_replacement_log = findAppropriateOnStatus(logs, "on_status", "Delivery", onStatusEnumMap[currentStep.test], 1)
+                        if (on_status_forward_replacement_log?.request) {
+                            return () => on_status((on_status_forward_replacement_log?.request), onStatusEnumMap[currentStep.test], logs, constants)
                         }
                         return () => on_status({}, onStatusEnumMap[currentStep.test], logs, constants);
                     case "on_status_rto_delivered":
@@ -193,6 +214,18 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                             return () => on_update(on_update_log?.request, onStatusEnumMap[currentStep.test], logs, constants);
                         }
                         return () => on_update({}, onStatusEnumMap[currentStep.test], logs, constants);
+                    case "on_update_address":
+                        const on_update_addr_inst_log = findAppropriateOnStatus(logs, "on_update", "Delivery", onStatusEnumMap[currentStep.test]);
+                        if (on_update_addr_inst_log?.request) {
+                            return () => on_update(on_update_addr_inst_log?.request, onStatusEnumMap[currentStep.test], logs, constants);
+                        }
+                        return () => on_update({}, onStatusEnumMap[currentStep.test], logs, constants);
+                    case "on_update_buyer_instructions":
+                        const on_update_inst_log = findAppropriateOnStatus(logs, "on_update", "Delivery", onStatusEnumMap[currentStep.test], 1);
+                        if (on_update_inst_log?.request) {
+                            return () => on_update(on_update_inst_log?.request, onStatusEnumMap[currentStep.test], logs, constants);
+                        }
+                        return () => on_update({}, onStatusEnumMap[currentStep.test], logs, constants);
                     case "check_ack_for_catalog_rejection":
                         if (particularLogs?.response)
                             return () => catalog_rejection(particularLogs?.response, constants);
@@ -201,6 +234,12 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                         if (particularLogs?.response)
                             return () => cancel_response_check(particularLogs?.response);
                         return () => cancel_response_check({});
+                    case "on_cancel_return_cancelled":
+                        const on_cancel_return_log = findAppropriateOnStatus(logs, "on_cancel", "Return", onStatusEnumMap[currentStep.test]);
+                        if (on_cancel_return_log?.request) {
+                            return () => on_cancel(on_cancel_return_log?.request, currentStep.test, logs, constants);
+                        }
+                        return () => on_cancel({}, currentStep.test, logs, constants);
                     default:
                         return null;
                 }
