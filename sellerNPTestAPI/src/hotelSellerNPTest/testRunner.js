@@ -38,7 +38,7 @@ module.exports = function testRunnerHotelBooking(givenTest, logs) {
         switch (currentStep.action) {
           case "on_search":
             particularLogs = logs.filter(
-              (log) => log.action === currentStep.action
+              (log) => log?.request?.context?.action === currentStep.action
             );
             break;
           case "on_select":
@@ -48,7 +48,7 @@ module.exports = function testRunnerHotelBooking(givenTest, logs) {
           case "on_update":
           case "on_cancel":
             particularLogs = logs.find(
-              (log) => log.action === currentStep.action
+              (log) => log?.request?.context?.action === currentStep.action
             );
             break;
           default:
@@ -71,29 +71,38 @@ module.exports = function testRunnerHotelBooking(givenTest, logs) {
           case "on_search_two":
           case "on_search_three":
           case "on_search_four":
-            if (particularLogs[on_searchIndex[currentStep.test]]?.request)
+            // 1. Get the index for the current test (0, 1, 2, or 3)
+            const searchIdx = on_searchIndex[currentStep.test];
+
+            // 2. Safely check if the array has an element at that index and if it has a request
+            if (particularLogs && particularLogs[searchIdx] && particularLogs[searchIdx].request) {
               return () =>
                 on_search(
-                  particularLogs[on_searchIndex[currentStep.test]]?.request,
-                  romanIndex[on_searchIndex[currentStep.test] + 1], logs);
+                  particularLogs[searchIdx].request,
+                  romanIndex[searchIdx + 1],
+                  logs,
+                  constants // Added constants here to match your other cases
+                );
+            }
+            // 3. Fallback if the specific log index is missing
             return () =>
-              on_search({}, romanIndex[on_searchIndex[currentStep.test] + 1], logs,constants);
+              on_search({}, romanIndex[searchIdx + 1], logs, constants);
           case "on_select":
             if (particularLogs?.request)
-              return () => on_select(particularLogs?.request,  "", testCaseId,logs,constants);
-            return () => on_select({}, "", testCaseId,logs,constants);
+              return () => on_select(particularLogs?.request, testCaseId, logs, constants);
+            return () => on_select({}, testCaseId, logs, constants);
           case "on_init":
             if (particularLogs?.request)
-              return () => on_init(particularLogs?.request,  "", testCaseId,logs,constants);
-            return () => on_init({},  "", testCaseId,logs,constants);
+              return () => on_init(particularLogs?.request, testCaseId, logs, constants);
+            return () => on_init({}, testCaseId, logs, constants);
           case "on_confirm":
             if (particularLogs?.request)
-              return () => on_confirm(particularLogs?.request,  "", testCaseId,logs,constants);
-            return () => on_confirm({},  "", testCaseId,logs,constants);
+              return () => on_confirm(particularLogs?.request, testCaseId, logs, constants);
+            return () => on_confirm({}, testCaseId, logs, constants);
           case "on_status":
             if (particularLogs?.request)
-              return () => on_status(particularLogs?.request, logs, "", testCaseId);
-            return () => on_status({}, logs, "", testCaseId);
+              return () => on_status(particularLogs?.request, logs, testCaseId);
+            return () => on_status({}, logs, testCaseId);
           case "on_update":
             if (particularLogs?.request)
               return () => on_update(particularLogs?.request, logs, "", testCaseId);
