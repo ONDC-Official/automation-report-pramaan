@@ -61,7 +61,7 @@ module.exports = function testRunnerIntercity(givenTest, logs, queries) {
                     case "on_confirm":
                     case "on_support":
                         particularLogs = logs.find(
-                            (log) => log.action === currentStep.action
+                            (log) => log?.request?.context?.action === currentStep.action
                         );
                         break;
                     case "on_select":
@@ -69,7 +69,7 @@ module.exports = function testRunnerIntercity(givenTest, logs, queries) {
                     case "on_update":
                     case "on_status":
                         particularLogs = logs.filter(
-                            (log) => log.action === currentStep.action
+                            (log) => log?.request?.context?.action === currentStep.action
                         );
                         break;
                     default:
@@ -80,35 +80,35 @@ module.exports = function testRunnerIntercity(givenTest, logs, queries) {
                     case "on_search_one":
                     case "on_search_two":
                     case "on_search_three":
-                        const search = logs.filter(log => log.action === currentStep.action)[searchIndex[currentStep.test]]
+                        const search = logs.filter(log => log?.request?.context?.action === currentStep.action)[searchIndex[currentStep.test]]
                         if (search?.request)
-                            return () => on_search(search?.request, romanIndex[searchIndex[currentStep.test] + 1],logs,constants);
-                        return () => on_search({}, romanIndex[searchIndex[currentStep.test] + 1],logs,constants);
+                            return () => on_search(search?.request, romanIndex[searchIndex[currentStep.test] + 1], logs, constants);
+                        return () => on_search({}, romanIndex[searchIndex[currentStep.test] + 1], logs, constants);
                     case "on_select_one":
                     case "on_select_two":
-                        const select = logs.filter(log => log.action === currentStep.action)[selectIndex[currentStep.test]]
+                        const select = logs.filter(log => log?.request?.context?.action === currentStep.action)[selectIndex[currentStep.test]]
                         if (select?.request)
-                            return () => on_select(select?.request, romanIndex[selectIndex[currentStep.test] + 1],logs,constants);
-                        return () => on_select({}, romanIndex[selectIndex[currentStep.test] + 1],logs,constants);
+                            return () => on_select(select?.request, romanIndex[selectIndex[currentStep.test] + 1], logs, constants);
+                        return () => on_select({}, romanIndex[selectIndex[currentStep.test] + 1], logs, constants);
                     case "on_init":
-                        const init = logs.filter(log => log.action === currentStep.action)[initIndex[currentStep.test]]
+                        const init = logs.filter(log => log?.request?.context?.action === currentStep.action)[initIndex[currentStep.test]]
                         if (init?.request)
-                            return () => on_init(init?.request,logs,constants);
-                        return () => on_init({},logs,constants);
+                            return () => on_init(init?.request, logs, constants);
+                        return () => on_init({}, logs, constants);
                     case "on_confirm":
-                        const confirm = logs.filter(log => log.action === currentStep.action)[confirmIndex[currentStep.test]]
+                        const confirm = logs.filter(log => log?.request?.context?.action === currentStep.action)[confirmIndex[currentStep.test]]
                         if (confirm?.request)
-                            return () => on_confirm(confirm?.request,logs,constants);
-                        return () => on_confirm({},logs,constants);
+                            return () => on_confirm(confirm?.request, logs, constants);
+                        return () => on_confirm({}, logs, constants);
                     case "on_cancel_one":
                     case "on_cancel_two":
                     case "on_cancel_merchant":
-                        const cancel = logs.filter(log => log.action === currentStep.action)[cancelIndex[currentStep.test]]
+                        const cancel = logs.filter(log => log?.request?.context?.action === currentStep.action)[cancelIndex[currentStep.test]]
                         if (cancel?.request)
                             return () => on_cancel(cancel?.request, romanIndex[cancelIndex[currentStep.test] + 1]);
                         return () => on_cancel({}, romanIndex[cancelIndex[currentStep.test] + 1]);
                     case "on_update":
-                        const update = logs.filter(log => log.action === currentStep.action)[updateIndex[currentStep.test]]
+                        const update = logs.filter(log => log?.request?.context?.action === currentStep.action)[updateIndex[currentStep.test]]
                         if (update?.request)
                             return () => on_update(update?.request);
                         return () => on_update({});
