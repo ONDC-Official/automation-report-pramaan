@@ -46,11 +46,11 @@ async function on_select({ context, message } = {}, step, isSelfPickup = false, 
             // provider.descriptor.images
             if (provider.descriptor?.images && provider.descriptor.images.length > 0) {
                 provider.descriptor.images.forEach((img, idx) => {
-                    messageTestSuite.addTest(new Mocha.Test(`Verify message.order.provider.descriptor.images[${idx}].url exists and is string`, function () {
+                    messageTestSuite.addTest(new Mocha.Test(`Verify message.order.provider.descriptor.images[${idx}].url exists and is string (OPTIONAL)`, function () {
                         expect(img.url).to.exist.and.to.be.a("string");
                     }));
 
-                    messageTestSuite.addTest(new Mocha.Test(`Verify message.order.provider.descriptor.images[${idx}].size_type exists and is string`, function () {
+                    messageTestSuite.addTest(new Mocha.Test(`Verify message.order.provider.descriptor.images[${idx}].size_type exists and is string (OPTIONAL)`, function () {
                         expect(img.size_type).to.exist.and.to.be.a("string");
                     }));
                 });
@@ -109,7 +109,7 @@ async function on_select({ context, message } = {}, step, isSelfPickup = false, 
                     }
 
                     // rating
-                    messageTestSuite.addTest(new Mocha.Test(`Verify message.order.provider.locations[${locIdx}].rating exists`, function () {
+                    messageTestSuite.addTest(new Mocha.Test(`Verify message.order.provider.locations[${locIdx}].rating exists (OPTIONAL)`, function () {
                         expect(loc.rating).to.exist.and.to.be.a("string");
                     }));
                 });
@@ -304,13 +304,13 @@ async function on_select({ context, message } = {}, step, isSelfPickup = false, 
                             expect(stopItem).to.exist.and.to.be.an("object");
                         }));
 
-                        messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions' which is an object`, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions' which is an object (OPTIONAL)`, function () {
                             expect(stopItem.instructions).to.exist.and.to.be.an("object");
                         }));
-                        messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc' which is an object`, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc' which is an object (OPTIONAL)`, function () {
                             expect(stopItem.instructions.additional_desc).to.exist.and.to.be.an("object");
                         }));
-                        messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc.url' which is a string `, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc.url' which is a string (OPTIONAL) `, function () {
                             expect(stopItem.instructions.additional_desc.url).to.exist.and.to.be.a("string");
                         }));
                         messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc.content_type' which is a string (OPTIONAL)`, function () {
@@ -339,16 +339,16 @@ async function on_select({ context, message } = {}, step, isSelfPickup = false, 
                 messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent' which is an object`, function () {
                     expect(fulfillment.agent).to.exist.and.to.be.an("object");
                 }));
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization' which is an object`, function () {
+                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization' which is an object (OPTIONAL)`, function () {
                     expect(fulfillment.agent.organization).to.exist.and.to.be.an("object");
                 }));
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization.contact' which is an object`, function () {
+                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization.contact' which is an object (OPTIONAL)`, function () {
                     expect(fulfillment.agent.organization.contact).to.exist.and.to.be.an("object");
                 }));
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization.contact.phone' which is a string`, function () {
+                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization.contact.phone' which is a string (OPTIONAL)`, function () {
                     expect(fulfillment.agent.organization.contact.phone).to.exist.and.to.be.a("string");
                 }));
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization.contact.email' which is a string`, function () {
+                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization.contact.email' which is a string (OPTIONAL)`, function () {
                     expect(fulfillment.agent.organization.contact.email).to.exist.and.to.be.a("string");
                 }));
                 messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].vehicle' which is an object`, function () {
@@ -435,7 +435,7 @@ async function on_select({ context, message } = {}, step, isSelfPickup = false, 
                     messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time' which is an object`, function () {
                         expect(item.time).to.exist.and.to.be.an("object");
                     }));
-                    messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time.label' which is a string`, function () {
+                    messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time.label' which is a string (OPTIONAL)`, function () {
                         expect(item.time.label).to.exist.and.to.be.a("string");
                     }));
                     messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time.duration' which is a string`, function () {
@@ -458,7 +458,7 @@ async function on_select({ context, message } = {}, step, isSelfPickup = false, 
                 arr.forEach((ele) => {
                     const tagIndex = item?.tags?.findIndex((tag) => tag?.descriptor?.code === ele.code);
                     const tagItem = item?.tags[tagIndex];
-                    messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags' should have an object of ${ele.code}`, function () {
+                    messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags' should have an object of ${ele.code} (OPTIONAL)`, function () {
                         expect(tagItem).to.exist.and.to.be.an("object").and.not.to.be.undefined;
                     }));
 
@@ -504,23 +504,23 @@ async function on_select({ context, message } = {}, step, isSelfPickup = false, 
                                 const listItemIndex = tagItem.list.findIndex((listItem) => listItem?.descriptor?.code === it.code);
                                 const listItem = tagItem?.list[listItemIndex];
 
-                                messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list' should have an object '${it.code}'`, function () {
+                                messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list' should have an object '${it.code} (OPTIONAL)'`, function () {
                                     expect(listItem).to.exist.and.to.be.an("object");
                                 }));
 
 
                                 if (listItemIndex !== -1) {
-                                    messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list[${listItemIndex}]' should have properties named 'descriptor' and 'value' which are strings`, function () {
+                                    messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list[${listItemIndex}]' should have properties named 'descriptor' and 'value' which are strings (OPTIONAL)`, function () {
                                         expect(listItem).to.have.property("descriptor").that.is.an("object");
                                         expect(listItem).to.have.property("value").that.is.a("string");
                                     }));
 
 
-                                    messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list[${listItemIndex}].descriptor' should have properties named 'code' which is a string`, function () {
+                                    messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list[${listItemIndex}].descriptor' should have properties named 'code' which is a string (OPTIONAL)`, function () {
                                         expect(listItem.descriptor).to.have.property("code").that.is.a("string");
                                     }));
 
-                                    messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list[${listItemIndex}].descriptor.code' should be equal to '${it.code}'`, function () {
+                                    messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list[${listItemIndex}].descriptor.code' should be equal to '${it.code} (OPTIONAL)'`, function () {
                                         expect(listItem.descriptor.code).to.be.equal(it.code);
                                     }));
 

@@ -51,93 +51,93 @@ async function on_confirm({ context, message } = {}, driverState = "", isSelfPic
         //message.order.tag
         messageTestSuite.addTest(new Mocha.Test(`'message.order.tags' should exist and should be an array that is not empty`, function () {
             expect(message.order.tags).to.exist.and.to.be.an("array").that.is.not.empty;
-          }));
-      
-          if (message?.order?.tags) {
-      
+        }));
+
+        if (message?.order?.tags) {
+
             const arr = [{ code: "BAP_TERMS" }, { code: "BPP_TERMS" }];
-      
+
             arr.forEach((ele) => {
-              const tagIndex = message?.order?.tags.findIndex((tag) => tag?.descriptor?.code === ele.code);
-              const tagItem = message?.order?.tags[tagIndex];
-              messageTestSuite.addTest(new Mocha.Test(`'message.order.tags' should have an object of ${ele.code}`, function () {
-                expect(tagItem).to.exist.and.to.be.an("object").and.not.to.be.undefined;
-              }));
-      
-              if (tagIndex !== -1) {
-                messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}]' should have properties named 'descriptor' and 'list'`, function () {
-                  expect(tagItem).to.have.property("descriptor").that.is.an("object");
-                  expect(tagItem).to.have.property("list").that.is.an("array");
+                const tagIndex = message?.order?.tags.findIndex((tag) => tag?.descriptor?.code === ele.code);
+                const tagItem = message?.order?.tags[tagIndex];
+                messageTestSuite.addTest(new Mocha.Test(`'message.order.tags' should have an object of ${ele.code}`, function () {
+                    expect(tagItem).to.exist.and.to.be.an("object").and.not.to.be.undefined;
                 }));
-      
-                messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].descriptor' should have a property named 'code' which is a string (OPTIONAL)`, function () {
-                  expect(tagItem.descriptor).to.have.property("code").that.is.a("string");
-                }));
-      
-                messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].descriptor.code' should have be equal to '${ele.code}'`, function () {
-                  expect(tagItem.descriptor.code).to.be.equal(ele.code);
-                }));
-      
-                messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].display' should be a boolean that is not empty (OPTIONAL)`, function () {
-                        expect(tagItem.display).to.be.a('boolean');
-                      }));
-      
-                messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list' should have be a non empty array`, function () {
-                  expect(tagItem.list).to.be.an("array").that.is.not.empty;
-                }));
-      
-                const bapTermsArr = [{ code: "BUYER_FINDER_FEES_PERCENTAGE" }, { code: "BUYER_FINDER_FEES_TYPE" }, { code: "STATIC_TERMS" }, { code: "SETTLEMENT_BASIS" }, { code: "SETTLEMENT_WINDOW" }];
-                const bppTermsArr = [{ code: "BUYER_FINDER_FEES_PERCENTAGE" }, { code: "BUYER_FINDER_FEES_TYPE" }, { code: "STATIC_TERMS" }, { code: "SETTLEMENT_BANK_CODE" }, { code: "SETTLEMENT_TYPE" }, { code: "MANDATORY_ARBITRATION" }, { code: "COURT_JURISDICTION" }, { code: "DELAY_INTEREST" }, { code: "SETTLEMENT_AMOUNT" }, { code: "SETTLEMENT_BANK_ACCOUNT_NUMBER" }];
-      
-                let array;
-                switch (tagItem?.descriptor?.code) {
-                  case "BAP_TERMS":
-                    array = bapTermsArr;
-                    break;
-                  case "BPP_TERMS":
-                    array = bppTermsArr;
-                    break;
-                  default:
-                    break;
-                }
-      
-                if (array) {
-                  array.forEach((it) => {
-                    const listItemIndex = tagItem.list.findIndex((listItem) => listItem?.descriptor.code === it.code);
-                    const listItem = tagItem?.list[listItemIndex];
-      
-                    messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list' should have an object '${it.code}'`, function () {
-                      expect(listItem).to.exist.and.to.be.an("object");
+
+                if (tagIndex !== -1) {
+                    messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}]' should have properties named 'descriptor' and 'list'`, function () {
+                        expect(tagItem).to.have.property("descriptor").that.is.an("object");
+                        expect(tagItem).to.have.property("list").that.is.an("array");
                     }));
-      
-                    if (listItemIndex !== -1) {
-                      messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list[${listItemIndex}]' should have properties named 'descriptor' and 'value' which are strings`, function () {
-                        expect(listItem).to.have.property("descriptor").that.is.an("object");
-                        expect(listItem).to.have.property("value").that.is.a("string");
-                      }));
-      
-                      messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list[${listItemIndex}].descriptor' should have properties named 'code' which is a string (OPTIONAL)`, function () {
-                        expect(listItem.descriptor).to.have.property("code").that.is.a("string");
-                      }));
-      
-                      messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list[${listItemIndex}].descriptor.code' should be equal to '${it.code}'`, function () {
-                        expect(listItem.descriptor.code).to.be.equal(it.code);
-                      }));
-      
-                      // messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list[${listItemIndex}].display' should be a boolean that is not empty (OPTIONAL)`, function () {
-                      //   expect(listItem.display).to.be.a('boolean');
-                      // }));
-      
-                      messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list[${listItemIndex}].value' should be a string that is not empty (OPTIONAL)`, function () {
-                        expect(listItem.value).to.be.a('string').that.is.not.empty;
-                      }));
+
+                    messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].descriptor' should have a property named 'code' which is a string (OPTIONAL)`, function () {
+                        expect(tagItem.descriptor).to.have.property("code").that.is.a("string");
+                    }));
+
+                    messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].descriptor.code' should have be equal to '${ele.code}'`, function () {
+                        expect(tagItem.descriptor.code).to.be.equal(ele.code);
+                    }));
+
+                    messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].display' should be a boolean that is not empty (OPTIONAL)`, function () {
+                        expect(tagItem.display).to.be.a('boolean');
+                    }));
+
+                    messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list' should have be a non empty array`, function () {
+                        expect(tagItem.list).to.be.an("array").that.is.not.empty;
+                    }));
+
+                    const bapTermsArr = [{ code: "BUYER_FINDER_FEES_PERCENTAGE" }, { code: "BUYER_FINDER_FEES_TYPE" }, { code: "STATIC_TERMS" }, { code: "SETTLEMENT_BASIS" }, { code: "SETTLEMENT_WINDOW" }];
+                    const bppTermsArr = [{ code: "BUYER_FINDER_FEES_PERCENTAGE" }, { code: "BUYER_FINDER_FEES_TYPE" }, { code: "STATIC_TERMS" }, { code: "SETTLEMENT_BANK_CODE" }, { code: "SETTLEMENT_TYPE" }, { code: "MANDATORY_ARBITRATION" }, { code: "COURT_JURISDICTION" }, { code: "DELAY_INTEREST" }, { code: "SETTLEMENT_AMOUNT" }, { code: "SETTLEMENT_BANK_ACCOUNT_NUMBER" }];
+
+                    let array;
+                    switch (tagItem?.descriptor?.code) {
+                        case "BAP_TERMS":
+                            array = bapTermsArr;
+                            break;
+                        case "BPP_TERMS":
+                            array = bppTermsArr;
+                            break;
+                        default:
+                            break;
                     }
-                  });
+
+                    if (array) {
+                        array.forEach((it) => {
+                            const listItemIndex = tagItem.list.findIndex((listItem) => listItem?.descriptor.code === it.code);
+                            const listItem = tagItem?.list[listItemIndex];
+
+                            messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list' should have an object '${it.code} (OPTIONAL)'`, function () {
+                                expect(listItem).to.exist.and.to.be.an("object");
+                            }));
+
+                            if (listItemIndex !== -1) {
+                                messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list[${listItemIndex}]' should have properties named 'descriptor' and 'value' which are strings (OPTIONAL)`, function () {
+                                    expect(listItem).to.have.property("descriptor").that.is.an("object");
+                                    expect(listItem).to.have.property("value").that.is.a("string");
+                                }));
+
+                                messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list[${listItemIndex}].descriptor' should have properties named 'code' which is a string (OPTIONAL)`, function () {
+                                    expect(listItem.descriptor).to.have.property("code").that.is.a("string");
+                                }));
+
+                                messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list[${listItemIndex}].descriptor.code' should be equal to '${it.code} (OPTIONAL)' `, function () {
+                                    expect(listItem.descriptor.code).to.be.equal(it.code);
+                                }));
+
+                                // messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list[${listItemIndex}].display' should be a boolean that is not empty (OPTIONAL)`, function () {
+                                //   expect(listItem.display).to.be.a('boolean');
+                                // }));
+
+                                messageTestSuite.addTest(new Mocha.Test(`'message.order.tags[${tagIndex}].list[${listItemIndex}].value' should be a string that is not empty (OPTIONAL)`, function () {
+                                    expect(listItem.value).to.be.a('string').that.is.not.empty;
+                                }));
+                            }
+                        });
+                    }
                 }
-              }
             });
-      
-          }
+
+        }
 
 
 
@@ -168,11 +168,11 @@ async function on_confirm({ context, message } = {}, driverState = "", isSelfPic
             // provider.descriptor.images
             if (provider.descriptor?.images && provider.descriptor.images.length > 0) {
                 provider.descriptor.images.forEach((img, idx) => {
-                    messageTestSuite.addTest(new Mocha.Test(`Verify message.order.provider.descriptor.images[${idx}].url exists and is string`, function () {
+                    messageTestSuite.addTest(new Mocha.Test(`Verify message.order.provider.descriptor.images[${idx}].url exists and is string (OPTIONAL)`, function () {
                         expect(img.url).to.exist.and.to.be.a("string");
                     }));
 
-                    messageTestSuite.addTest(new Mocha.Test(`Verify message.order.provider.descriptor.images[${idx}].size_type exists and is string`, function () {
+                    messageTestSuite.addTest(new Mocha.Test(`Verify message.order.provider.descriptor.images[${idx}].size_type exists and is string (OPTIONAL)`, function () {
                         expect(img.size_type).to.exist.and.to.be.a("string");
                     }));
                 });
@@ -231,7 +231,7 @@ async function on_confirm({ context, message } = {}, driverState = "", isSelfPic
                     }
 
                     // rating
-                    messageTestSuite.addTest(new Mocha.Test(`Verify message.order.provider.locations[${locIdx}].rating exists`, function () {
+                    messageTestSuite.addTest(new Mocha.Test(`Verify message.order.provider.locations[${locIdx}].rating exists (OPTIONAL)`, function () {
                         expect(loc.rating).to.exist.and.to.be.a("string");
                     }));
                 });
@@ -448,10 +448,10 @@ async function on_confirm({ context, message } = {}, driverState = "", isSelfPic
                             expect(stopItem).to.exist.and.to.be.an("object");
                         }));
 
-                        messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions' which is an object`, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions' which is an object (OPTIONAL)`, function () {
                             expect(stopItem.instructions).to.exist.and.to.be.an("object");
                         }));
-                        messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc' which is an object`, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc' which is an object (OPTIONAL)`, function () {
                             expect(stopItem.instructions.additional_desc).to.exist.and.to.be.an("object");
                         }));
                         messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc.url' which is a string `, function () {
@@ -483,16 +483,16 @@ async function on_confirm({ context, message } = {}, driverState = "", isSelfPic
                 messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent' which is an object`, function () {
                     expect(fulfillment.agent).to.exist.and.to.be.an("object");
                 }));
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization' which is an object`, function () {
+                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization' which is an object (OPTIONAL)`, function () {
                     expect(fulfillment.agent.organization).to.exist.and.to.be.an("object");
                 }));
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization.contact' which is an object`, function () {
+                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization.contact' which is an object (OPTIONAL)`, function () {
                     expect(fulfillment.agent.organization.contact).to.exist.and.to.be.an("object");
                 }));
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization.contact.phone' which is a string`, function () {
+                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization.contact.phone' which is a string (OPTIONAL)`, function () {
                     expect(fulfillment.agent.organization.contact.phone).to.exist.and.to.be.a("string");
                 }));
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization.contact.email' which is a string`, function () {
+                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].agent.organization.contact.email' which is a string (OPTIONAL)`, function () {
                     expect(fulfillment.agent.organization.contact.email).to.exist.and.to.be.a("string");
                 }));
                 messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.fulfillments[${fulfillmentIndex}].vehicle' which is an object`, function () {
@@ -572,7 +572,7 @@ async function on_confirm({ context, message } = {}, driverState = "", isSelfPic
                     messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time' which is an object`, function () {
                         expect(item.time).to.exist.and.to.be.an("object");
                     }));
-                    messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time.label' which is a string`, function () {
+                    messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time.label' which is a string (OPTIONAL)`, function () {
                         expect(item.time.label).to.exist.and.to.be.a("string");
                     }));
                     messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time.duration' which is a string`, function () {
@@ -678,7 +678,7 @@ async function on_confirm({ context, message } = {}, driverState = "", isSelfPic
 
                         if (ele.code === "INCLUSIONS" || ele.code === "EXCLUSIONS") {
                             tagItem.list.forEach((listItem, listItemIndex) => {
-                                messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list[${listItemIndex}].value' should be a non-empty string`, function () {
+                                messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list[${listItemIndex}].value' should be a non-empty string (OPTIONAL)`, function () {
                                     expect(listItem).to.have.property("value").that.is.a("string").and.not.empty;
                                 }));
                             });
