@@ -22,7 +22,7 @@ jobs:
       - name: Set repository name to lowercase
         run: echo "REPO_LOWER=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-      - name: Generate GitHub App token
+      - name: Generate GitHub  App token
         id: app-token
         uses: actions/create-github-app-token@v1
         with:
