@@ -38,7 +38,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ steps.app-token.outputs.token }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Auto-increment patch version
         run: |
@@ -82,8 +82,8 @@ jobs:
           file: ./Dockerfile.js
           push: true
           tags: |
-            ghcr.io/ondc-official/workbench-report-pramaan-buyer:${{ env.BUYER_IMAGE_TAG }}
-            ghcr.io/ondc-official/workbench-report-pramaan-buyer:latest
+            ghcr.io/${{ env.REPO_LOWER }}-buyer:${{ env.BUYER_IMAGE_TAG }}
+            ghcr.io/${{ env.REPO_LOWER }}-buyer:latest
 
       - name: Build and push seller image
         uses: docker/build-push-action@v5
@@ -92,8 +92,8 @@ jobs:
           file: ./Dockerfile.js
           push: true
           tags: |
-            ghcr.io/ondc-official/workbench-report-pramaan-seller:${{ env.SELLER_IMAGE_TAG }}
-            ghcr.io/ondc-official/workbench-report-pramaan-seller:latest
+            ghcr.io/${{ env.REPO_LOWER }}-seller:${{ env.SELLER_IMAGE_TAG }}
+            ghcr.io/${{ env.REPO_LOWER }}-seller:latest
 
       - name: Clone automation-iac repo
         uses: actions/checkout@v4
@@ -110,6 +110,8 @@ jobs:
           target = f"automation-iac/{os.environ['TARGET_FILE']}"
           buyer_tag = os.environ['BUYER_IMAGE_TAG']
           seller_tag = os.environ['SELLER_IMAGE_TAG']
+          buyer_repo = os.environ['BUYER_IMAGE_REPO']
+          seller_repo = os.environ['SELLER_IMAGE_REPO']
 
           with open(target, 'r') as f:
               lines = f.readlines()
@@ -126,10 +128,16 @@ jobs:
                       current_section = 'seller'
                   else:
                       current_section = None
-              if current_section == 'buyer' and re.match(r'^\s+tag:\s', line):
-                  line = re.sub(r'(tag:\s).*', rf'\g<1>{buyer_tag}', line)
-              elif current_section == 'seller' and re.match(r'^\s+tag:\s', line):
-                  line = re.sub(r'(tag:\s).*', rf'\g<1>{seller_tag}', line)
+              if current_section == 'buyer':
+                  if re.match(r'^\s+tag:\s', line):
+                      line = re.sub(r'(tag:\s).*', rf'\g<1>{buyer_tag}', line)
+                  elif re.match(r'^\s+repository:\s', line):
+                      line = re.sub(r'(repository:\s).*', rf'\g<1>{buyer_repo}', line)
+              elif current_section == 'seller':
+                  if re.match(r'^\s+tag:\s', line):
+                      line = re.sub(r'(tag:\s).*', rf'\g<1>{seller_tag}', line)
+                  elif re.match(r'^\s+repository:\s', line):
+                      line = re.sub(r'(repository:\s).*', rf'\g<1>{seller_repo}', line)
               result.append(line)
 
           with open(target, 'w') as f:
@@ -139,6 +147,8 @@ jobs:
           TARGET_FILE: ${{ env.TARGET_FILE }}
           BUYER_IMAGE_TAG: ${{ env.BUYER_IMAGE_TAG }}
           SELLER_IMAGE_TAG: ${{ env.SELLER_IMAGE_TAG }}
+          BUYER_IMAGE_REPO: ghcr.io/${{ env.REPO_LOWER }}-buyer
+          SELLER_IMAGE_REPO: ghcr.io/${{ env.REPO_LOWER }}-seller
 
       - name: Commit and push tag update to IaC repo
         run: |
