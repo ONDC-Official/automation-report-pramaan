@@ -55,14 +55,14 @@ jobs:
         run: |
           if [ "${{ github.ref_name }}" = "main" ]; then
             echo "ENVIRONMENT=prod" >> $GITHUB_ENV
-            echo "BUYER_IMAGE_TAG=buyer-prod-${{ env.VERSION }}" >> $GITHUB_ENV
-            echo "SELLER_IMAGE_TAG=seller-prod-${{ env.VERSION }}" >> $GITHUB_ENV
-            echo "TARGET_FILE=k8/aws/helm/pramaan/values-prod.yaml" >> $GITHUB_ENV
+            echo "BUYER_IMAGE_TAG=prod-${{ env.VERSION }}" >> $GITHUB_ENV
+            echo "SELLER_IMAGE_TAG=prod-${{ env.VERSION }}" >> $GITHUB_ENV
+            echo "TARGET_FILE=k8/aws/helm/service-layer/values-prod.yaml" >> $GITHUB_ENV
           else
             echo "ENVIRONMENT=dev" >> $GITHUB_ENV
-            echo "BUYER_IMAGE_TAG=buyer-dev-${{ env.VERSION }}" >> $GITHUB_ENV
-            echo "SELLER_IMAGE_TAG=seller-dev-${{ env.VERSION }}" >> $GITHUB_ENV
-            echo "TARGET_FILE=k8/aws/helm/pramaan/values.yaml" >> $GITHUB_ENV
+            echo "BUYER_IMAGE_TAG=dev-${{ env.VERSION }}" >> $GITHUB_ENV
+            echo "SELLER_IMAGE_TAG=dev-${{ env.VERSION }}" >> $GITHUB_ENV
+            echo "TARGET_FILE=k8/aws/helm/service-layer/values.yaml" >> $GITHUB_ENV
           fi
         env:
           VERSION: ${{ env.VERSION }}
@@ -74,8 +74,8 @@ jobs:
           file: ./Dockerfile.js
           push: true
           tags: |
-            ghcr.io/${{ env.REPO_LOWER }}/buyernptestapi:${{ env.BUYER_IMAGE_TAG }}
-            ghcr.io/${{ env.REPO_LOWER }}/buyernptestapi:latest
+            ghcr.io/ondc-official/workbench-report-pramaan-buyer:${{ env.BUYER_IMAGE_TAG }}
+            ghcr.io/ondc-official/workbench-report-pramaan-buyer:latest
 
       - name: Build and push seller image
         uses: docker/build-push-action@v5
@@ -84,8 +84,8 @@ jobs:
           file: ./Dockerfile.js
           push: true
           tags: |
-            ghcr.io/${{ env.REPO_LOWER }}/sellernptestapi:${{ env.SELLER_IMAGE_TAG }}
-            ghcr.io/${{ env.REPO_LOWER }}/sellernptestapi:latest
+            ghcr.io/ondc-official/workbench-report-pramaan-seller:${{ env.SELLER_IMAGE_TAG }}
+            ghcr.io/ondc-official/workbench-report-pramaan-seller:latest
 
       - name: Generate GitHub App token
         id: app-token
@@ -120,9 +120,9 @@ jobs:
               # Top-level keys (no leading whitespace) mark section boundaries
               if re.match(r'^[a-zA-Z]', line):
                   stripped = line.strip()
-                  if stripped.startswith('buyerPramaan:'):
+                  if stripped.startswith('reportPramaanBuyer:'):
                       current_section = 'buyer'
-                  elif stripped.startswith('sellerPramaan:'):
+                  elif stripped.startswith('reportPramaanSeller:'):
                       current_section = 'seller'
                   else:
                       current_section = None
