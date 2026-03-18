@@ -30,6 +30,7 @@ const cancelIndex = {
 }
 
 const onStatusEnumMap = {
+    "on_status_pending": "Pending",
     "on_status_packed": "Packed",
     "on_update_address": "Pending",
     "on_update_buyer_instructions": "Pending",
@@ -173,6 +174,7 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                         if (particularLogs[cancelIndex[currentStep.test]]?.request)
                             return () => on_cancel(particularLogs[cancelIndex[currentStep.test]]?.request, currentStep.test, logs, constants);
                         return () => on_cancel({}, currentStep.test, logs, constants);
+                    case "on_status_pending":
                     case "on_status_packed":
                     case "on_status_assign_agent":
                     case "on_status_pickup":
