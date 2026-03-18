@@ -25,6 +25,14 @@
                 "action": "on_confirm"
             },
             {
+                "test": "on_update_merchant_partial_cancel",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
+            },
+            {
                 "test": "on_status_packed",
                 "action": "on_status"
             },
@@ -74,6 +82,10 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
             },
             {
                 "test": "on_status_packed",
@@ -194,6 +206,14 @@
                 "action": "on_confirm"
             },
             {
+                "test": "on_update_merchant_partial_cancel",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
+            },
+            {
                 "test": "on_status_packed",
                 "action": "on_status"
             },
@@ -243,6 +263,10 @@
             {
                 "test": "on_confirm",
                 "action": "on_confirm"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
             },
             {
                 "test": "on_status_packed",

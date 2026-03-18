@@ -23,6 +23,10 @@
             {
                 "test": "confirm",
                 "action": "confirm"
+            },
+            {
+                "test": "update_settlement_trail",
+                "action": "update"
             }
         ]
     },
@@ -53,6 +57,10 @@
             },
             {
                 "test": "update_buyer_return",
+                "action": "update"
+            },
+            {
+                "test": "update_settlement_trail",
                 "action": "update"
             }
         ]
@@ -108,6 +116,10 @@
             {
                 "test": "confirm",
                 "action": "confirm"
+            },
+            {
+                "test": "update_settlement_trail",
+                "action": "update"
             }
         ]
     },
@@ -138,6 +150,10 @@
             },
             {
                 "test": "update_buyer_return",
+                "action": "update"
+            },
+            {
+                "test": "update_settlement_trail",
                 "action": "update"
             }
         ]
