@@ -80,7 +80,7 @@ jobs:
             echo "ENVIRONMENT=prod"                                        >> $GITHUB_ENV
             echo "BUYER_IMAGE_TAG=prod-${VERSION}"                        >> $GITHUB_ENV
             echo "SELLER_IMAGE_TAG=prod-${VERSION}"                       >> $GITHUB_ENV
-            echo "TARGET_FILE=k8/aws/helm/service-layer/values-prod.yaml" >> $GITHUB_ENV
+            echo "TARGET_FILE=k8/aws/helm/service-layer/values-preprod.yaml" >> $GITHUB_ENV
           fi
 
       # ── BUILD — draft-* only ───────────────────────────────────────────────
