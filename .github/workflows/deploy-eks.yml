@@ -3,8 +3,8 @@ name: Build and Deploy to EKS
 on:
   push:
     branches:
-      - main
-      - dev
+      - "draft-*"
+      - "release-*"
 
 permissions:
   contents: write
@@ -22,7 +22,7 @@ jobs:
       - name: Set repository name to lowercase
         run: echo "REPO_LOWER=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-      - name: Generate GitHub  App token
+      - name: Generate GitHub App token
         id: app-token
         uses: actions/create-github-app-token@v1
         with:
@@ -40,61 +40,92 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Auto-increment patch version
+      # ── draft-* : bump version.txt, build fresh image ─────────────────────
+      - name: Bump version and set VERSION (draft only)
+        if: startsWith(github.ref_name, 'draft-')
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           current_version=$(cat version.txt)
-          echo "CURRENT_VERSION=$current_version" >> $GITHUB_ENV
           IFS='.' read -r -a version_parts <<< "$current_version"
           major="${version_parts[0]}"
           minor="${version_parts[1]}"
           patch="${version_parts[2]}"
           patch=$((patch + 1))
           next_version="$major.$minor.$patch"
-          echo "Next version: $next_version"
           echo "$next_version" > version.txt
           echo "VERSION=$next_version" >> $GITHUB_ENV
           git add version.txt
           git commit -m "ci: auto-increment version to $next_version [skip ci]"
           git push
+          echo "Next version: $next_version"
 
-      - name: Determine environment and image tags
+      # ── release-* : read version.txt from branch (no bump) ────────────────
+      - name: Read version from version.txt (release only)
+        if: startsWith(github.ref_name, 'release-')
         run: |
-          if [ "${{ github.ref_name }}" = "main" ]; then
-            echo "ENVIRONMENT=prod" >> $GITHUB_ENV
-            echo "BUYER_IMAGE_TAG=prod-${{ env.VERSION }}" >> $GITHUB_ENV
-            echo "SELLER_IMAGE_TAG=prod-${{ env.VERSION }}" >> $GITHUB_ENV
-            echo "TARGET_FILE=k8/aws/helm/service-layer/values-prod.yaml" >> $GITHUB_ENV
-          else
-            echo "ENVIRONMENT=dev" >> $GITHUB_ENV
-            echo "BUYER_IMAGE_TAG=dev-${{ env.VERSION }}" >> $GITHUB_ENV
-            echo "SELLER_IMAGE_TAG=dev-${{ env.VERSION }}" >> $GITHUB_ENV
-            echo "TARGET_FILE=k8/aws/helm/service-layer/values.yaml" >> $GITHUB_ENV
-          fi
-        env:
-          VERSION: ${{ env.VERSION }}
+          VERSION=$(cat version.txt)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Promoting version: $VERSION"
 
+      # ── Set environment-specific values using shell $VERSION ───────────────
+      - name: Set environment and image tags
+        run: |
+          if [[ "${{ github.ref_name }}" == draft-* ]]; then
+            echo "ENVIRONMENT=draft"                                  >> $GITHUB_ENV
+            echo "BUYER_IMAGE_TAG=draft-${VERSION}"                  >> $GITHUB_ENV
+            echo "SELLER_IMAGE_TAG=draft-${VERSION}"                 >> $GITHUB_ENV
+            echo "TARGET_FILE=k8/aws/helm/service-layer/values.yaml" >> $GITHUB_ENV
+          else
+            echo "ENVIRONMENT=prod"                                        >> $GITHUB_ENV
+            echo "BUYER_IMAGE_TAG=prod-${VERSION}"                        >> $GITHUB_ENV
+            echo "SELLER_IMAGE_TAG=prod-${VERSION}"                       >> $GITHUB_ENV
+            echo "TARGET_FILE=k8/aws/helm/service-layer/values-prod.yaml" >> $GITHUB_ENV
+          fi
+
+      # ── BUILD — draft-* only ───────────────────────────────────────────────
       - name: Build and push buyer image
+        if: startsWith(github.ref_name, 'draft-')
         uses: docker/build-push-action@v5
         with:
           context: ./buyerNPTestAPI
           file: ./Dockerfile.js
           push: true
-          tags: |
-            ghcr.io/${{ env.REPO_LOWER }}-buyer:${{ env.BUYER_IMAGE_TAG }}
-            ghcr.io/${{ env.REPO_LOWER }}-buyer:latest
+          tags: ghcr.io/${{ env.REPO_LOWER }}-buyer:${{ env.BUYER_IMAGE_TAG }}
 
       - name: Build and push seller image
+        if: startsWith(github.ref_name, 'draft-')
         uses: docker/build-push-action@v5
         with:
           context: ./sellerNPTestAPI
           file: ./Dockerfile.js
           push: true
-          tags: |
-            ghcr.io/${{ env.REPO_LOWER }}-seller:${{ env.SELLER_IMAGE_TAG }}
-            ghcr.io/${{ env.REPO_LOWER }}-seller:latest
+          tags: ghcr.io/${{ env.REPO_LOWER }}-seller:${{ env.SELLER_IMAGE_TAG }}
 
+      # ── PROMOTE — release-* only (retag draft image, no rebuild) ──────────
+      - name: Promote buyer image draft → prod
+        if: startsWith(github.ref_name, 'release-')
+        run: |
+          DRAFT_TAG="ghcr.io/$REPO_LOWER-buyer:draft-$VERSION"
+          PROD_TAG="ghcr.io/$REPO_LOWER-buyer:prod-$VERSION"
+          docker pull $DRAFT_TAG
+          docker tag  $DRAFT_TAG $PROD_TAG
+          docker tag  $DRAFT_TAG ghcr.io/$REPO_LOWER-buyer:latest
+          docker push $PROD_TAG
+          docker push ghcr.io/$REPO_LOWER-buyer:latest
+
+      - name: Promote seller image draft → prod
+        if: startsWith(github.ref_name, 'release-')
+        run: |
+          DRAFT_TAG="ghcr.io/$REPO_LOWER-seller:draft-$VERSION"
+          PROD_TAG="ghcr.io/$REPO_LOWER-seller:prod-$VERSION"
+          docker pull $DRAFT_TAG
+          docker tag  $DRAFT_TAG $PROD_TAG
+          docker tag  $DRAFT_TAG ghcr.io/$REPO_LOWER-seller:latest
+          docker push $PROD_TAG
+          docker push ghcr.io/$REPO_LOWER-seller:latest
+
+      # ── UPDATE IaC (both envs — different TARGET_FILE) ────────────────────
       - name: Clone automation-iac repo
         uses: actions/checkout@v4
         with:
@@ -107,8 +138,8 @@ jobs:
           python3 << 'PYEOF'
           import re, os
 
-          target = f"automation-iac/{os.environ['TARGET_FILE']}"
-          buyer_tag = os.environ['BUYER_IMAGE_TAG']
+          target     = f"automation-iac/{os.environ['TARGET_FILE']}"
+          buyer_tag  = os.environ['BUYER_IMAGE_TAG']
           seller_tag = os.environ['SELLER_IMAGE_TAG']
           buyer_repo = os.environ['BUYER_IMAGE_REPO']
           seller_repo = os.environ['SELLER_IMAGE_REPO']
@@ -119,7 +150,6 @@ jobs:
           current_section = None
           result = []
           for line in lines:
-              # Top-level keys (no leading whitespace) mark section boundaries
               if re.match(r'^[a-zA-Z]', line):
                   stripped = line.strip()
                   if stripped.startswith('reportPramaanBuyer:'):
@@ -144,10 +174,10 @@ jobs:
               f.writelines(result)
           PYEOF
         env:
-          TARGET_FILE: ${{ env.TARGET_FILE }}
-          BUYER_IMAGE_TAG: ${{ env.BUYER_IMAGE_TAG }}
+          TARGET_FILE:      ${{ env.TARGET_FILE }}
+          BUYER_IMAGE_TAG:  ${{ env.BUYER_IMAGE_TAG }}
           SELLER_IMAGE_TAG: ${{ env.SELLER_IMAGE_TAG }}
-          BUYER_IMAGE_REPO: ghcr.io/${{ env.REPO_LOWER }}-buyer
+          BUYER_IMAGE_REPO:  ghcr.io/${{ env.REPO_LOWER }}-buyer
           SELLER_IMAGE_REPO: ghcr.io/${{ env.REPO_LOWER }}-seller
 
       - name: Commit and push tag update to IaC repo
@@ -156,5 +186,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add "${{ env.TARGET_FILE }}"
-          git commit -m "ci: update pramaan image tags to buyer=${{ env.BUYER_IMAGE_TAG }}, seller=${{ env.SELLER_IMAGE_TAG }} (${{ env.ENVIRONMENT }})"
+          git commit -m "ci: promote pramaan to ${{ env.ENVIRONMENT }} — buyer=${{ env.BUYER_IMAGE_TAG }}, seller=${{ env.SELLER_IMAGE_TAG }}"
           git push
