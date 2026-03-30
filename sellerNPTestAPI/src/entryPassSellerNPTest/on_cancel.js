@@ -243,10 +243,10 @@ async function on_cancel({ context, message } = {}, step, logs = [], type = "", 
                 messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].descriptor.code' which is a string `, function () {
                     expect(item.descriptor.code).to.exist.and.to.be.a("string").and.to.be.oneOf(["ABSTRACT", "ENTRY_PASS", "ADD_ON"]);
                 }));
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].descriptor.short_desc' which is a string`, function () {
+                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].descriptor.short_desc' which is a string (OPTIONAL)`, function () {
                     expect(item.descriptor.short_desc).to.exist.and.to.be.a("string");
                 }));
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].descriptor.long_desc' which is a string`, function () {
+                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].descriptor.long_desc' which is a string (OPTIONAL)`, function () {
                     expect(item.descriptor.long_desc).to.exist.and.to.be.a("string");
                 }));
                 if (item.price) {
@@ -321,28 +321,29 @@ async function on_cancel({ context, message } = {}, step, logs = [], type = "", 
                 const expectedTags = itemTagConfigs[descriptorCode] || [];
 
                 expectedTags.forEach((ele) => {
+                    const optionalTags = (ele.code === "INCLUSIONS" || ele.code === "EXCLUSIONS") ? " (OPTIONAL)" : "";
                     const tagIndex = item?.tags.findIndex((tag) => tag?.descriptor?.code === ele.code);
                     const tagItem = item?.tags[tagIndex];
 
-                    messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags' should have an object of ${ele.code}`, function () {
+                    messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags' should have an object of ${ele.code}${optionalTags}`, function () {
                         expect(tagItem).to.exist.and.to.be.an("object").and.not.to.be.undefined;
                     }));
 
                     if (tagIndex !== -1) {
-                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}]' should have properties named 'descriptor' and 'list'`, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}]' should have properties named 'descriptor' and 'list'${optionalTags}`, function () {
                             expect(tagItem).to.have.property("descriptor").that.is.an("object");
                             expect(tagItem).to.have.property("list").that.is.an("array");
                         }));
 
-                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].descriptor' should have a property named 'code' which is a string`, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].descriptor' should have a property named 'code' which is a string${optionalTags}`, function () {
                             expect(tagItem.descriptor).to.have.property("code").that.is.a("string");
                         }));
 
-                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].descriptor.code' should be equal to '${ele.code}'`, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].descriptor.code' should be equal to '${ele.code}'${optionalTags}`, function () {
                             expect(tagItem.descriptor.code).to.be.equal(ele.code);
                         }));
 
-                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list' should be a non empty array`, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list' should be a non empty array${optionalTags}`, function () {
                             expect(tagItem.list).to.be.an("array").that.is.not.empty;
                         }));
 
@@ -356,10 +357,11 @@ async function on_cancel({ context, message } = {}, step, logs = [], type = "", 
 
                         if (ele.code === "FARE_POLICY") {
                             farePolicyArr.forEach((it) => {
+                                const optionalTags = (it.code === "GENDER" || it.code === "NATIONALITY") ? " (OPTIONAL)" : "";
                                 const listItemIndex = tagItem.list.findIndex((listItem) => listItem?.descriptor?.code === it.code);
                                 const listItem = tagItem?.list[listItemIndex];
 
-                                messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list' should have an object '${it.code}'`, function () {
+                                messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list' should have an object '${it.code}'${optionalTags}`, function () {
                                     expect(listItem).to.exist.and.to.be.an("object");
                                 }));
 
@@ -886,7 +888,7 @@ async function on_cancel({ context, message } = {}, step, logs = [], type = "", 
         arr.forEach((ele) => {
             const breakupIndex = message?.order?.quote?.breakup.findIndex((breakup) => breakup?.title === ele.title);
             const breakupItem = message?.order?.quote?.breakup[breakupIndex];
-            if (ele?.title === "ADD_ONS") {
+            if (ele?.title === "ADD_ONS" || ele?.title === "TAX") {
                 messageTestSuite.addTest(new Mocha.Test(`'message.order.quote.breakup' should have an object of ${ele.title} (OPTIONAL)`, function () {
                     expect(breakupItem).to.exist.and.to.be.an("object").and.not.to.be.undefined;
                 }));

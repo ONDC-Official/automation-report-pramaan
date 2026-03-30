@@ -7,7 +7,7 @@ async function on_search({ context, message } = {}, step, isSelfPickup = false, 
   const testSuite = new Mocha.Suite(`on_search (${step}) Request Verification`);
   try {
     const responseTestSuite = response_verification({ context, message }, logs, constants);
-    contextTests(context, "on_search", testSuite);
+    contextTests(context, "on_search", testSuite, logs);
     const messageTestSuite = Mocha.Suite.create(
       testSuite,
       "Verification of Message"

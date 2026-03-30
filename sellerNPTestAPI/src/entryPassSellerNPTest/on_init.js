@@ -479,13 +479,13 @@ async function on_init({ context, message } = {}, isSelfPickup = false, logs = [
                     }));
                 }
                 if (item.descriptor.code !== "ADD_ON") {
-                    messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time' which is an object`, function () {
+                    messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time' which is an object (OPTIONAL)`, function () {
                         expect(item.time).to.exist.and.to.be.an("object");
                     }));
                     messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time.label' which is a string (OPTIONAL)`, function () {
                         expect(item.time.label).to.exist.and.to.be.a("string");
                     }));
-                    messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time.duration' which is a string`, function () {
+                    messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.items[${i}].time.duration' which is a string (OPTIONAL)`, function () {
                         expect(item.time.duration).to.exist.and.to.be.a("string");
                     }));
                 }
@@ -511,7 +511,7 @@ async function on_init({ context, message } = {}, isSelfPickup = false, logs = [
                     ABSTRACT: [{ code: "INCLUSIONS" }, { code: "EXCLUSIONS" }],
 
                 };
-
+                const optionalTags = (ele.code === "INCLUSIONS" || ele.code === "EXCLUSIONS") ? " (OPTIONAL)" : "";
                 const descriptorCode = item?.descriptor?.code;
                 const expectedTags = itemTagConfigs[descriptorCode] || [];
 
@@ -526,20 +526,20 @@ async function on_init({ context, message } = {}, isSelfPickup = false, logs = [
 
 
                     if (tagIndex !== -1) {
-                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}]' should have properties named 'descriptor' and 'list' `, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}]' should have properties named 'descriptor' and 'list'${optionalTags}`, function () {
                             expect(tagItem).to.have.property("descriptor").that.is.an("object");
                             expect(tagItem).to.have.property("list").that.is.an("array");
                         }));
 
-                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].descriptor' should have a property named 'code' which is a string`, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].descriptor' should have a property named 'code' which is a string${optionalTags}`, function () {
                             expect(tagItem.descriptor).to.have.property("code").that.is.a("string");
                         }));
 
-                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].descriptor.code' should be equal to '${ele.code}'`, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].descriptor.code' should be equal to '${ele.code}'${optionalTags}`, function () {
                             expect(tagItem.descriptor.code).to.be.equal(ele.code);
                         }));
 
-                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list' should be a non empty array`, function () {
+                        messageTestSuite.addTest(new Mocha.Test(`'message.order.items[${i}].tags[${tagIndex}].list' should be a non empty array${optionalTags}`, function () {
                             expect(tagItem.list).to.be.an("array").that.is.not.empty;
                         }));
 
