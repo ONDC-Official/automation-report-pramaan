@@ -7,7 +7,7 @@ async function on_search({ context, message } = {}, step, isSelfPickup = false, 
   const testSuite = new Mocha.Suite(`on_search (${step}) Request Verification`);
   try {
     const responseTestSuite = response_verification({ context, message }, logs, constants);
-    contextTests(context, "on_search", testSuite);
+    contextTests(context, "on_search", testSuite, logs);
     const messageTestSuite = Mocha.Suite.create(
       testSuite,
       "Verification of Message"
@@ -266,16 +266,16 @@ async function on_search({ context, message } = {}, step, isSelfPickup = false, 
                     expect(stopItem.type).to.be.a("string").and.to.be.oneOf(["START", "END", "TRANSIT_STOP", "INTERMEDIATE_STOP"]);
                   }));
 
-                  messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions' which is an object`, function () {
+                  messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions' which is an object (OPTIONAL)`, function () {
                     expect(stopItem.instructions).to.exist.and.to.be.an("object");
                   }));
-                  messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc' which is an object `, function () {
+                  messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc' which is an object (OPTIONAL) `, function () {
                     expect(stopItem.instructions.additional_desc).to.exist.and.to.be.an("object");
                   }));
-                  messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc.url' which is a string `, function () {
+                  messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc.url' which is a string (OPTIONAL) `, function () {
                     expect(stopItem.instructions.additional_desc.url).to.exist.and.to.be.a("string");
                   }));
-                  messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc.content_type' which is a string `, function () {
+                  messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].stops[${stopIndex}].instructions.additional_desc.content_type' which is a string (OPTIONAL) `, function () {
                     expect(stopItem.instructions.additional_desc.content_type).to.exist.and.to.be.a("string");
                   }));
                   //  messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].stops[${stopIndex}].time' which is an object `, function () {
@@ -298,16 +298,16 @@ async function on_search({ context, message } = {}, step, isSelfPickup = false, 
               messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].agent' which is an object`, function () {
                 expect(fulfillment.agent).to.exist.and.to.be.an("object");
               }));
-              messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].agent.organization' which is an object`, function () {
+              messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].agent.organization' which is an object (OPTIONAL)`, function () {
                 expect(fulfillment.agent.organization).to.exist.and.to.be.an("object");
               }));
-              messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].agent.organization.contact' which is an object`, function () {
+              messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].agent.organization.contact' which is an object (OPTIONAL)`, function () {
                 expect(fulfillment.agent.organization.contact).to.exist.and.to.be.an("object");
               }));
-              messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].agent.organization.contact.phone' which is a string`, function () {
+              messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].agent.organization.contact.phone' which is a string (OPTIONAL)`, function () {
                 expect(fulfillment.agent.organization.contact.phone).to.exist.and.to.be.a("string");
               }));
-              messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].agent.organization.contact.email' which is a string`, function () {
+              messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.providers[${providerIndex}].fulfillments[${fulfillmentIndex}].agent.organization.contact.email' which is a string (OPTIONAL)`, function () {
                 expect(fulfillment.agent.organization.contact.email).to.exist.and.to.be.a("string");
               }));
             })
@@ -335,13 +335,13 @@ async function on_search({ context, message } = {}, step, isSelfPickup = false, 
           }));
         }
 
-        messageTestSuite.addTest(new Mocha.Test(`'message.catalog.providers[${providerIndex}].descriptor.images' should be an array`, function () {
+        messageTestSuite.addTest(new Mocha.Test(`'message.catalog.providers[${providerIndex}].descriptor.images' should be an array (OPTIONAL)`, function () {
           expect(provider.descriptor.images).to.be.an('array');
         }));
 
         if (provider?.descriptor?.images && provider?.descriptor?.images.length > 0) {
           provider.descriptor.images.forEach((image, i) => {
-            messageTestSuite.addTest(new Mocha.Test(`'message.catalog.providers[${providerIndex}].descriptor.images[${i}]' should be an object`, function () {
+            messageTestSuite.addTest(new Mocha.Test(`'message.catalog.providers[${providerIndex}].descriptor.images[${i}]' should be an object (OPTIONAL)`, function () {
               expect(image).to.be.an('object');
             }));
 
@@ -562,7 +562,7 @@ async function on_search({ context, message } = {}, step, isSelfPickup = false, 
           let array;
           switch (tagItem?.descriptor?.code) {
             case "BAP_TERMS":
-            array = bapTermsArr;  
+              array = bapTermsArr;
               break;
             case "BPP_TERMS":
               array = bppTermsArr;

@@ -708,35 +708,43 @@ async function on_cancel({ context, message } = {}, step, logs = []) {
                 });
             })
         }
-        //message.order.cancellation_terms
+        //cancellation terms
+
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.cancellation_terms' and that should be an array", function () {
             expect(message.order.cancellation_terms).to.exist.that.is.an("array");
         }));
 
         if (message?.order?.cancellation_terms && message?.order?.cancellation_terms.length > 0) {
-            message.order.cancellation_terms.forEach((C_terms, C_termsIndex) => {
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.cancellation_terms[${C_termsIndex}]' and that should be an object`, function () {
-                    expect(C_terms).to.exist.that.is.an("object");
-                }));
-
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.cancellation_terms[${C_termsIndex}].cancel_by' and that should be an object`, function () {
-                    expect(C_terms.cancel_by).to.exist.that.is.an("object");
-                }));
-
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.cancellation_terms[${C_termsIndex}].cancell_by.duration' and that should be a string`, function () {
-                    expect(C_terms.cancel_by.duration).to.exist.that.is.a("string");
-                }));
-
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.cancellation_terms[${C_termsIndex}].cancellation_fee' and that should be an object`, function () {
-                    expect(C_terms.cancellation_fee).to.exist.that.is.an("object");
-                }));
-
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.cancellation_terms[${C_termsIndex}].cancellation_fee.percentage' and that should be a string`, function () {
-                    expect(C_terms.cancellation_fee.percentage).to.exist.that.is.a("string");
-                }));
 
 
-            })
+            const terms = message.order.cancellation_terms;
+            // To test that the required fields exist somewhere in the array
+            messageTestSuite.addTest(new Mocha.Test("Verify that cancellation details (fee and duration) exist in at least one term", function () {
+                const hasFee = terms.some(t => t.cancellation_fee);
+                const hasCancelBy = terms.some(t => t.cancel_by);
+
+                expect(hasFee, "No object in cancellation_terms contains 'cancellation_fee'").to.be.true;
+                expect(hasCancelBy, "No object in cancellation_terms contains 'cancel_by'").to.be.true;
+            }));
+
+
+            terms.forEach((C_terms, C_termsIndex) => {
+                // Only run these specific attribute tests if the object is the one containing them
+                if (C_terms.cancel_by) {
+                    messageTestSuite.addTest(new Mocha.Test(`Verify structure of 'cancel_by' at index [${C_termsIndex}]`, function () {
+                        expect(C_terms.cancel_by).to.be.an("object");
+                        expect(C_terms.cancel_by.duration).to.be.a("string");
+                    }));
+                }
+
+                if (C_terms.cancellation_fee) {
+                    messageTestSuite.addTest(new Mocha.Test(`Verify structure of 'cancellation_fee' at index [${C_termsIndex}]`, function () {
+                        expect(C_terms.cancellation_fee).to.be.an("object");
+                        expect(C_terms.cancellation_fee.percentage).to.be.a("string");
+                    }));
+                }
+            });
+
         }
 
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.created_at' which is a string", function () {

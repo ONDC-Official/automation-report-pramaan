@@ -2,8 +2,9 @@ const { expect } = require("chai");
 const chai = require("chai");
 chai.use(require("chai-uuid"));
 const Mocha = require("mocha");
+const { contextBussinessTests } = require("../bussinessTests/commonBussiness");
 
-module.exports = function contextTests(context, action, testSuite) {
+module.exports = function contextTests(context, action, testSuite, logs = []) {
     const contextTestSuite = Mocha.Suite.create(testSuite, "Verification of Context");
 
     contextTestSuite.addTest(new Mocha.Test("should have 'context' properties", function () {
@@ -69,6 +70,8 @@ module.exports = function contextTests(context, action, testSuite) {
         expect(context.ttl).to.exist;
         expect(context.ttl).to.be.a("string").and.match(/^P(?!$)(?:(\d+Y)?(\d+M)?(\d+D)?)(T(?=\d)(\d+H)?(\d+M)?(\d+(?:\.\d+)?S)?)?$/);
     }));
+
+    contextBussinessTests(contextTestSuite, context, logs);
 
 
     if (action !== "search") {

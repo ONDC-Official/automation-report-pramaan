@@ -26,7 +26,7 @@ const actionsThatRequireSyncAPIs = [
 ]
 
 module.exports = function response_verification({ context, message } = {}, logs = [], constants = {}) {
-    const counterLog = logs?.find((log) => (log?.message_id === context?.message_id) && !log.action.startsWith("on_"));
+    const counterLog = logs?.find((log) => (log?.message_id === context?.message_id) && !log?.action?.startsWith("on_"));
     const { context: responseContext, message: responseMessage, error: responseError } = counterLog?.response || {};
     let count = 1;
     const domain = logs[0]?.request?.context?.domain
