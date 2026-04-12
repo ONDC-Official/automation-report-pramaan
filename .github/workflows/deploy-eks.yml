@@ -7,7 +7,6 @@ on:
       - "release-*"
 
 permissions:
-  contents: write
   packages: write
 
 jobs:
@@ -41,49 +40,66 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # ── draft-* : bump version.txt, build fresh image ─────────────────────
-      - name: Bump version and set VERSION (draft only)
-        if: startsWith(github.ref_name, 'draft-')
+      - name: Read semver from package.json and compute image tags
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          current_version=$(cat version.txt)
-          IFS='.' read -r -a version_parts <<< "$current_version"
-          major="${version_parts[0]}"
-          minor="${version_parts[1]}"
-          patch="${version_parts[2]}"
-          patch=$((patch + 1))
-          next_version="$major.$minor.$patch"
-          echo "$next_version" > version.txt
-          echo "VERSION=$next_version" >> $GITHUB_ENV
-          git add version.txt
-          git commit -m "ci: auto-increment version to $next_version [skip ci]"
-          git push
-          echo "Next version: $next_version"
+          # Read semver from a package.json (developers should bump this manually)
+          SEMVER=$(node -p "require('./buyerNPTestAPI/package.json').version")
+          SHORT_SHA=$(git rev-parse --short=7 HEAD)
 
-      # ── release-* : read version.txt from branch (no bump) ────────────────
-      - name: Read version from version.txt (release only)
-        if: startsWith(github.ref_name, 'release-')
-        run: |
-          VERSION=$(cat version.txt)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Promoting version: $VERSION"
-
-      # ── Set environment-specific values using shell $VERSION ───────────────
-      - name: Set environment and image tags
-        run: |
-          if [[ "${{ github.ref_name }}" == draft-* ]]; then
-            echo "ENVIRONMENT=draft"                                  >> $GITHUB_ENV
-            echo "BUYER_IMAGE_TAG=draft-${VERSION}"                  >> $GITHUB_ENV
-            echo "SELLER_IMAGE_TAG=draft-${VERSION}"                 >> $GITHUB_ENV
-            echo "TARGET_FILE=k8/aws/helm/service-layer/values.yaml" >> $GITHUB_ENV
+          # Tag prefix: main -> prod, non-main -> dev
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            PREFIX=prod
           else
-            echo "ENVIRONMENT=prod"                                        >> $GITHUB_ENV
-            echo "BUYER_IMAGE_TAG=prod-${VERSION}"                        >> $GITHUB_ENV
-            echo "SELLER_IMAGE_TAG=prod-${VERSION}"                       >> $GITHUB_ENV
-            echo "TARGET_FILE=k8/aws/helm/service-layer/values-preprod.yaml" >> $GITHUB_ENV
+            PREFIX=dev
           fi
 
+          IMAGE_TAG="${PREFIX}-${SEMVER}-${SHORT_SHA}"
+
+          # Preserve existing environment/target-file logic for draft/release branches
+          if [[ "${GITHUB_REF_NAME}" == draft-* ]]; then
+            ENVIRONMENT=draft
+            TARGET_FILE=k8/aws/helm/service-layer/values.yaml
+          else
+            ENVIRONMENT=prod
+            TARGET_FILE=k8/aws/helm/service-layer/values-preprod.yaml
+          fi
+
+          BUYER_IMAGE="ghcr.io/${REPO_LOWER}-buyer"
+          SELLER_IMAGE="ghcr.io/${REPO_LOWER}-seller"
+
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            BUYER_TAGS="${BUYER_IMAGE}:${IMAGE_TAG},${BUYER_IMAGE}:latest"
+            SELLER_TAGS="${SELLER_IMAGE}:${IMAGE_TAG},${SELLER_IMAGE}:latest"
+          else
+            BUYER_TAGS="${BUYER_IMAGE}:${IMAGE_TAG}"
+            SELLER_TAGS="${SELLER_IMAGE}:${IMAGE_TAG}"
+          fi
+
+          echo "SEMVER=$SEMVER" >> $GITHUB_ENV
+          echo "SHORT_SHA=$SHORT_SHA" >> $GITHUB_ENV
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+          echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
+          echo "TARGET_FILE=$TARGET_FILE" >> $GITHUB_ENV
+          echo "BUYER_IMAGE=$BUYER_IMAGE" >> $GITHUB_ENV
+          echo "SELLER_IMAGE=$SELLER_IMAGE" >> $GITHUB_ENV
+          echo "BUYER_IMAGE_TAG=${BUYER_IMAGE}:${IMAGE_TAG}" >> $GITHUB_ENV
+          echo "SELLER_IMAGE_TAG=${SELLER_IMAGE}:${IMAGE_TAG}" >> $GITHUB_ENV
+          echo "BUYER_TAGS=$BUYER_TAGS" >> $GITHUB_ENV
+          echo "SELLER_TAGS=$SELLER_TAGS" >> $GITHUB_ENV
+
       # ── BUILD — draft-* only ───────────────────────────────────────────────
+      - name: Generate OCI labels (metadata)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.BUYER_IMAGE }}
+            ${{ env.SELLER_IMAGE }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.version=${{ env.SEMVER }}
+
       - name: Build and push buyer image
         if: startsWith(github.ref_name, 'draft-')
         uses: docker/build-push-action@v5
@@ -91,7 +107,10 @@ jobs:
           context: ./buyerNPTestAPI
           file: ./Dockerfile.js
           push: true
-          tags: ghcr.io/${{ env.REPO_LOWER }}-buyer:${{ env.BUYER_IMAGE_TAG }}
+          tags: ${{ env.BUYER_TAGS }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Build and push seller image
         if: startsWith(github.ref_name, 'draft-')
@@ -100,7 +119,10 @@ jobs:
           context: ./sellerNPTestAPI
           file: ./Dockerfile.js
           push: true
-          tags: ghcr.io/${{ env.REPO_LOWER }}-seller:${{ env.SELLER_IMAGE_TAG }}
+          tags: ${{ env.SELLER_TAGS }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # ── PROMOTE — release-* only (retag draft image, no rebuild) ──────────
       - name: Promote buyer image draft → prod
@@ -110,9 +132,11 @@ jobs:
           PROD_TAG="ghcr.io/$REPO_LOWER-buyer:prod-$VERSION"
           docker pull $DRAFT_TAG
           docker tag  $DRAFT_TAG $PROD_TAG
-          docker tag  $DRAFT_TAG ghcr.io/$REPO_LOWER-buyer:latest
           docker push $PROD_TAG
-          docker push ghcr.io/$REPO_LOWER-buyer:latest
+          if [ "$GITHUB_REF_NAME" = "main" ]; then
+            docker tag $DRAFT_TAG ghcr.io/$REPO_LOWER-buyer:latest
+            docker push ghcr.io/$REPO_LOWER-buyer:latest
+          fi
 
       - name: Promote seller image draft → prod
         if: startsWith(github.ref_name, 'release-')
@@ -121,9 +145,11 @@ jobs:
           PROD_TAG="ghcr.io/$REPO_LOWER-seller:prod-$VERSION"
           docker pull $DRAFT_TAG
           docker tag  $DRAFT_TAG $PROD_TAG
-          docker tag  $DRAFT_TAG ghcr.io/$REPO_LOWER-seller:latest
           docker push $PROD_TAG
-          docker push ghcr.io/$REPO_LOWER-seller:latest
+          if [ "$GITHUB_REF_NAME" = "main" ]; then
+            docker tag $DRAFT_TAG ghcr.io/$REPO_LOWER-seller:latest
+            docker push ghcr.io/$REPO_LOWER-seller:latest
+          fi
 
       # ── UPDATE IaC (both envs — different TARGET_FILE) ────────────────────
       - name: Clone automation-iac repo
