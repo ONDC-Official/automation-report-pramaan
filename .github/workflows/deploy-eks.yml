@@ -82,8 +82,8 @@ jobs:
           echo "TARGET_FILE=$TARGET_FILE" >> $GITHUB_ENV
           echo "BUYER_IMAGE=$BUYER_IMAGE" >> $GITHUB_ENV
           echo "SELLER_IMAGE=$SELLER_IMAGE" >> $GITHUB_ENV
-          echo "BUYER_IMAGE_TAG=${BUYER_IMAGE}:${IMAGE_TAG}" >> $GITHUB_ENV
-          echo "SELLER_IMAGE_TAG=${SELLER_IMAGE}:${IMAGE_TAG}" >> $GITHUB_ENV
+          echo "BUYER_IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
+          echo "SELLER_IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
           echo "BUYER_TAGS=$BUYER_TAGS" >> $GITHUB_ENV
           echo "SELLER_TAGS=$SELLER_TAGS" >> $GITHUB_ENV
 
