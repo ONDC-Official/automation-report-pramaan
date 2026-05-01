@@ -462,6 +462,60 @@
       }
     ]
   },
+   {
+    "id": "RET_9_EB2B",
+    "type": "RETAIL_EB2B_1_2_5",
+    "domain": "ONDC:RET",
+    "version": "1.2.5",
+    "flowType": "mandatory",
+    "name": "Flow : Discovery_flow_broadcast_search",
+    "description": "eB2B Retail Flows",
+    "flow": [
+       {
+        "test": "search",
+        "action": "search"
+      },
+      {
+        "test": "search_p2p",
+        "action": "search"
+      }
+    ]
+  },
+   {
+    "id": "RET_1B_EB2B",
+    "type": "RETAIL_EB2B_1_2_5",
+    "domain": "ONDC:RET",
+    "version": "1.2.5",
+    "flowType": "additional",
+    "name": "Flow 1B: Order to confirm to fulfillment (COD)",
+    "description": "eB2B Retail Flows",
+    "flow": [
+      {
+        "test": "search",
+        "action": "search"
+      },
+      {
+        "test": "select",
+        "action": "select"
+      },
+      {
+        "test": "init",
+        "action": "init"
+      },
+      {
+        "test": "confirm",
+        "action": "confirm"
+      },
+      {
+        "test": "status",
+        "action": "status"
+      },
+      {
+        "test": "track",
+        "action": "track"
+      }
+    ]
+  },
   {
     "id": "RET_9_INC_PULL",
     "type": "RETAIL_1_2_5",
