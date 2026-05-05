@@ -511,11 +511,11 @@ async function on_init({ context, message } = {}, isSelfPickup = false, logs = [
                     ABSTRACT: [{ code: "INCLUSIONS" }, { code: "EXCLUSIONS" }],
 
                 };
-                const optionalTags = (ele.code === "INCLUSIONS" || ele.code === "EXCLUSIONS") ? " (OPTIONAL)" : "";
                 const descriptorCode = item?.descriptor?.code;
                 const expectedTags = itemTagConfigs[descriptorCode] || [];
 
                 expectedTags.forEach((ele) => {
+                    const optionalTags = (ele.code === "INCLUSIONS" || ele.code === "EXCLUSIONS") ? " (OPTIONAL)" : "";
                     const tagIndex = item?.tags.findIndex((tag) => tag?.descriptor?.code === ele.code);
                     const tagItem = item?.tags[tagIndex];
 
