@@ -1,163 +1,278 @@
-# .github/workflows/deploy.yml
-name: ONDC TESTING BETA DEPLOYMENT
+name: Deploy Automation APIs
 
-on: 
+on:
+  workflow_dispatch:
   push:
     branches:
-      prod-beta-deployment2
+      - main
+      - release-staging
+
+permissions:
+  contents: read
 
 jobs:
-  copy-files:
+  deploy-dev:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment:
+      name: development
+      url: https://github.com
+    env:
+      BRANCH_NAME: main
+      REMOTE_DIR_NAME: ONDC-automation-framework/automation-report-pramaan
+      COMPOSE_FILE: docker-compose.yml
+      ROOT_NODE_ENV: development
+      BUYER_DB_NAME: buyer-db
+      SELLER_DB_NAME: seller-db
+      BUYER_TESTING_URI: https://workbench.ondc.tech/pramaan/buyer
+      SELLER_TESTING_URI: https://workbench.ondc.tech/pramaan/seller
+      ANALYTICS_API: https://pramaan.ondc.org/beta/analytics-api
+      PW_LOGS_API: https://workbench.ondc.tech/report
+      FLUSHPERIOD: P90D
+
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up SSH key
-      run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
-        chmod 600 ssh-key.pem
-    
-    - name: Copy files
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'sudo docker stop beta-mongo'
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ssh-key.pem" --progress ./* amit.sequelstring@3.108.155.220:~/beta/testing-backend/
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ssh-key.pem" --progress ./.env amit.sequelstring@3.108.155.220:~/beta/testing-backend/
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ssh-key.pem" --progress ./.env.preprod amit.sequelstring@3.108.155.220:~/beta/testing-backend/
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i ssh-key.pem" --progress ./.env.staging amit.sequelstring@3.108.155.220:~/beta/testing-backend/
-        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker network create --subnet=192.168.161.0/24 beta-nginx-network --attachable || true'
+      - name: Setup SSH
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ./key.pem
+          chmod 600 ./key.pem
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
 
-  deploy-referenceBuyerAPI-staging:
-    needs: [copy-files]
+      - name: Prepare remote repository
+        run: |
+          ssh -i ./key.pem "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" <<EOF
+          set -eu
+          REPO_DIR="\$HOME/${REMOTE_DIR_NAME}"
+          rm -rf "\$REPO_DIR"
+          git clone --single-branch --branch "${BRANCH_NAME}" "https://github.com/${{ github.repository }}.git" "\$REPO_DIR"
+          EOF
+
+      - name: Ensure Docker Compose is available
+        run: |
+          ssh -i ./key.pem "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" <<'EOF'
+          set -eu
+          if docker compose version >/dev/null 2>&1; then
+            exit 0
+          fi
+
+          if command -v docker-compose >/dev/null 2>&1; then
+            exit 0
+          fi
+
+          ARCH="$(uname -m)"
+          case "$ARCH" in
+            x86_64) ARCH="x86_64" ;;
+            aarch64|arm64) ARCH="aarch64" ;;
+            *)
+              echo "Unsupported architecture: $ARCH"
+              exit 1
+              ;;
+          esac
+
+          sudo mkdir -p /usr/local/bin
+          sudo curl -SL "https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-linux-${ARCH}" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          EOF
+
+      - name: Write environment files on server
+        run: |
+          ssh -i ./key.pem "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" <<EOF
+          set -eu
+          REPO_DIR="\$HOME/${REMOTE_DIR_NAME}"
+
+          cat > "\$REPO_DIR/.env" <<ROOTENV
+          NODE_ENV=${ROOT_NODE_ENV}
+          ENV_FILE=.env
+          ROOTENV
+
+          cat > "\$REPO_DIR/buyerNPTestAPI/.env" <<BUYERENV
+          PORT=3005
+          HOST=0.0.0.0
+          analyticsAPI=${ANALYTICS_API}
+          MONGODB_URI=mongodb://mongo:27017/${BUYER_DB_NAME}
+          FLUSHPERIOD=${FLUSHPERIOD}
+          PW_LOGS_API_KEY=${{ secrets.PW_LOGS_API_KEY }}
+          SELLER_TESTING_URI=${SELLER_TESTING_URI}
+          BUYER_TESTING_URI=${BUYER_TESTING_URI}
+          PW_LOGS_API=${PW_LOGS_API}
+          BUYERENV
+
+          cat > "\$REPO_DIR/sellerNPTestAPI/.env" <<SELLERENV
+          PORT=3005
+          HOST=0.0.0.0
+          analyticsAPI=${ANALYTICS_API}
+          MONGODB_URI=mongodb://mongo:27017/${SELLER_DB_NAME}
+          SELLER_DB_URI=mongodb://mongo:27017/${SELLER_DB_NAME}
+          PW_LOGS_API_KEY=${{ secrets.PW_LOGS_API_KEY }}
+          SELLER_TESTING_URI=${SELLER_TESTING_URI}
+          BUYER_TESTING_URI=${BUYER_TESTING_URI}
+          FLUSHPERIOD=${FLUSHPERIOD}
+          PW_LOGS_API=${PW_LOGS_API}
+          SELLERENV
+          EOF
+
+      - name: Validate deployment files
+        run: |
+          ssh -i ./key.pem "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" <<EOF
+          set -eu
+          REPO_DIR="\$HOME/${REMOTE_DIR_NAME}"
+
+          test -f "\$REPO_DIR/.env"
+          test -f "\$REPO_DIR/buyerNPTestAPI/.env"
+          test -f "\$REPO_DIR/sellerNPTestAPI/.env"
+          test -f "\$REPO_DIR/${COMPOSE_FILE}"
+          EOF
+
+      - name: Deploy services
+        run: |
+          ssh -i ./key.pem "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" <<EOF
+          set -eu
+          REPO_DIR="\$HOME/${REMOTE_DIR_NAME}"
+          cd "\$REPO_DIR"
+
+          if docker compose version >/dev/null 2>&1; then
+            sudo docker compose -f "${COMPOSE_FILE}" up -d --build
+          else
+            sudo docker-compose -f "${COMPOSE_FILE}" up -d --build
+          fi
+          EOF
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ./key.pem
+
+  deploy-staging:
+    if: github.ref == 'refs/heads/release-staging'
     runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://github.com
+    env:
+      BRANCH_NAME: release-staging
+      REMOTE_DIR_NAME: ONDC-automation-framework-staging/automation-report-pramaan
+      COMPOSE_FILE: docker-compose.staging.yml
+      ROOT_NODE_ENV: staging
+      BUYER_DB_NAME: buyer-db
+      SELLER_DB_NAME: seller-db
+      BUYER_TESTING_URI: https://workbench.ondc.tech/pramaan/buyer
+      SELLER_TESTING_URI: https://workbench.ondc.tech/pramaan/seller
+      ANALYTICS_API: https://pramaan.ondc.org/beta/analytics-api
+      PW_LOGS_API: https://workbench.ondc.tech/report
+      FLUSHPERIOD: P90D
+
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up SSH key
-      run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
-        chmod 600 ssh-key.pem
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Deploy to Staging
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_staging_project --env-file .env.staging up --build -d referenceBuyerAPI'
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}
+      - name: Setup SSH
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ./key.pem
+          chmod 600 ./key.pem
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
 
-  deploy-referenceBuyerAPI-preprod:
-    needs: [copy-files, deploy-referenceBuyerAPI-staging]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up SSH key
-      run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
-        chmod 600 ssh-key.pem
+      - name: Prepare remote repository
+        run: |
+          ssh -i ./key.pem "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" <<EOF
+          set -eu
+          REPO_DIR="\$HOME/${REMOTE_DIR_NAME}"
+          rm -rf "\$REPO_DIR"
+          git clone --single-branch --branch "${BRANCH_NAME}" "https://github.com/${{ github.repository }}.git" "\$REPO_DIR"
+          EOF
 
-    - name: Deploy to Preprod
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_preprod_project --env-file .env.preprod up --build -d referenceBuyerAPI'
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}
-        
-  deploy-referenceSellerAPI-staging:
-    needs: [copy-files]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up SSH key
-      run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
-        chmod 600 ssh-key.pem
+      - name: Ensure Docker Compose is available
+        run: |
+          ssh -i ./key.pem "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" <<'EOF'
+          set -eu
+          if docker compose version >/dev/null 2>&1; then
+            exit 0
+          fi
 
-    - name: Deploy to Staging
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_staging_project --env-file .env.staging up --build -d referenceSellerAPI'
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}
+          if command -v docker-compose >/dev/null 2>&1; then
+            exit 0
+          fi
 
-  deploy-referenceSellerAPI-preprod:
-    needs: [copy-files, deploy-referenceSellerAPI-staging]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up SSH key
-      run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
-        chmod 600 ssh-key.pem
-    
-    - name: Deploy to Preprod
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_preprod_project --env-file .env.preprod up --build -d referenceSellerAPI'
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}
+          ARCH="$(uname -m)"
+          case "$ARCH" in
+            x86_64) ARCH="x86_64" ;;
+            aarch64|arm64) ARCH="aarch64" ;;
+            *)
+              echo "Unsupported architecture: $ARCH"
+              exit 1
+              ;;
+          esac
 
-  deploy-buyerNPTestAPI:
-    needs: [copy-files]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up SSH key
-      run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
-        chmod 600 ssh-key.pem
+          sudo mkdir -p /usr/local/bin
+          sudo curl -SL "https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-linux-${ARCH}" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          EOF
 
-    - name: Deploy
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_preprod_project --env-file .env up --build -d buyerNPTestAPI'
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}
+      - name: Write environment files on server
+        run: |
+          ssh -i ./key.pem "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" <<EOF
+          set -eu
+          REPO_DIR="\$HOME/${REMOTE_DIR_NAME}"
 
-  deploy-sellerNPTestAPI:
-    needs: [copy-files]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up SSH key
-      run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
-        chmod 600 ssh-key.pem
+          cat > "\$REPO_DIR/.env" <<ROOTENV
+          NODE_ENV=${ROOT_NODE_ENV}
+          ENV_FILE=.env
+          ROOTENV
 
-    - name: Deploy
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_preprod_project --env-file .env up --build -d sellerNPTestAPI'
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}
+          cat > "\$REPO_DIR/buyerNPTestAPI/.env" <<BUYERENV
+          PORT=3005
+          HOST=0.0.0.0
+          analyticsAPI=${ANALYTICS_API}
+          MONGODB_URI=mongodb://mongo:27017/${BUYER_DB_NAME}
+          FLUSHPERIOD=${FLUSHPERIOD}
+          PW_LOGS_API_KEY=${{ secrets.PW_LOGS_API_KEY }}
+          SELLER_TESTING_URI=${SELLER_TESTING_URI}
+          BUYER_TESTING_URI=${BUYER_TESTING_URI}
+          PW_LOGS_API=${PW_LOGS_API}
+          BUYERENV
 
-  deploy-finvuAAServer:
-    needs: [copy-files]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up SSH key
-      run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
-        chmod 600 ssh-key.pem
+          cat > "\$REPO_DIR/sellerNPTestAPI/.env" <<SELLERENV
+          PORT=3005
+          HOST=0.0.0.0
+          analyticsAPI=${ANALYTICS_API}
+          MONGODB_URI=mongodb://mongo:27017/${SELLER_DB_NAME}
+          SELLER_DB_URI=mongodb://mongo:27017/${SELLER_DB_NAME}
+          PW_LOGS_API_KEY=${{ secrets.PW_LOGS_API_KEY }}
+          SELLER_TESTING_URI=${SELLER_TESTING_URI}
+          BUYER_TESTING_URI=${BUYER_TESTING_URI}
+          FLUSHPERIOD=${FLUSHPERIOD}
+          PW_LOGS_API=${PW_LOGS_API}
+          SELLERENV
+          EOF
 
-    - name: Deploy
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'cd ~/beta/testing-backend/ && sudo docker-compose -p beta_preprod_project --env-file .env up --build -d finvuAAServer'
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}    
-    
-  start-beta-mongo:
-    needs: [deploy-referenceSellerAPI-preprod, deploy-referenceBuyerAPI-preprod]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up SSH key
-      run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY2 }}" | base64 -d > ssh-key.pem
-        chmod 600 ssh-key.pem
+      - name: Validate deployment files
+        run: |
+          ssh -i ./key.pem "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" <<EOF
+          set -eu
+          REPO_DIR="\$HOME/${REMOTE_DIR_NAME}"
 
-    - name: Deploy
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ssh-key.pem amit.sequelstring@3.108.155.220 'sudo docker start beta-mongo'
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY2 }}    
+          test -f "\$REPO_DIR/.env"
+          test -f "\$REPO_DIR/buyerNPTestAPI/.env"
+          test -f "\$REPO_DIR/sellerNPTestAPI/.env"
+          test -f "\$REPO_DIR/${COMPOSE_FILE}"
+          EOF
+
+      - name: Deploy services
+        run: |
+          ssh -i ./key.pem "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" <<EOF
+          set -eu
+          REPO_DIR="\$HOME/${REMOTE_DIR_NAME}"
+          cd "\$REPO_DIR"
+
+          if docker compose version >/dev/null 2>&1; then
+            sudo docker compose -f "${COMPOSE_FILE}" up -d --build
+          else
+            sudo docker-compose -f "${COMPOSE_FILE}" up -d --build
+          fi
+          EOF
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ./key.pem
