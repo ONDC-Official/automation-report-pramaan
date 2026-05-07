@@ -24,10 +24,10 @@ jobs:
       ROOT_NODE_ENV: development
       BUYER_DB_NAME: buyer-db
       SELLER_DB_NAME: seller-db
-      BUYER_TESTING_URI: https://workbench.ondc.tech/pramaan/buyer
-      SELLER_TESTING_URI: https://workbench.ondc.tech/pramaan/seller
+      BUYER_TESTING_URI: https://dev-automation.ondc.org/pramaan/buyer
+      SELLER_TESTING_URI: https://dev-automation.ondc.org/pramaan/seller
       ANALYTICS_API: https://pramaan.ondc.org/beta/analytics-api
-      PW_LOGS_API: https://workbench.ondc.tech/report
+      PW_LOGS_API: https://dev-automation.ondc.org/report
       FLUSHPERIOD: P90D
 
     steps:
