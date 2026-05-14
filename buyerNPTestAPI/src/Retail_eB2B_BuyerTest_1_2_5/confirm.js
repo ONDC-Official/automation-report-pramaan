@@ -3,6 +3,7 @@ const contextTests = require("./context");
 const confirmSchema = require("./schema/confirm.schema");
 const { generateTests } = require("./common");
 const response_verification = require("../centralizedUtilities/responseVerification");
+const { expect } = require("chai");
 
 
 function confirmMessageTests({ context, message } = {}, constants = {}) {
@@ -862,24 +863,60 @@ function confirmMessageTests({ context, message } = {}, constants = {}) {
         } else {
             const messageTestSuite = generateTests({ context, message }, confirmSchema, "Verification of Message", constants);
 
-            if (constants?.flow === "RET_1b_EB2B") {
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payment' which is an object`, function () {
-                    expect(message.order.payment).to.exist.and.to.be.an("object");
-                }));
+            if (constants?.flow === "RET_1b_EB2B" || constants?.flow === "RET_11B_EB2B") {
 
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payment.status' which is a string`, function () {
-                    expect(message.order.payment.status).to.exist.and.to.be.a("string").and.to.be.equal("NOT-PAID");
-                }));
+                messageTestSuite.addTest(new Mocha.Test(
+                    `Verify 'message.order.payments' is a non-empty array`,
+                    function () {
+                        expect(message.order.payments).to.exist.and.to.be.an("array").that.is.not.empty;
+                    }
+                ));
+
+                messageTestSuite.addTest(new Mocha.Test(
+                    `Verify all payments have status 'NOT-PAID'`,
+                    function () {
+                        const payments = message.order.payments;
+
+                        payments.forEach((payment, index) => {
+                            expect(payment, `Payment at index ${index} is missing`).to.exist;
+                            expect(payment.status, `Invalid status at index ${index}`)
+                                .to.exist
+                                .and.to.be.a("string")
+                                .and.equal("NOT-PAID");
+                        });
+                    }
+                ));
             }
-            if (constants.flow === "RET_1_EB2B") {
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payment' which is an object`, function () {
-                    expect(message.order.payment).to.exist.and.to.be.an("object");
-                }));
+            if (constants.flow === "RET_1_EB2B" || constants?.flow === "RET_11_EB2B") {
 
-                messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payment.status' which is a string to be PAID`, function () {
-                    expect(message.order.payment.status).to.exist.and.to.be.a("string").and.to.be.equal("PAID");
-                }));
+                messageTestSuite.addTest(new Mocha.Test(
+                    `Verify 'message.order.payments' is a non-empty array`,
+                    function () {
+                      
+                        expect(message).to.have.property("order");
+                      
+                        expect(message.order).to.have.property("payments");
+                        expect(message.order.payments).to.be.an("array").that.is.not.empty;
+                    }
+                ));
 
+                messageTestSuite.addTest(new Mocha.Test(
+                    `Verify all payments have status 'PAID'`,
+                    function () {
+                        const payments = message.order?.payments || [];
+
+                        payments.forEach((payment, index) => {
+                            expect(payment, `Payment missing at index ${index}`).to.exist;
+
+                            expect(payment)
+                                .to.have.property("status");
+
+                            expect(payment.status, `Invalid status at index ${index}`)
+                                .to.be.a("string")
+                                .and.equal("PAID");
+                        });
+                    }
+                ));
             }
             return messageTestSuite;
         }

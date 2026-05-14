@@ -2,6 +2,7 @@ const Mocha = require("mocha");
 const contextTests = require("./context");
 const cancelSchema = require("./schema/cancel.schema");
 const { generateTests } = require("./common");
+const { expect } = require("chai");
 
 function cancelMessageTests({ context, message } = {}, constants = {}) {
     try {

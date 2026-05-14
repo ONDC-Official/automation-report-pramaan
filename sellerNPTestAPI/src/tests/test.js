@@ -38,6 +38,7 @@ const testRunnerRetail = require("../RetailSellerNpTest/testRunner");
 
 // Retail Test Runner
 const testRunnerRetail_1_2_5 = require("../RetailSellerTest_1_2_5/testRunner");
+const testRunnerRetail_eb2b_1_2_5 = require("../Retail_eB2B_SellerTest_1_2_5/testRunner");
 
 // Intercity Test Runner
 const testRunnerIntercity = require("../IntercitySellerNPTest/testRunner");
@@ -226,6 +227,9 @@ module.exports = async function (
                 break;
             }
             break;
+          case "RETAIL_EB2B_1_2_5":
+            testFunctions = testRunnerRetail_eb2b_1_2_5(givenTest, logs, domain, test?.type);
+            break;
           case "INTERCITY":
             testFunctions = testRunnerIntercity(givenTest, logs, type);
             break;
@@ -391,14 +395,14 @@ module.exports = async function (
           reportPath: reportPath,
         });
         await fs.unlink(reportPath);
-        axios.post(analyticsAPI, {
-          route: "save_flow",
-          test_id: test_id,
-          flow_id: flow_id,
-          role: "Seller"
-        }, {
-          headers: { "Content-Type": "application/json" }
-        });
+        // axios.post(analyticsAPI, {
+        //   route: "save_flow",
+        //   test_id: test_id,
+        //   flow_id: flow_id,
+        //   role: "Seller"
+        // }, {
+        //   headers: { "Content-Type": "application/json" }
+        // });
       })
     );
   } catch (err) {

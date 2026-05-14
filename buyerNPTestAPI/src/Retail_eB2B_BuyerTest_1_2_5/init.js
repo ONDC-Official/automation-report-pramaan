@@ -3,6 +3,7 @@ const contextTests = require("./context");
 const initSchema = require("./schema/init.schema");
 const { generateTests } = require("./common");
 const response_verification = require("../centralizedUtilities/responseVerification");
+const { expect } = require("chai");
 
 function initMessageTests({ context, message } = {}, constants = {}) {
     try {

@@ -9,12 +9,10 @@ module.exports = {
                 "payment": {
                     "id": "retail_bap_search_message_03",
                     "type": "object",
-                    "optional": true,
                     "properties": {
                         "@ondc/org/buyer_app_finder_fee_type": {
                             "id": "retail_bap_search_message_04",
                             "type": "string",
-                            "optional": true,
                             "minLength": 1
                         },
                         "@ondc/org/buyer_app_finder_fee_amount": {
@@ -28,7 +26,6 @@ module.exports = {
                     "id": "retail_bap_search_message_06",
                     "type": "array",
                     "minItems": 1,
-                    "optional": true,
                     "element": {
                         "id": "retail_bap_search_message_07",
                         "type": "object",
@@ -43,7 +40,6 @@ module.exports = {
                                 "id": "retail_bap_search_message_09",
                                 "type": "array",
                                 "minItems": 1,
-                                "optional": true,
                                 "element": {
                                     "allOf": [
                                         {
@@ -61,13 +57,11 @@ module.exports = {
                                                     "code": {
                                                         "id": "retail_bap_search_message_11",
                                                         "type": "string",
-                                                        "optional": true,
                                                         "enum": ["static_terms,static_terms_new,effective_date"]
                                                     },
                                                     "value": {
                                                         "id": "retail_bap_search_message_12",
                                                         "type": "string",
-                                                        "optional": true,
                                                         // "enum": ["inline", "link"]
                                                     }
                                                 }
@@ -164,18 +158,17 @@ module.exports = {
                         "id": {
                             "id": "retail_bap_search_message_23",
                             "type": "string",
-                            "optional": true,
                         }
                     }
                 },
                 "fulfillment": {
                     "id": "retail_bap_search_message_24",
                     "type": "object",
-                    "optional": true, "properties": {
+                    "optional": true,
+                    "properties": {
                         "type": {
                             "id": "retail_bap_search_message_25",
                             "type": "string",
-                            "optional": true,
                             "minItems": 1,
                         }
                     }

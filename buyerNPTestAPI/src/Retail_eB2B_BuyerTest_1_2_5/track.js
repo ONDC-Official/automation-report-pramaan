@@ -2,6 +2,7 @@ const Mocha = require("mocha");
 const contextTests = require("./context");
 const trackSchema = require("./schema/track.schema"); 
 const { generateTests } = require("./common");
+const { expect } = require("chai");
 
 function trackMessageTests({ context, message } = {}, constants = {}) {
     try {
