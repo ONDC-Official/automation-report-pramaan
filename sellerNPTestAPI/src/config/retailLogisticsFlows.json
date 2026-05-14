@@ -1004,6 +1004,457 @@
         ]
     },
     {
+        "id": "RET_9_EB2B",
+        "type": "RETAIL_EB2B_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow : Discovery_flow_broadcast_search",
+        "description": "eB2B Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_search",
+                "action": "on_search"
+            }
+        ]
+    },
+    {
+        "id": "RET_1_EB2B",
+        "type": "RETAIL_EB2B_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 1A: Order to confirm to fulfillment (Prepaid)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_1B_EB2B",
+        "type": "RETAIL_EB2B_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 1B: Order to confirm to fulfillment (COD)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_11_EB2B",
+        "type": "RETAIL_EB2B_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 9:Order to confirm to fulfillment with offers(Prepaid)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_11B_EB2B",
+        "type": "RETAIL_EB2B_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "additional",
+        "name": "Flow 9B: Order to confirm to fulfillment with offers(cod)",
+        "description": "eB2B Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            }
+        ]
+    },
+      {
+        "id": "RET_MRGD_5_EB2B",
+        "type": "RETAIL_EB2B_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow: Buyer Initiated Return (Full Order and Partial Order)",
+        "description": "Buyer Initiated Return (Full Order and Partial Order)",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            },
+            {
+                "test": "on_update_buyer_return",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_buyer_return_approved",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_buyer_return_picked",
+                "action": "on_update"
+            },
+            {
+                "test": "on_update_return_delivered",
+                "action": "on_update"
+            }
+        ]
+    },
+    {
+        "id": "RET_6_EB2B",
+        "type": "RETAIL_EB2B_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 5: Out of Stock (Error code)",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select_out_of_stock",
+                "action": "on_select"
+            },
+             {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_pending",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RET_3_EB2B",
+        "type": "RETAIL_EB2B_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow 2: Buyer Side Order Cancellation",
+        "description": "B2C Retail Flows",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            }
+        ]
+    },
+    {
+        "id": "RET_MRGD_1_EB2B",
+        "type": "RETAIL_EB2B_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow: RTO And Part Cancellation Flow",
+        "description": "RTO And Part Cancellation Flow",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_select",
+                "action": "on_select"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_update_merchant_partial_cancel",
+                "action": "on_update"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_pickup",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_cancel_rto_initiated",
+                "action": "on_cancel"
+            },
+            {
+                "test": "on_status_rto_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
         "id": "RET_12",
         "type": "RETAIL_1_2_5",
         "version": "1.2.5",

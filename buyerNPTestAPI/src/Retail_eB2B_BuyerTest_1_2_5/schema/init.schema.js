@@ -133,10 +133,12 @@ module.exports = {
                         "required": ["id"]
                     }
                 },
-                "payment": {
+                "payments": {
+                    "id": "retail_bap_init_message_payments_101",
                     "type": "array",
                     "minItems": 1,
                     "element": {
+                        "id": "retail_bap_init_message_payments_elements",
                         "type": "object",
                         "properties": {
                             "collected_by": {
@@ -166,7 +168,6 @@ module.exports = {
                                 "building": {
                                     "id": "retail_bap_init_message_18",
                                     "type": "string",
-                                    "optional": true,
                                     "minLength": 1
                                 },
                                 "locality": {
@@ -212,8 +213,7 @@ module.exports = {
                             "id": "retail_bap_init_message_25",
                             "type": "string",
                             "minLength": 1,
-                            "compliance": "email",
-                            "optional": true
+                            "compliance": "email"
                         },
                         "phone": {
                             "id": "retail_bap_init_message_26",
@@ -281,8 +281,7 @@ module.exports = {
                                                     "building": {
                                                         "id": "retail_bap_init_message_38",
                                                         "type": "string",
-                                                        "minLength": 1,
-                                                        "optional": true
+                                                        "minLength": 1
                                                     },
                                                     "locality": {
                                                         "id": "retail_bap_init_message_39",
@@ -335,6 +334,26 @@ module.exports = {
                             }
                         }
                     }
+                }
+            },
+            "required": {
+                "type": "array",
+                "element": {
+                    "allOf": [
+                        {
+                            "if": {
+                                "properties": {
+                                    "type": "params",
+                                    "flow": {
+                                        "const": ["RET_11B_EB2B", "RET_11_EB2B"]
+                                    }
+                                }
+                            },
+                            "then": [
+                                "offers"
+                            ]
+                        }
+                    ]
                 }
             }
         }
