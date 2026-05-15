@@ -38,6 +38,7 @@ const testRunnerRetail = require("../RetailBuyerNpTest/testRunner");
 
 // Retail Domain Test Runner
 const testRunnerRetail_1_2_5 = require("../RetailBuyerTest_1_2_5/testRunner");
+const testRunnerRetail_eb2b_1_2_5 = require("../Retail_eB2B_BuyerTest_1_2_5/testRunner");
 
 // RSF Domain Test Runner
 const testRunnerRSF2_0 = require("../rsf2.0/testRunner");
@@ -194,6 +195,9 @@ module.exports = async function ({
             break;
           case "RETAIL_1_2_5":
             testFunctions = testRunnerRetail_1_2_5(givenTest, logs, domain, test?.type);
+            break;
+          case "RETAIL_EB2B_1_2_5":
+            testFunctions = testRunnerRetail_eb2b_1_2_5(givenTest, logs, domain, test?.type);
             break;
           case "AIRLINE":
             testFunctions = testRunnerAirline(givenTest, logs);
