@@ -157,33 +157,6 @@ jobs:
           git clone --single-branch --branch "${BRANCH_NAME}" "https://github.com/${{ github.repository }}.git" "\$REPO_DIR"
           EOF
 
-      - name: Ensure Docker Compose is available
-        run: |
-          ssh -i ./key.pem "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" <<'EOF'
-          set -eu
-          if docker compose version >/dev/null 2>&1; then
-            exit 0
-          fi
-
-          if command -v docker-compose >/dev/null 2>&1; then
-            exit 0
-          fi
-
-          ARCH="$(uname -m)"
-          case "$ARCH" in
-            x86_64) ARCH="x86_64" ;;
-            aarch64|arm64) ARCH="aarch64" ;;
-            *)
-              echo "Unsupported architecture: $ARCH"
-              exit 1
-              ;;
-          esac
-
-          sudo mkdir -p /usr/local/bin
-          sudo curl -SL "https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-linux-${ARCH}" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          EOF
-
       - name: Write environment files on server
         run: |
           ssh -i ./key.pem "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" <<EOF
