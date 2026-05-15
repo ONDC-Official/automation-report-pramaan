@@ -12,7 +12,7 @@ module.exports = {
             "id": "retail_bap_cancel_message_02",
             "type": "string",
             "minLength": 1,
-            "enum": ["001", "003", "004", "006", "009", "010", "999"]
+            "enum": ["002", "021", "022", "023", "024", "051", "011", "013", "014", "016", "018", "052", "053"]
         },
         "descriptor": {
             "id": "retail_bap_cancel_message_03",

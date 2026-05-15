@@ -449,6 +449,7 @@ module.exports = {
                   "person": {
                     "id": "retail_bpp_on_status_message_76",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "name": {
                         "id": "retail_bpp_on_status_message_77",
@@ -483,6 +484,7 @@ module.exports = {
                 }
               },
               "agent": {
+                "optional": true,
                 "id": "retail_bpp_on_status_message_80",
                 "type": "object",
                 "properties": {
@@ -543,47 +545,39 @@ module.exports = {
                   {
                     "if": {
                       "properties": {
-                        "type": "params",
-                        "flowId": {
-                          "const": [
-                            "LOG10_7"
-                          ]
+                        "type": {
+                          "const": "Cancel"
                         }
                       }
                     },
                     "then": [
-                      "id",
-                      "@ondc/org/provider_name",
                       "type",
-                      "tracking",
-                      "@ondc/org/TAT",
                       "state",
-                      "start",
-                      "end",
-                      "vehicle",
-                      "agent",
+                      "id",
+                      // "@ondc/org/TAT",
                       "tags"
                     ]
                   },
-                  // {
-                  //   "if": {
-                  //     "properties": {
-                  //       "type": "params",
-                  //       "domain": {
-                  //         "const": [
-                  //           "ONDC:RET11"
-                  //         ]
-                  //       }
-                  //     }
-                  //   },
-                  //   "then": [
-                  //     "id",
-                  //     "quantity",
-                  //     "fulfillment_id",
-                  //     "parent_item_id",
-                  //     "tags"
-                  //   ]
-                  // }
+                  {
+                    "if": {
+                      "properties": {
+                        "type": {
+                          "const": "Delivery"
+                        }
+                      }
+                    },
+                    "then": [
+                      "type",
+                      "state",
+                      "id",
+                      "@ondc/org/TAT",
+                      "tags",
+                      "start",
+                      "end",
+                      "tracking",
+                      "@ondc/org/provider_name"
+                    ]
+                  }
                 ]
               }
             }
@@ -735,7 +729,7 @@ module.exports = {
                               "properties": {
                                 "type": "params",
                                 "@ondc/org/title_type": {
-                                  "const":  ["item", "delivery"]
+                                  "const": ["item", "delivery"]
                                 }
                               }
                             },

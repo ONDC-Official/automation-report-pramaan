@@ -761,6 +761,7 @@ module.exports = {
           "id": "retail_bpp_message_offers_on_init",
           "type": "array",
           "minItems": 1,
+          "optional": true,
           "element": {
             "id": "retail_bpp_message_offers_element_on_init",
             "type": "object",
