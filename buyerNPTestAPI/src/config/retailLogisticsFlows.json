@@ -481,6 +481,41 @@
       }
     ]
   },
+  {
+    "id": "RET_1_EB2B",
+    "type": "RETAIL_EB2B_1_2_5",
+    "domain": "ONDC:RET",
+    "version": "1.2.5",
+    "flowType": "mandatory",
+    "name": "Flow 1A: Order to confirm to fulfillment (Prepaid)",
+    "description": "B2C Retail Flows",
+    "flow": [
+      {
+        "test": "search",
+        "action": "search"
+      },
+      {
+        "test": "select",
+        "action": "select"
+      },
+      {
+        "test": "init",
+        "action": "init"
+      },
+      {
+        "test": "confirm",
+        "action": "confirm"
+      },
+      {
+        "test": "status",
+        "action": "status"
+      },
+      {
+        "test": "track",
+        "action": "track"
+      }
+    ]
+  },
    {
     "id": "RET_1B_EB2B",
     "type": "RETAIL_EB2B_1_2_5",
@@ -516,6 +551,192 @@
       }
     ]
   },
+   {
+        "id": "RET_MRGD_5_EB2B",
+        "type": "RETAIL_EB2B_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow: Buyer Initiated Return (Full Order and Partial Order)",
+        "description": "Buyer Initiated Return (Full Order and Partial Order)",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "select",
+                "action": "select"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            },
+            {
+                "test": "update_buyer_return",
+                "action": "update"
+            },
+            {
+                "test": "update_settlement_trail",
+                "action": "update"
+            }
+        ]
+    },
+    {
+    "id": "RET_11_EB2B",
+    "type": "RETAIL_EB2B_1_2_5",
+    "domain": "ONDC:RET",
+    "version": "1.2.5",
+    "flowType": "mandatory",
+    "name": "Flow 9:Order to confirm to fulfillment with offers(Prepaid)",
+    "description": "B2C Retail Flows",
+    "flow": [
+      {
+        "test": "search",
+        "action": "search"
+      },
+      {
+        "test": "select",
+        "action": "select"
+      },
+      {
+        "test": "init",
+        "action": "init"
+      },
+      {
+        "test": "confirm",
+        "action": "confirm"
+      },
+      {
+        "test": "status",
+        "action": "status"
+      },
+      {
+        "test": "track",
+        "action": "track"
+      }
+    ]
+  },
+   {
+    "id": "RET_11B_EB2B",
+    "type": "RETAIL_EB2B_1_2_5",
+    "domain": "ONDC:RET",
+    "version": "1.2.5",
+    "flowType": "additional",
+    "name": "Flow 9B: Order to confirm to fulfillment with offers(cod)",
+    "description": "eB2B Retail Flows",
+    "flow": [
+      {
+        "test": "search",
+        "action": "search"
+      },
+      {
+        "test": "select",
+        "action": "select"
+      },
+      {
+        "test": "init",
+        "action": "init"
+      },
+      {
+        "test": "confirm",
+        "action": "confirm"
+      },
+      {
+        "test": "status",
+        "action": "status"
+      },
+      {
+        "test": "track",
+        "action": "track"
+      }
+    ]
+  },
+   {
+    "id": "RET_3_EB2B",
+    "type": "RETAIL_EB2B_1_2_5",
+    "domain": "ONDC:RET",
+    "version": "1.2.5",
+    "flowType": "mandatory",
+    "name": "Flow 2: Buyer Side Order Cancellation",
+    "description": "B2C Retail Flows",
+    "flow": [
+      {
+        "test": "search",
+        "action": "search"
+      },
+      {
+        "test": "select",
+        "action": "select"
+      },
+      {
+        "test": "init",
+        "action": "init"
+      },
+      {
+        "test": "confirm",
+        "action": "confirm"
+      },
+      {
+        "test": "cancel",
+        "action": "cancel"
+      }
+    ]
+  },
+   {
+    "id": "RET_6_EB2B",
+    "type": "RETAIL_EB2B_1_2_5",
+    "domain": "ONDC:RET",
+    "version": "1.2.5",
+    "flowType": "mandatory",
+    "name": "Flow 5: Out of Stock (Error code)",
+    "description": "B2C Retail Flows",
+    "flow": [
+      {
+        "test": "search",
+        "action": "search"
+      },
+      {
+        "test": "select",
+        "action": "select"
+      }
+    ]
+  },
+   {
+        "id": "RET_MRGD_1_EB2B",
+        "type": "RETAIL_EB2B_1_2_5",
+        "domain": "ONDC:RET",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Flow: RTO And Part Cancellation Flow",
+        "description": "RTO And Part Cancellation Flow",
+        "flow": [
+            {
+                "test": "search",
+                "action": "search"
+            },
+            {
+                "test": "select",
+                "action": "select"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            },
+            {
+                "test": "update_settlement_trail",
+                "action": "update"
+            }
+        ]
+    },
   {
     "id": "RET_9_INC_PULL",
     "type": "RETAIL_1_2_5",

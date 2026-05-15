@@ -3,11 +3,13 @@ const contextTests = require("./context");
 const selectSchema = require("./schema/select.schema");
 const { generateTests } = require("./common");
 const response_verification = require("../centralizedUtilities/responseVerification");
+const { expect } = require("chai");
 
 
 function selectMessageTests({ context, message } = {}, constants = {}) {
     try {
         // generating the tests using recursive methods 
+        
         if (constants?.flow === "RET_ENH_001" || constants?.flow === "RET_ENH_01E" || constants?.flow === "RET_ENH_00A" || constants?.flow === "RET_ENH_009_FREEBIE" || constants?.flow === "RET_ENH_009_DISCOUNT" || constants?.flow === "RET_ENH_009_COMBO" || constants?.flow === "RET_ENH_009_BUYXGETY_B" || constants?.flow === "RET_ENH_009_BUYXGETY_A" || constants?.flow === "RET_ENH_009_SLAB") {
 
             const testSuite = new Mocha.Suite(`on_select Request Verification`);

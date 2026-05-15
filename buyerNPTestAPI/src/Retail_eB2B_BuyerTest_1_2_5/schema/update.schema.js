@@ -310,42 +310,47 @@ module.exports = {
                         }
                     }
                 },
-                "payment": {
+                "payments": {
                     "id": "retail_bap_update_message_13",
-                    "type": "object",
-                    "properties": {
-                        "@ondc/org/settlement_details": {
-                            "id": "retail_bap_update_message_14",
-                            "type": "array",
-                            "minItems": 1,
-                            "element": {
-                                "id": "retail_bap_update_message_15",
-                                "type": "object",
-                                "properties": {
-                                    "settlement_timestamp": {
-                                        "id": "retail_bap_update_message_16",
-                                        "type": "string",
-                                        "minLength": 1
-                                    },
-                                    "settlement_counterparty": {
-                                        "id": "retail_bap_update_message_17",
-                                        "type": "string",
-                                        "minLength": 1
-                                    },
-                                    "settlement_phase": {
-                                        "id": "retail_bap_update_message_18",
-                                        "type": "string",
-                                        "minLength": 1
-                                    },
-                                    "settlement_type": {
-                                        "id": "retail_bap_update_message_19",
-                                        "type": "string",
-                                        "minLength": 1
-                                    },
-                                    "settlement_amount": {
-                                        "id": "retail_bap_update_message_20",
-                                        "type": "string",
-                                        "minLength": 1
+                    "type": "array",
+                    "optional": true,
+                    "elements": {
+                        "id": "retail_bap_update_message_payment_elements_01",
+                        "type": "object",
+                        "properties": {
+                            "@ondc/org/settlement_details": {
+                                "id": "retail_bap_update_message_14",
+                                "type": "array",
+                                "minItems": 1,
+                                "element": {
+                                    "id": "retail_bap_update_message_15",
+                                    "type": "object",
+                                    "properties": {
+                                        "settlement_timestamp": {
+                                            "id": "retail_bap_update_message_16",
+                                            "type": "string",
+                                            "minLength": 1
+                                        },
+                                        "settlement_counterparty": {
+                                            "id": "retail_bap_update_message_17",
+                                            "type": "string",
+                                            "minLength": 1
+                                        },
+                                        "settlement_phase": {
+                                            "id": "retail_bap_update_message_18",
+                                            "type": "string",
+                                            "minLength": 1
+                                        },
+                                        "settlement_type": {
+                                            "id": "retail_bap_update_message_19",
+                                            "type": "string",
+                                            "minLength": 1
+                                        },
+                                        "settlement_amount": {
+                                            "id": "retail_bap_update_message_20",
+                                            "type": "string",
+                                            "minLength": 1
+                                        }
                                     }
                                 }
                             }

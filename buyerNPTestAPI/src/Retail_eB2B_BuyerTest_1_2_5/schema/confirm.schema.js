@@ -34,7 +34,6 @@ module.exports = {
               "element": {
                 "id": "retail_bap_confirm_message_08",
                 "type": "object",
-                "optional": true,
                 "properties": {
                   "id": {
                     "id": "retail_bap_confirm_message_09",
@@ -75,6 +74,7 @@ module.exports = {
                 }
               },
               "parent_item_id": {
+                "optional": true,
                 "id": "retail_bap_confirm_message_93",
                 "type": "string",
                 "minLength": 1
@@ -82,6 +82,7 @@ module.exports = {
               "tags": {
                 "id": "retail_bap_confirm_message_94",
                 "type": "array",
+                "optional": true,
                 "minItems": 1,
                 "element": {
                   "id": "retail_bap_confirm_message_95",
@@ -91,7 +92,7 @@ module.exports = {
                       "id": "retail_bap_confirm_message_96",
                       "type": "string",
                       "minLength": 1,
-                      "enum": ["type", "parent"]
+                      "enum": ["type", "parent", "custom_group", "veg_nonveg"]
                     },
                     "list": {
                       "id": "retail_bap_confirm_message_97",
@@ -270,7 +271,6 @@ module.exports = {
               "id": "retail_bap_confirm_message_26",
               "type": "string",
               "minLength": 1,
-              "optional": true,
               "compliance": "email"
             },
             "name": {
@@ -345,7 +345,6 @@ module.exports = {
                           "building": {
                             "id": "retail_bap_confirm_message_39",
                             "type": "string",
-                            "optional": true,
                             "minLength": 1
                           },
                           "city": {
@@ -356,13 +355,11 @@ module.exports = {
                           "country": {
                             "id": "retail_bap_confirm_message_41",
                             "type": "string",
-                            "optional": true,
                             "minLength": 1
                           },
                           "locality": {
                             "id": "retail_bap_confirm_message_42",
                             "type": "string",
-                            "optional": true,
                             "minLength": 1
                           },
                           "name": {
@@ -381,109 +378,10 @@ module.exports = {
                         "id": "retail_bap_confirm_message_45",
                         "type": "string",
                         "minLength": 1,
-                        "compliance": "gps-coord"
+                        "compliance": "gps_coord_only_4"
                       }
                     }
                   },
-                  "person": {
-                    "id": "retail_bap_confirm_message_46",
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "id": "retail_bap_confirm_message_47",
-                        "type": "string",
-                        "minLength": 1
-                      }
-                    }
-                  }
-                }
-              },
-              "vehicle": {
-                "id": "retail_bap_confirm_message_32",
-                "type": "object",
-                "optional": true,
-                "properties": {
-                  "registration": {
-                    "id": "retail_bap_confirm_message_33",
-                    "type": "string",
-                    "optional": true,
-                  },
-                  "location": {
-                    "id": "retail_bap_confirm_message_36",
-                    "type": "object",
-                    "optional": true,
-                    "properties": {
-                      "address": {
-                        "id": "retail_bap_confirm_message_37",
-                        "type": "object",
-                        "optional": true,
-                        "properties": {
-                          "area_code": {
-                            "id": "retail_bap_confirm_message_38",
-                            "type": "string",
-                            "optional": true,
-                            "minLength": 1
-                          },
-                          "building": {
-                            "id": "retail_bap_confirm_message_39",
-                            "type": "string",
-                            "optional": true,
-                            "minLength": 1
-                          },
-                          "city": {
-                            "id": "retail_bap_confirm_message_40",
-                            "type": "string",
-                            "optional": true,
-                            "minLength": 1
-                          },
-                          "country": {
-                            "id": "retail_bap_confirm_message_41",
-                            "type": "string",
-                            "optional": true,
-                            "minLength": 1
-                          },
-                          "locality": {
-                            "id": "retail_bap_confirm_message_42",
-                            "type": "string",
-                            "optional": true,
-                            "minLength": 1
-                          },
-                          "name": {
-                            "id": "retail_bap_confirm_message_43",
-                            "type": "string",
-                            "optional": true,
-                            "minLength": 1
-                          },
-                          "state": {
-                            "id": "retail_bap_confirm_message_44",
-                            "type": "string",
-                            "optional": true,
-                            "minLength": 1
-                          }
-                        }
-                      },
-                      "gps": {
-                        "id": "retail_bap_confirm_message_45",
-                        "type": "string",
-                        "optional": true,
-                        "minLength": 1,
-                        "compliance": "gps-coord"
-                      }
-                    }
-                  },
-                  "person": {
-                    "id": "retail_bap_confirm_message_46",
-                    "type": "object",
-                    "optional": true,
-                    "properties": {
-                      "name": {
-                        "id": "retail_bap_confirm_message_47",
-                        "type": "string",
-                        "optional": true,
-                        "minLength": 1
-                      }
-                    }
-                  }
                 }
               },
               "id": {
@@ -530,11 +428,13 @@ module.exports = {
                   "@ondc/org/title_type": {
                     "id": "retail_bap_confirm_message_55",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "passKeysToParams": ["@ondc/org/title_type"]
                   },
                   "price": {
                     "id": "retail_bap_confirm_message_56",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "currency": {
                         "id": "retail_bap_confirm_message_57",
@@ -551,6 +451,7 @@ module.exports = {
                   "@ondc/org/item_quantity": {
                     "id": "retail_bpp_on_confirm_message_108",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "count": {
                         "id": "retail_bpp_on_confirm_message_109",
@@ -566,14 +467,17 @@ module.exports = {
                   "item": {
                     "id": "retail_bpp_on_confirm_message_110",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "parent_item_id": {
+                        "optional": true,
                         "id": "retail_bpp_on_confirm_message_111",
                         "type": "string"
                       },
                       "price": {
                         "id": "retail_bpp_on_confirm_message_112",
                         "type": "object",
+                        "optional": true,
                         "properties": {
                           "currency": {
                             "id": "retail_bpp_on_confirm_message_113",
@@ -588,6 +492,7 @@ module.exports = {
                         }
                       },
                       "tags": {
+                        "optional": true,
                         "id": "retail_bpp_on_confirm_message_127",
                         "type": "array",
                         "element": {
@@ -596,142 +501,28 @@ module.exports = {
                           "properties": {
                             "code": {
                               "id": "retail_bpp_on_confirm_message_115",
-                              "type": "string",
-                              "enum": [
-                                "type",
-                                "parent",
-                                "child",
-                                "origin",
-                                "veg_nonveg",
-                                "custom_group"
-                              ]
+                              "type": "string"
+
                             },
                             "list": {
-                              "id": "retail_bpp_on_confirm_message_116",
+                              "id": "retail_bpp_on_confirm_message_100",
                               "type": "array",
                               "minItems": 1,
                               "element": {
-                                "allOf": [
-                                  {
-                                    "if": {
-                                      "properties": {
-                                        "code": {
-                                          "const": "type"
-                                        }
-                                      }
-                                    },
-                                    "then": {
-                                      "type": "object",
-                                      "properties": {
-                                        "code": {
-                                          "id": "retail_bpp_on_confirm_message_117",
-                                          "type": "string",
-                                          "enum": ["type"]
-                                        },
-                                        "value": {
-                                          "id": "retail_bpp_on_confirm_message_118",
-                                          "type": "string",
-                                          "enum": ["item", "customization"]
-                                        }
-                                      }
-                                    }
+                                "id": "retail_bpp_on_confirm_message_101",
+                                "type": "object",
+                                "properties": {
+                                  "code": {
+                                    "id": "retail_bpp_on_confirm_message_102",
+                                    "type": "string",
+                                    "minLength": 1
                                   },
-                                  {
-                                    "if": {
-                                      "properties": {
-                                        "code": {
-                                          "const": "id"
-                                        }
-                                      }
-                                    },
-                                    "then": {
-                                      "type": "object",
-                                      "properties": {
-                                        "code": {
-                                          "id": "retail_bpp_on_confirm_message_119",
-                                          "type": "string",
-                                          "enum": ["id"]
-                                        },
-                                        "value": {
-                                          "id": "retail_bpp_on_confirm_message_120",
-                                          "type": "string"
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "if": {
-                                      "properties": {
-                                        "code": {
-                                          "const": "country"
-                                        }
-                                      }
-                                    },
-                                    "then": {
-                                      "type": "object",
-                                      "properties": {
-                                        "code": {
-                                          "id": "retail_bpp_on_confirm_message_121",
-                                          "type": "string",
-                                          "enum": ["country"]
-                                        },
-                                        "value": {
-                                          "id": "retail_bpp_on_confirm_message_122",
-                                          "type": "string",
-                                          "pattern": "^[A-Z]{3}$", "minLength": 1, "errorMessage": "Country must be in ISO 3166-1 format (three-letter country code)"
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "if": {
-                                      "properties": {
-                                        "code": {
-                                          "const": "veg"
-                                        }
-                                      }
-                                    },
-                                    "then": {
-                                      "type": "object",
-                                      "properties": {
-                                        "code": {
-                                          "id": "retail_bpp_on_confirm_message_123",
-                                          "type": "string",
-                                          "enum": ["veg"]
-                                        },
-                                        "value": {
-                                          "id": "retail_bpp_on_confirm_message_124",
-                                          "type": "string",
-                                          "enum": ["yes", "no"]
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "if": {
-                                      "properties": {
-                                        "code": {
-                                          "const": "default"
-                                        }
-                                      }
-                                    },
-                                    "then": {
-                                      "type": "object",
-                                      "properties": {
-                                        "code": {
-                                          "id": "retail_bpp_on_confirm_message_125",
-                                          "type": "string",
-                                          "enum": ["default"]
-                                        },
-                                        "value": {
-                                          "id": "retail_bpp_on_confirm_message_126",
-                                          "type": "string",
-                                          "enum": ["yes", "no"]
-                                        }
-                                      }
-                                    }
+                                  "value": {
+                                    "id": "retail_bpp_on_confirm_message_103",
+                                    "type": "string",
+                                    "minLength": 1
                                   }
-                                ]
+                                }
                               }
                             }
                           },
@@ -751,45 +542,12 @@ module.exports = {
                             "if": {
                               "properties": {
                                 "type": "params",
-                                "domain": {
-                                  "const": [
-                                    "ONDC:RET11"
-                                  ]
+                                "@ondc/org/title_type": {
+                                  "const": ["item", "delivery"]
                                 }
                               }
                             },
                             "then": [
-                              "parent_item_id",
-                              "quantity",
-                              "price",
-                              "tags"
-                            ]
-                          },
-                          {
-                            "if": {
-                              "properties": {
-                                "type": "params",
-                                "domain": {
-                                  "const": [
-                                    "ONDC:RET10",
-                                    "ONDC:RET12",
-                                    "ONDC:RET13",
-                                    "ONDC:RET14",
-                                    "ONDC:RET15",
-                                    "ONDC:RET16",
-                                    "ONDC:RET17",
-                                    "ONDC:RET18",
-                                    "ONDC:RET19",
-                                    "ONDC:RET1A",
-                                    "ONDC:RET1B",
-                                    "ONDC:RET1C",
-                                    "ONDC:RET1D"
-                                  ]
-                                }
-                              }
-                            },
-                            "then": [
-                              "quantity",
                               "price"
                             ]
                           }
@@ -903,6 +661,7 @@ module.exports = {
               "code": {
                 "id": "retail_bap_confirm_message_66",
                 "type": "string",
+                "enum": ["bap_terms", "bpp_terms"],
                 "minLength": 1
               },
               "list": {
@@ -916,6 +675,7 @@ module.exports = {
                     "code": {
                       "id": "retail_bap_confirm_message_69",
                       "type": "string",
+                      "enum": ["static_terms", "tax_number", "provider_tax_number", "delay_interest", "provider_tax_number", "np_type", "max_liability", "max_liability_cap", "accept_bpp_terms", "delay_interest", "mandatory_arbitration", "court_jurisdiction"],
                       "minLength": 1
                     },
                     "value": {
@@ -929,218 +689,247 @@ module.exports = {
             }
           }
         },
-        "payment": {
-          "id": "retail_bap_confirm_message_71",
-          "type": "object",
-          "properties": {
-            "uri": {
-              "id": "retail_bap_confirm_message_72",
-              "type": "string",
-              "minLength": 1,
-              "optional": true
-            },
-            "tl_method": {
-              "id": "retail_bap_confirm_message_72",
-              "type": "string",
-              "minLength": 1,
-              "optional": true
-            },
-            "@ondc/org/buyer_app_finder_fee_amount": {
-              "id": "retail_bap_confirm_message_72",
-              "type": "string",
-              "minLength": 1
-            },
-            "@ondc/org/buyer_app_finder_fee_type": {
-              "id": "retail_bap_confirm_message_73",
-              "type": "string",
-              "minLength": 1
-            },
-            "@ondc/org/settlement_details": {
-              "id": "retail_bap_confirm_message_74",
-              "type": "array",
-              "minItems": 1,
-              "element": {
-                "id": "retail_bap_confirm_message_75",
+        "payments": {
+          "id": "retail_bap_confirm_message_payment_71",
+          "type": "array",
+          "minItems": 1,
+          "element": {
+            "id": "retail_bap_confirm_message_payments_elements",
+            "type": "object",
+            "properties": {
+              "uri": {
+                "id": "retail_bap_confirm_message_72",
+                "type": "string",
+                "minLength": 1,
+                "optional": true
+              },
+              "tl_method": {
+                "id": "retail_bap_confirm_message_72",
+                "type": "string",
+                "minLength": 1,
+                "optional": true
+              },
+              "@ondc/org/buyer_app_finder_fee_amount": {
+                "id": "retail_bap_confirm_message_72",
+                "type": "string",
+                "minLength": 1
+              },
+              "@ondc/org/buyer_app_finder_fee_type": {
+                "id": "retail_bap_confirm_message_73",
+                "type": "string",
+                "minLength": 1
+              },
+              "@ondc/org/settlement_details": {
+                "id": "retail_bap_confirm_message_74",
+                "type": "array",
+                "optional": true,
+                "minItems": 1,
+                "element": {
+                  "id": "retail_bap_confirm_message_75",
+                  "type": "object",
+                  "properties": {
+                    "bank_name": {
+                      "id": "retail_bap_confirm_message_76",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "beneficiary_name": {
+                      "id": "retail_bap_confirm_message_77",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "branch_name": {
+                      "id": "retail_bap_confirm_message_78",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "settlement_bank_account_no": {
+                      "id": "retail_bap_confirm_message_79",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "settlement_counterparty": {
+                      "id": "retail_bap_confirm_message_80",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "settlement_ifsc_code": {
+                      "id": "retail_bap_confirm_message_81",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "settlement_phase": {
+                      "id": "retail_bap_confirm_message_82",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "settlement_type": {
+                      "id": "retail_bap_confirm_message_83",
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              },
+              "@ondc/org/settlement_basis": {
+                "id": "retail_bap_confirm_message_105",
+                "type": "string",
+                "minLength": 1
+              },
+              "@ondc/org/settlement_window": {
+                "id": "retail_bap_confirm_message_106",
+                "type": "string",
+                "minLength": 1
+              },
+              "@ondc/org/withholding_amount": {
+                "id": "retail_bap_confirm_message_107",
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "id": "retail_bap_confirm_message_84",
+                "type": "string",
+                "minLength": 1
+              },
+              "collected_by": {
+                "id": "retail_bap_confirm_message_85",
+                "type": "string",
+                "minLength": 1
+              },
+              "params": {
+                "id": "retail_bap_confirm_message_86",
                 "type": "object",
                 "properties": {
-                  "bank_name": {
-                    "id": "retail_bap_confirm_message_76",
+                  "amount": {
+                    "id": "retail_bap_confirm_message_87",
                     "type": "string",
                     "minLength": 1
                   },
-                  "beneficiary_name": {
-                    "id": "retail_bap_confirm_message_77",
+                  "currency": {
+                    "id": "retail_bap_confirm_message_88",
                     "type": "string",
                     "minLength": 1
                   },
-                  "branch_name": {
-                    "id": "retail_bap_confirm_message_78",
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "settlement_bank_account_no": {
-                    "id": "retail_bap_confirm_message_79",
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "settlement_counterparty": {
-                    "id": "retail_bap_confirm_message_80",
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "settlement_ifsc_code": {
-                    "id": "retail_bap_confirm_message_81",
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "settlement_phase": {
-                    "id": "retail_bap_confirm_message_82",
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "settlement_type": {
-                    "id": "retail_bap_confirm_message_83",
+                  "transaction_id": {
+                    "optional": true,
+                    "id": "retail_bap_confirm_message_89",
                     "type": "string",
                     "minLength": 1
                   }
                 }
+              },
+              "status": {
+                "id": "retail_bap_confirm_message_90",
+                "type": "string",
+                "minLength": 1
               }
             },
-            "@ondc/org/settlement_basis": {
-              "id": "retail_bap_confirm_message_105",
-              "type": "string",
-              "minLength": 1,
-              "optional": true
-            },
-            "@ondc/org/settlement_window": {
-              "id": "retail_bap_confirm_message_106",
-              "type": "string",
-              "minLength": 1,
-              "optional": true
-            },
-            "@ondc/org/withholding_amount": {
-              "id": "retail_bap_confirm_message_107",
-              "type": "string",
-              "minLength": 1,
-              "optional": true
-            },
-            "type": {
-              "id": "retail_bap_confirm_message_84",
-              "type": "string",
-              "minLength": 1
-            },
-            "collected_by": {
-              "id": "retail_bap_confirm_message_85",
-              "type": "string",
-              "minLength": 1
-            },
-            "params": {
-              "id": "retail_bap_confirm_message_86",
-              "type": "object",
-              "properties": {
-                "amount": {
-                  "id": "retail_bap_confirm_message_87",
-                  "type": "string",
-                  "minLength": 1
-                },
-                "currency": {
-                  "id": "retail_bap_confirm_message_88",
-                  "type": "string",
-                  "minLength": 1
-                },
-                "transaction_id": {
-                  "id": "retail_bap_confirm_message_89",
-                  "type": "string",
-                  "minLength": 1
-                }
+            "required": {
+              "type": "array",
+              "element": {
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "type": "params",
+                        "flow": {
+                          "const": [
+                            "RET_1b_EB2B"
+                          ]
+                        }
+                      }
+                    },
+                    "then": [
+                      "collected_by",
+                      "@ondc/org/settlement_details",
+                      "status",
+                      "type",
+                      "@ondc/org/buyer_app_finder_fee_amount",
+                      "@ondc/org/buyer_app_finder_fee_type"
+                    ]
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "type": "params",
+                        "flow": {
+                          "const": [
+                            "RET_1_EB2B",
+                            "RET_3_EB2B",
+                            "RET_4_EB2B",
+                            "RET_4b_EB2B",
+                            "RET_4c_EB2B",
+                            "RET_5_EB2B",
+                            "RET_5b_EB2B",
+                            "RET_6_EB2B",
+                            "RET_7_EB2B",
+                            "RET_8_EB2B",
+                            "RET_9_EB2B",
+                            "RET_10_EB2B",
+                            "RET_11_EB2B",
+                            "RET_12_EB2B",
+                            "RET_13_EB2B",
+                            "RET_14_EB2B",
+                            "RET_15_EB2B"
+                          ]
+                        }
+                      }
+                    },
+                    "then": [
+                      "collected_by",
+                      "status",
+                      "type",
+                      "params",
+                      "@ondc/org/settlement_basis",
+                      "@ondc/org/settlement_window",
+                      "@ondc/org/withholding_amount",
+                      "@ondc/org/buyer_app_finder_fee_amount",
+                      "@ondc/org/buyer_app_finder_fee_type"
+                    ]
+                  }
+                ]
               }
-            },
-            "status": {
-              "id": "retail_bap_confirm_message_90",
-              "type": "string",
-              "minLength": 1
             }
           },
-          "required": {
-            "type": "array",
-            "element": {
-              "allOf": [
-                {
-                  "if": {
-                    "properties": {
-                      "type": "params",
-                      "flow": {
-                        "const": [
-                          "RET_1b"
-                        ]
-                      }
-                    }
-                  },
-                  "then": [
-                    "collected_by",
-                    "@ondc/org/settlement_details",
-                    "status",
-                    "type",
-                    "@ondc/org/buyer_app_finder_fee_amount",
-                    "@ondc/org/buyer_app_finder_fee_type"
-                  ]
-                },
-                {
-                  "if": {
-                    "properties": {
-                      "type": "params",
-                      "flow": {
-                        "const": [
-                          "RET_1",
-                          "RET_3",
-                          "RET_4",
-                          "RET_4b",
-                          "RET_4c",
-                          "RET_5",
-                          "RET_5b",
-                          "RET_6",
-                          "RET_7",
-                          "RET_8",
-                          "RET_9",
-                          "RET_10",
-                          "RET_11",
-                          "RET_12",
-                          "RET_13",
-                          "RET_14",
-                          "RET_15"
-                        ]
-                      }
-                    }
-                  },
-                  "then": [
-                    "collected_by",
-                    "status",
-                    "type",
-                    "params",
-                    "@ondc/org/settlement_basis",
-                    "@ondc/org/settlement_window",
-                    "@ondc/org/withholding_amount",
-                    "@ondc/org/buyer_app_finder_fee_amount",
-                    "@ondc/org/buyer_app_finder_fee_type"
-                  ]
-                }
-              ]
+
+        },
+
+        "offers": {
+          "id": "retail_bap_select_message_93",
+          "type": "array",
+          "optional": true,
+          "minItems": 1,
+          "element": {
+            "id": "retail_bap_select_message_94",
+            "type": "object",
+            "properties": {
+              "id": {
+                "id": "retail_bap_select_message_95",
+                "type": "string",
+                "minLength": 1
+              }
             }
           }
-        },
-        "created_at": {
-          "id": "retail_bap_confirm_message_91",
-          "type": "string",
-          "minLength": 1,
-          "format": "rfc3339-date-time",
-          "errorMessage": "Time must be RFC3339 UTC timestamp format."
-        },
-        "updated_at": {
-          "id": "retail_bap_confirm_message_92",
-          "type": "string",
-          "minLength": 1,
-          "format": "rfc3339-date-time",
-          "errorMessage": "Time must be RFC3339 UTC timestamp format."
+        }
+      },
+      "required": {
+        "type": "array",
+        "element": {
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "type": "params",
+                  "flow": {
+                    "const": ["RET_11B_EB2B", "RET_11_EB2B"]
+                  }
+                }
+              },
+              "then": [
+                "offers"
+              ]
+            }
+          ]
         }
       }
     }

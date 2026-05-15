@@ -21,6 +21,7 @@ const cancelIndex = {
 }
 
 const onStatusEnumMap = {
+    "on_status_pending": "Pending",
     "on_status_packed": "Packed",
     "on_status_assign_agent": "Agent-assigned",
     "on_status_pickup": "Order-picked-up",
@@ -87,7 +88,7 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
         // base trail based on /select API - as that is where the initial selection is made.
         let currentTrail = {};
         //  updateTrail({}, logs.find((log) => log.action === 'select')?.request?.message?.order, 'select');
-        
+
         const testFunctions = givenTest.flow
             .map((currentStep) => {
                 let particularLogs;

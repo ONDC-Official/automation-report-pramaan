@@ -30,6 +30,7 @@ function searchMessageTests({ context, message } = {}, constants = {}) {
                 expect(message.intent.fulfillment.type).to.exist.and.to.be.a("string");
             }));
 
+            //not required i.e its optional
             messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.intent.payment' which is an object`, function () {
                 expect(message.intent.payment).to.exist.and.to.be.an("object");
             }));
@@ -163,6 +164,7 @@ function searchMessageTests({ context, message } = {}, constants = {}) {
 
 const searchMap = {
     "search": "",
+    "search_p2p": "(P2P)",
     "search_mode_start": "(Mode Start)",
     "search_mode_stop": "(Mode Stop)"
 }
@@ -180,8 +182,79 @@ module.exports = async function search({ context, message } = {}, logs = [], con
                 expect(context.city).to.not.equal("*");
             }))
         }
-        if (constants?.step === "search_p2p") {
-            //context should have bpp_id and bpp_uri
+        const intent = message?.intent;
+        const providerIdPresent = !!intent?.provider?.id;
+
+        // Provider validation
+        if (providerIdPresent) {
+            testSuite.addTest(new Mocha.Test(`'message.intent.provider.id' should be a string`, function () {
+                expect(intent?.provider?.id).to.be.a("string");
+            }));
+        } else {
+            testSuite.addTest(new Mocha.Test(`'message.intent.provider' should not be present`, function () {
+                expect(intent?.provider).to.not.exist;
+            }));
+        }
+
+        // Fulfillment validation
+        testSuite.addTest(new Mocha.Test(`'message.intent.fulfillment.type' should be 'Delivery'`, function () {
+            expect(intent?.fulfillment?.type).to.equal("Delivery");
+        }));
+
+        const customer = intent?.fulfillment?.customer;
+
+        // Branch 1: Search without provider.id
+        if (!providerIdPresent) {
+            testSuite.addTest(new Mocha.Test(`'message.intent.payment' should be present`, function () {
+                expect(intent?.payment).to.exist.and.to.be.an("object");
+            }));
+
+            testSuite.addTest(new Mocha.Test(`'message.intent.payment.@ondc/org/buyer_app_finder_fee_type' should be 'percent'`, function () {
+                expect(intent?.payment?.["@ondc/org/buyer_app_finder_fee_type"]).to.equal("percent");
+            }));
+
+            testSuite.addTest(new Mocha.Test(`'message.intent.payment.@ondc/org/buyer_app_finder_fee_amount' should be a string`, function () {
+                expect(intent?.payment?.["@ondc/org/buyer_app_finder_fee_amount"]).to.be.a("string");
+            }));
+
+            testSuite.addTest(new Mocha.Test(`'message.intent.tags' should contain 'bap_terms' and 'bap_features'`, function () {
+                const tags = intent?.tags;
+                expect(tags).to.be.an("array");
+
+                const hasBapTerms = tags.some(tag => tag?.code === "bap_terms");
+                const hasBapFeatures = tags.some(tag => tag?.code === "bap_features");
+
+                expect(hasBapTerms).to.be.true;
+                expect(hasBapFeatures).to.be.true;
+            }));
+
+            testSuite.addTest(new Mocha.Test(`'bap_terms' tag should have required list items`, function () {
+                const bapTerms = intent?.tags?.find(tag => tag?.code === "bap_terms");
+                expect(bapTerms).to.exist;
+                expect(bapTerms?.list).to.be.an("array");
+
+                const staticTerms = bapTerms.list.find(item => item?.code === "static_terms");
+                const staticTermsNew = bapTerms.list.find(item => item?.code === "static_terms_new");
+                const effectiveDate = bapTerms.list.find(item => item?.code === "effective_date");
+
+                expect(staticTerms).to.exist;
+                expect(staticTermsNew).to.exist;
+                expect(effectiveDate).to.exist;
+            }));
+
+            testSuite.addTest(new Mocha.Test(`'bap_features' tag should have required feature codes`, function () {
+                const bapFeatures = intent?.tags?.find(tag => tag?.code === "bap_features");
+                expect(bapFeatures).to.exist;
+                expect(bapFeatures?.list).to.be.an("array");
+
+                bapFeatures.list.forEach(item => {
+                    expect(item?.code).to.be.a("string");
+                });
+            }));
+        }
+
+        // Branch 2: Search with provider.id
+        if (providerIdPresent) {
             testSuite.addTest(new Mocha.Test(`'context.bpp_id' should be a string`, function () {
                 expect(context.bpp_id).to.be.a("string");
             }));
@@ -189,6 +262,82 @@ module.exports = async function search({ context, message } = {}, logs = [], con
             testSuite.addTest(new Mocha.Test(`'context.bpp_uri' should be a string`, function () {
                 expect(context.bpp_uri).to.be.a("string");
             }));
+
+            testSuite.addTest(new Mocha.Test(`'message.intent.fulfillment.customer' should be present`, function () {
+                expect(customer).to.exist.and.to.be.an("object");
+            }));
+
+            const hasCustomerId = !!customer?.id;
+            const hasPersonCreds = Array.isArray(customer?.person?.creds) && customer.person.creds.length > 0;
+
+            if (hasCustomerId) {
+                testSuite.addTest(new Mocha.Test(`'customer.id' should be a string`, function () {
+                    expect(customer?.id).to.be.a("string");
+                }));
+            } else {
+                testSuite.addTest(new Mocha.Test(`'customer.person.creds' should be present`, function () {
+                    expect(hasPersonCreds).to.be.true;
+                }));
+
+                testSuite.addTest(new Mocha.Test(`'customer.person.creds' should contain id and type`, function () {
+                    const creds = customer?.person?.creds || [];
+                    // const types = creds.map(c => c?.type);
+
+                    creds.forEach(cred => {
+                        expect(cred?.id).to.be.a("string");
+                        expect(cred?.type).to.be.a("string");
+                    });
+                }));
+
+                testSuite.addTest(new Mocha.Test(`'customer.organization' should be present`, function () {
+                    expect(customer?.organization).to.exist.and.to.be.an("object");
+                }));
+
+                testSuite.addTest(new Mocha.Test(`'customer.organization.descriptor.name' should be a string`, function () {
+                    expect(customer?.organization?.descriptor?.name).to.be.a("string");
+                }));
+
+                testSuite.addTest(new Mocha.Test(`'customer.organization.address' should be a string`, function () {
+                    expect(customer?.organization?.address).to.be.a("string");
+                }));
+
+                testSuite.addTest(new Mocha.Test(`'customer.organization.city.code' should be a string`, function () {
+                    expect(customer?.organization?.city?.code).to.be.a("string");
+                }));
+
+                testSuite.addTest(new Mocha.Test(`'customer.organization.state.code' should be a string`, function () {
+                    expect(customer?.organization?.state?.code).to.be.a("string");
+                }));
+
+                testSuite.addTest(new Mocha.Test(`'customer.contact.phone' should be a string`, function () {
+                    expect(customer?.contact?.phone).to.be.a("string");
+                }));
+            }
+        }
+
+        // Optional: ensure payment is not present when provider is present
+        if (providerIdPresent) {
+            testSuite.addTest(new Mocha.Test(`'message.intent.payment' should not be present`, function () {
+                expect(intent?.payment).to.not.exist;
+            }));
+        }
+
+        // Optional: validate tags are not used in provider-based customer search
+        // Uncomment if your spec says tags/payment should not be sent in this flow.
+        // if (providerIdPresent) {
+        //     testSuite.addTest(new Mocha.Test(`'message.intent.tags' should not be present`, function () {
+        //         expect(intent?.tags).to.not.exist;
+        //     }));
+        // }
+        if (constants?.step === "search_p2p") {
+            //context should have bpp_id and bpp_uri
+            // testSuite.addTest(new Mocha.Test(`'context.bpp_id' should be a string`, function () {
+            //     expect(context.bpp_id).to.be.a("string");
+            // }));
+
+            // testSuite.addTest(new Mocha.Test(`'context.bpp_uri' should be a string`, function () {
+            //     expect(context.bpp_uri).to.be.a("string");
+            // }));
 
             const messageTestSuite = Mocha.Suite.create(testSuite, "Verification of Message");
 
@@ -208,9 +357,9 @@ module.exports = async function search({ context, message } = {}, logs = [], con
                 const customer = message?.intent?.fulfillment?.customer;
                 const hasId = customer?.id && typeof customer.id === "string";
                 const hasCreds = customer?.person?.creds && Array.isArray(customer.person.creds) && customer.person.creds.length > 0;
-                
+
                 expect(hasId || hasCreds, "Customer must have either 'id' or 'person.creds'").to.be.true;
-                
+
                 if (hasCreds) {
                     customer.person.creds.forEach(cred => {
                         expect(cred.id).to.exist.and.to.be.a("string");

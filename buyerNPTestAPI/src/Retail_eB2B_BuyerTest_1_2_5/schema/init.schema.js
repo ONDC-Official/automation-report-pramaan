@@ -37,6 +37,7 @@ module.exports = {
                     "id": "retail_bap_init_message_08",
                     "type": "array",
                     "minItems": 1,
+                    "required": ["id", "fulfillment_id", "quantity"],
                     "element": {
                         "id": "retail_bap_init_message_09",
                         "type": "object",
@@ -49,7 +50,14 @@ module.exports = {
                             "parent_item_id": {
                                 "id": "retail_bap_init_message_11",
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "optional": true
+                            },
+                            "location_id": {
+                                "id": "retail_bap_init_message_items",
+                                "type": "string",
+                                "minLength": 1,
+                                "optional": true
                             },
                             "quantity": {
                                 "id": "retail_bap_init_message_12",
@@ -67,138 +75,81 @@ module.exports = {
                                 "minLength": 1
                             },
                             "tags": {
-                                "id": "retail_bap_init_message_47",
                                 "type": "array",
+                                "optional": true,
                                 "minItems": 1,
                                 "element": {
-                                    "id": "retail_bap_init_message_48",
                                     "type": "object",
                                     "properties": {
-                                        "code": {
-                                            "id": "retail_bap_init_message_49",
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "enum": ["type", "parent"]
-                                        },
+                                        "code": { "type": "string", "minLength": 1 },
                                         "list": {
-                                            "id": "retail_bap_init_message_50",
                                             "type": "array",
                                             "minItems": 1,
                                             "element": {
-                                                "allOf": [
-                                                    {
-                                                        "if": {
-                                                            "properties": {
-                                                                "code": {
-                                                                    "const": "type"
-                                                                }
-                                                            }
-                                                        },
-                                                        "then": {
-                                                            "id": "retail_bap_init_message_51",
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "code": {
-                                                                    "id": "retail_bap_init_message_52",
-                                                                    "type": "string",
-                                                                    "minLength": 1,
-                                                                    "enum": ["type"]
-                                                                },
-                                                                "value": {
-                                                                    "id": "retail_bap_init_message_53",
-                                                                    "type": "string",
-                                                                    "minLength": 1,
-                                                                    "enum": ["item", "customization"]
-                                                                }
-                                                            }
-                                                        }
-                                                    },
-                                                    {
-                                                        "if": {
-                                                            "properties": {
-                                                                "code": {
-                                                                    "const": "id"
-                                                                }
-                                                            }
-                                                        },
-                                                        "then": {
-                                                            "id": "retail_bap_init_message_54",
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "code": {
-                                                                    "id": "retail_bap_init_message_55",
-                                                                    "type": "string",
-                                                                    "minLength": 1,
-                                                                    "enum": ["id"]
-                                                                },
-                                                                "value": {
-                                                                    "id": "retail_bap_init_message_56",
-                                                                    "type": "string",
-                                                                    "minLength": 1
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                ]
+                                                "type": "object",
+                                                "properties": {
+                                                    "code": { "type": "string", "minLength": 1 },
+                                                    "value": { "type": "string", "minLength": 1 }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "offers": {
+                    "type": "array",
+                    "optional": true,
+                    "element": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "tags": {
+                                "type": "array",
+                                "optional": true,
+                                "element": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": { "type": "string" },
+                                        "list": {
+                                            "type": "array",
+                                            "element": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "code": { "type": "string" },
+                                                    "value": { "type": "string" }
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
                         },
-                        "required": {
-                            "type": "array",
-                            "element": {
-                                "allOf": [
-                                    {
-                                        "if": {
-                                            "properties": {
-                                                "type": "params",
-                                                "domain": {
-                                                    "const": [
-                                                        "ONDC:RET10",
-                                                        "ONDC:RET12",
-                                                        "ONDC:RET14",
-                                                        "ONDC:RET13",
-                                                        "ONDC:RET15",
-                                                        "ONDC:RET16",
-                                                        "ONDC:RET17",
-                                                        "ONDC:RET18",
-                                                        "ONDC:RET19",
-                                                        "ONDC:RET1A",
-                                                        "ONDC:RET1B",
-                                                        "ONDC:RET1C",
-                                                        "ONDC:RET1D"
-                                                    ]
-                                                }
-                                            }
-                                        },
-                                        "then": [
-                                            "id",
-                                            "fulfillment_id",
-                                            "quantity"
-                                        ]
-                                    },
-                                    {
-                                        "if": {
-                                            "properties": {
-                                                "type": "params",
-                                                "domain": {
-                                                    "const": "ONDC:RET11"
-                                                }
-                                            }
-                                        },
-                                        "then": [
-                                            "id",
-                                            "parent_item_id",
-                                            "fulfillment_id",
-                                            "quantity",
-                                            "tags"
-                                        ]
-                                    }
-                                ]
+                        "required": ["id"]
+                    }
+                },
+                "payments": {
+                    "id": "retail_bap_init_message_payments_101",
+                    "type": "array",
+                    "minItems": 1,
+                    "element": {
+                        "id": "retail_bap_init_message_payments_elements",
+                        "type": "object",
+                        "properties": {
+                            "collected_by": {
+                                "type": "string",
+                                "enum": ["BPP", "BAP"]
+                            },
+                            "type": {
+                                "type": "string"
                             }
-                        }
+                        },
+                        "required": ["collected_by", "type"]
                     }
                 },
                 "billing": {
@@ -217,7 +168,6 @@ module.exports = {
                                 "building": {
                                     "id": "retail_bap_init_message_18",
                                     "type": "string",
-                                    "optional": true,
                                     "minLength": 1
                                 },
                                 "locality": {
@@ -263,8 +213,7 @@ module.exports = {
                             "id": "retail_bap_init_message_25",
                             "type": "string",
                             "minLength": 1,
-                            "compliance": "email",
-                            "optional": true
+                            "compliance": "email"
                         },
                         "phone": {
                             "id": "retail_bap_init_message_26",
@@ -318,7 +267,7 @@ module.exports = {
                                                 "id": "retail_bap_init_message_35",
                                                 "type": "string",
                                                 "minLength": 1,
-                                                "compliance": "gps-coord"
+                                                "compliance": "gps_coord_only_4"
                                             },
                                             "address": {
                                                 "id": "retail_bap_init_message_36",
@@ -332,8 +281,7 @@ module.exports = {
                                                     "building": {
                                                         "id": "retail_bap_init_message_38",
                                                         "type": "string",
-                                                        "minLength": 1,
-                                                        "optional": true
+                                                        "minLength": 1
                                                     },
                                                     "locality": {
                                                         "id": "retail_bap_init_message_39",
@@ -386,6 +334,26 @@ module.exports = {
                             }
                         }
                     }
+                }
+            },
+            "required": {
+                "type": "array",
+                "element": {
+                    "allOf": [
+                        {
+                            "if": {
+                                "properties": {
+                                    "type": "params",
+                                    "flow": {
+                                        "const": ["RET_11B_EB2B", "RET_11_EB2B"]
+                                    }
+                                }
+                            },
+                            "then": [
+                                "offers"
+                            ]
+                        }
+                    ]
                 }
             }
         }
