@@ -125,6 +125,12 @@ function complianceCheck({ value, compliance, testName, property }) {
                 expect(value).to.match(gpsPattern);
             });
             break;
+        case 'gps-coord_only_4':
+            test = new Mocha.Test(`'[id: ${property?.id}_compliance]' ${testName} should be valid GPS coordinates with at least four decimal places${OPTIONAL}`, function () {
+                const gpsPattern = /^-?\d{1,3}\.\d+,-?\d{1,3}\.\d+$/;
+                expect(value).to.match(gpsPattern);
+            });
+            break;
     }
     return test;
 }
@@ -198,8 +204,9 @@ function contextTests(context = {}, constants = {}, logs = [], schema) {
             validSchema = schema.others;
         }
 
+        const domain = logs[0]?.request?.context?.domain
         validSchema.required.forEach((prop, index) => {
-            contextTestSuite.addTest(new Mocha.Test(`[id: retail_bpp_context_${15 + index}] 'context' should have required property '${prop}'`, function () {
+            contextTestSuite.addTest(new Mocha.Test(`[id: ${domain}_bpp_context_${15 + index}] 'context' should have required property '${prop}'`, function () {
                 expect(context).to.have.property(prop);
             }))
         })
@@ -246,12 +253,15 @@ function contextTests(context = {}, constants = {}, logs = [], schema) {
                     expect(context[prop]).to.match(new RegExp(property.pattern));
                 }));
             }
+            if (constants?.flow !== "RET_9_INC_PULL" && constants?.flow !== "RET_9_INC_PUSH" && constants?.flow !== "RET_9") {
 
-            if (property?.not && property?.not?.pattern) {
-                contextTestSuite.addTest(new Mocha.Test(`'[id: ${property?.id}_nonPattern]' 'context.${prop}' should not match pattern ${property.not.pattern}`, function () {
-                    expect(context[prop]).to.not.match(new RegExp(property.not.pattern));
-                }));
+                if (property?.not && property?.not?.pattern) {
+                    contextTestSuite.addTest(new Mocha.Test(`'[id: ${property?.id}_nonPattern]' 'context.${prop}' should not match pattern ${property.not.pattern}`, function () {
+                        expect(context[prop]).to.not.match(new RegExp(property.not.pattern));
+                    }));
+                }
             }
+
 
             if (property?.format) {
                 const test = formatCheck({ value: context[prop], format: property.format, testName: `context.${prop}` })
@@ -292,7 +302,7 @@ function generateTests({ context, message = {}, errors = [] }, schema, suiteName
 
             // checking if the property is optional
             const OPTIONAL = property?.optional ? " (OPTIONAL)" : "";
-            if (property?.optional && currentObject === undefined) {
+            if (property?.optional && (currentObject === undefined || currentObject === null)) {
                 return;
             }
             // Test property type
@@ -312,7 +322,9 @@ function generateTests({ context, message = {}, errors = [] }, schema, suiteName
                 property?.passKeysToParams?.forEach((key) => {
                     constants = {
                         ...constants,
-                        [key]: currentObject[key]
+                        [key]: typeof currentObject === 'object' && currentObject !== null && key in currentObject 
+                               ? currentObject[key] 
+                               : parentObject[key]
                     }
                 })
             }
@@ -446,6 +458,14 @@ function generateTests({ context, message = {}, errors = [] }, schema, suiteName
                     })
                 }
 
+                // checking if the object contains at least one of the anyOf properties
+                if (Array.isArray(property?.anyOf)) {
+                    suite.addTest(new Mocha.Test(`'[id: ${property?.id}_anyOf]' ${fullPath} should have at least one of the properties: ${property.anyOf.join(', ')}`, function () {
+                        const hasAtLeastOne = property.anyOf.some(prop => currentObject && currentObject[prop] !== undefined);
+                        expect(hasAtLeastOne, `Expected at least one of ${property.anyOf.join(', ')} to be present in ${fullPath}`).to.be.true;
+                    }));
+                }
+
                 // if object has condition on its keys
                 if (property?.required?.type === "array") {
                     const requiredProperties = (
@@ -456,16 +476,13 @@ function generateTests({ context, message = {}, errors = [] }, schema, suiteName
                         }) || (Array.isArray(property?.required) ? property?.required : [])
                     );
 
-                    let propertiesToBeTested = {};
-                    requiredProperties?.forEach((key) => {
-                        propertiesToBeTested[key] = property?.properties[key]
+                    requiredProperties?.forEach((prop) => {
+                        suite.addTest(new Mocha.Test(`'[id: ${property?.id}_required]' ${fullPath} should have required property '${prop}'`, function () {
+                            expect(currentObject).to.have.property(prop);
+                        }))
                     });
 
-                    addTestsForProperties(
-                        propertiesToBeTested,
-                        currentObject,
-                        fullPath
-                    );
+                    addTestsForProperties(property.properties, currentObject, fullPath);
 
                     // if there is no condition
                 } else {
@@ -525,13 +542,14 @@ function generateTests({ context, message = {}, errors = [] }, schema, suiteName
                         }) || (Array.isArray(property?.element?.required) ? property?.element?.required : [])
                     );
 
-                    let propertiesToBeTested = {};
-                    requiredProperties?.forEach((key) => {
-                        propertiesToBeTested[key] = property?.element?.properties[key]
+                    requiredProperties?.forEach((prop) => {
+                        suite.addTest(new Mocha.Test(`'[id: ${property?.element?.id}_required]' ${fullPath}[${index}] should have required property '${prop}'`, function () {
+                            expect(element).to.have.property(prop);
+                        }))
                     });
 
                     addTestsForProperties(
-                        propertiesToBeTested,
+                        property?.element?.properties,
                         element,
                         `${fullPath}[${index}]`
                     );

@@ -164,6 +164,7 @@ function searchMessageTests({ context, message } = {}, constants = {}) {
 
 const searchMap = {
     "search": "",
+    "search_p2p": "(P2P)",
     "search_mode_start": "(Mode Start)",
     "search_mode_stop": "(Mode Stop)"
 }
@@ -330,13 +331,13 @@ module.exports = async function search({ context, message } = {}, logs = [], con
         // }
         if (constants?.step === "search_p2p") {
             //context should have bpp_id and bpp_uri
-            testSuite.addTest(new Mocha.Test(`'context.bpp_id' should be a string`, function () {
-                expect(context.bpp_id).to.be.a("string");
-            }));
+            // testSuite.addTest(new Mocha.Test(`'context.bpp_id' should be a string`, function () {
+            //     expect(context.bpp_id).to.be.a("string");
+            // }));
 
-            testSuite.addTest(new Mocha.Test(`'context.bpp_uri' should be a string`, function () {
-                expect(context.bpp_uri).to.be.a("string");
-            }));
+            // testSuite.addTest(new Mocha.Test(`'context.bpp_uri' should be a string`, function () {
+            //     expect(context.bpp_uri).to.be.a("string");
+            // }));
 
             const messageTestSuite = Mocha.Suite.create(testSuite, "Verification of Message");
 

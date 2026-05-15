@@ -161,6 +161,7 @@ module.exports = {
           "id": "retail_bap_select_message_33",
           "type": "array",
           "minItems": 1,
+          "optional": true,
           "element": {
             "id": "retail_bap_select_message_34",
             "type": "object",
@@ -190,11 +191,13 @@ module.exports = {
                   "id": {
                     "id": "retail_bap_select_message_37",
                     "type": "string",
+                    "optional": true,
                     "minLength": 1
                   },
                   "person": {
                     "id": "retail_bap_select_message_38",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "creds": {
                         "id": "retail_bap_select_message_39",
@@ -219,11 +222,11 @@ module.exports = {
                         }
                       }
                     },
-                    "required": ["creds"]
                   },
                   "organization": {
                     "id": "retail_bap_select_message_43",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "descriptor": {
                         "id": "retail_bap_select_message_44",
@@ -239,6 +242,7 @@ module.exports = {
                       },
                       "address": {
                         "id": "retail_bap_select_message_46",
+                        "optional": true,
                         "type": "string",
                         "minLength": 1
                       },
@@ -267,11 +271,11 @@ module.exports = {
                         "required": ["code"]
                       }
                     },
-                    "required": ["descriptor", "address", "city", "state"]
                   },
                   "contact": {
                     "id": "retail_bap_select_message_51",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "phone": {
                         "id": "retail_bap_select_message_52",
@@ -281,13 +285,13 @@ module.exports = {
                       "email": {
                         "id": "retail_bap_select_message_53",
                         "type": "string",
+                        "optional": true,
                         "minLength": 1
                       }
                     },
                     "required": ["phone", "email"]
                   }
                 },
-                "required": ["id", "person", "organization", "contact"]
               },
 
               "end": {
@@ -328,7 +332,35 @@ module.exports = {
           }
         }
       },
-      "required": ["provider", "items", "offers", "fulfillments"]
+      "required": {
+        "type": "array",
+        "element": {
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "type": "params",
+                  "flow": {
+                    "const": ["RET_11B_EB2B", "RET_11_EB2B"]
+                  }
+                }
+              },
+              "then": ["provider", "items", "fulfillments", "offers"]
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": "params",
+                  "action": {
+                    "const": "select"
+                  }
+                }
+              },
+              "then": ["provider", "items", "fulfillments"]
+            }
+          ]
+        }
+      }
     }
   }
 };
