@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - release-staging
+      - staging
 
 permissions:
   contents: read
