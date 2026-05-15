@@ -119,13 +119,13 @@ jobs:
         run: rm -f ./key.pem
 
   deploy-staging:
-    if: github.ref == 'refs/heads/release-staging'
+    if: github.ref == 'refs/heads/staging'
     runs-on: ubuntu-latest
     environment:
       name: staging
       url: https://github.com
     env:
-      BRANCH_NAME: release-staging
+      BRANCH_NAME: staging
       REMOTE_DIR_NAME: ONDC-automation-framework-staging/automation-report-pramaan
       COMPOSE_FILE: docker-compose.staging.yml
       ROOT_NODE_ENV: staging
