@@ -35,7 +35,7 @@ services:
 
   mongo:
     image: mongo:6.0
-    container_name: mongo
+    container_name: mongo-pramaan-staging
     restart: always
     ports:
       - "27018:27017"   # remove if you don't want host access
