@@ -10,7 +10,7 @@ services:
         - ENV_FILE=${ENV_FILE} 
     container_name: buyer-pramaan-staging
     ports:
-      - "5063:3005"
+      - "5064:3005"
     environment:
       - NODE_ENV=${NODE_ENV}
     networks:
@@ -26,7 +26,7 @@ services:
         - ENV_FILE=${ENV_FILE} 
     container_name: seller-pramaan-staging
     ports:
-      - "5055:3005"
+      - "5056:3005"
     environment:
       - NODE_ENV=${NODE_ENV}
     networks:
@@ -38,7 +38,7 @@ services:
     container_name: mongo
     restart: always
     ports:
-      - "27019:27017"   # remove if you don't want host access
+      - "27018:27017"   # remove if you don't want host access
     volumes:
       - mongo-data:/data/db
     networks:

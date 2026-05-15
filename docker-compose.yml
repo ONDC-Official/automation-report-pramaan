@@ -1,14 +1,14 @@
 version: '3.8'
 
 services:
-  buyer-pramaan-staging:
+  buyer-pramaan-dev:
     build: 
       context: ./buyerNPTestAPI
       dockerfile: ../Dockerfile.js
       args:
         - NODE_ENV=${NODE_ENV}
         - ENV_FILE=${ENV_FILE} 
-    container_name: buyer-pramaan-staging
+    container_name: buyer-pramaan-dev
     ports:
       - "5063:3005"
     environment:
@@ -17,14 +17,14 @@ services:
       - beta-nginx-network
     restart: always
 
-  seller-pramaan-staging:
+  seller-pramaan-dev:
     build: 
       context: ./sellerNPTestAPI
       dockerfile: ../Dockerfile.js
       args:
         - NODE_ENV=${NODE_ENV}
         - ENV_FILE=${ENV_FILE} 
-    container_name: seller-pramaan-staging
+    container_name: seller-pramaan-dev
     ports:
       - "5055:3005"
     environment:
