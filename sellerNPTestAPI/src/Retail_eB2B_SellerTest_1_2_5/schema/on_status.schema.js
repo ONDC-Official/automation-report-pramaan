@@ -209,6 +209,7 @@ module.exports = {
               "@ondc/org/provider_name": {
                 "id": "retail_bpp_on_status_message_41",
                 "type": "string",
+                "optional": true,
                 "minLength": 1
               },
               "type": {
@@ -218,11 +219,13 @@ module.exports = {
               },
               "tracking": {
                 "id": "retail_bpp_on_status_message_43",
-                "type": "boolean"
+                "type": "boolean",
+                "optional": true,
               },
               "@ondc/org/TAT": {
                 "id": "retail_bpp_on_status_message_44",
                 "type": "string",
+                "optional": true,
                 "minLength": 1
               },
               "state": {
@@ -245,6 +248,7 @@ module.exports = {
               "start": {
                 "id": "retail_bpp_on_status_message_48",
                 "type": "object",
+                "optional": true,
                 "properties": {
                   "location": {
                     "id": "retail_bpp_on_status_message_49",
@@ -363,6 +367,7 @@ module.exports = {
               "end": {
                 "id": "retail_bpp_on_status_message_63",
                 "type": "object",
+                "optional": true,
                 "properties": {
                   "location": {
                     "id": "retail_bpp_on_status_message_64",

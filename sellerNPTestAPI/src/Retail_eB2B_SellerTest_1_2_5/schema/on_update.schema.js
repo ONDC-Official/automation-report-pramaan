@@ -7,6 +7,23 @@ module.exports = {
       "id": "retail_bpp_on_update_message_02",
       "type": "object",
       "properties": {
+        "offers": {
+          "id": "retail_bpp_message_offers_on_update",
+          "type": "array",
+          "optional": true,
+          "minItems": 1,
+          "element": {
+            "id": "retail_bpp_message_offers_element_on_update",
+            "type": "object",
+            "properties": {
+              "id": {
+                "id": "retail_bpp_message_offers_id_on_update",
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
         "id": {
           "id": "retail_bpp_on_update_message_03",
           "type": "string",
@@ -338,16 +355,19 @@ module.exports = {
                         "type": "object",
                         "properties": {
                           "name": {
+                            "optional": true,
                             "id": "retail_bpp_on_update_message_66",
                             "type": "string",
                             "minLength": 1
                           },
                           "building": {
+                            "optional": true,
                             "id": "retail_bpp_on_update_message_67",
                             "type": "string",
                             "minLength": 1
                           },
                           "locality": {
+                            "optional": true,
                             "id": "retail_bpp_on_update_message_68",
                             "type": "string",
                             "minLength": 1
@@ -363,6 +383,7 @@ module.exports = {
                             "minLength": 1
                           },
                           "country": {
+                            "optional": true,
                             "id": "retail_bpp_on_update_message_71",
                             "type": "string",
                             "minLength": 1
@@ -379,10 +400,12 @@ module.exports = {
                   "time": {
                     "id": "retail_bpp_on_update_message_73",
                     "type": "object",
+                    "anyOf": ["timestamp", "range"],
                     "properties": {
                       "range": {
                         "id": "retail_bpp_on_update_message_74",
                         "type": "object",
+                        "optional": true,
                         "properties": {
                           "start": {
                             "id": "retail_bpp_on_update_message_75",
@@ -395,12 +418,19 @@ module.exports = {
                             "minLength": 1
                           }
                         }
-                      }
+                      },
+                      "timestamp": {
+                        "id": "retail_bpp_on_status_message_75",
+                        "type": "string",
+                        "optional": true,
+                        "minLength": 1
+                      },
                     }
                   },
                   "person": {
                     "id": "retail_bpp_on_update_message_77",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "name": {
                         "id": "retail_bpp_on_update_message_78",
@@ -412,6 +442,7 @@ module.exports = {
                   "contact": {
                     "id": "retail_bpp_on_update_message_79",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "phone": {
                         "id": "retail_bpp_on_update_message_80",
@@ -464,7 +495,8 @@ module.exports = {
                   }
                 }
               }
-            }, "required": {
+            },
+            "required": {
               "type": "array",
               "element": {
                 "allOf": [
@@ -545,6 +577,7 @@ module.exports = {
                   "@ondc/org/item_quantity": {
                     "id": "retail_bpp_on_update_message_96",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "count": {
                         "id": "retail_bpp_on_update_message_97",
@@ -581,8 +614,10 @@ module.exports = {
                   "item": {
                     "id": "retail_bpp_on_update_message_103",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "parent_item_id": {
+                        "optional": true,
                         "id": "retail_bpp_on_update_message_104",
                         "type": "string",
                         "minLength": 1
@@ -604,6 +639,7 @@ module.exports = {
                         }
                       },
                       "tags": {
+                        "optional": true,
                         "id": "retail_bpp_on_update_message_108",
                         "type": "array",
                         "minItems": 1,
@@ -655,183 +691,164 @@ module.exports = {
         "payments": {
           "optional": true,
           "id": "retail_bpp_on_update_message_116",
-          "type": "object",
-          "array": {
-            "element": {
-              "id": "retail_bpp_on_cancel_message_payment_element",
-              "type": "object",
-              "properties": {
-                // "uri": {
-                //   "type": "string",
-                //   "minLength": 1
-                // },
-                "params": {
-                  "id": "retail_bpp_on_update_message_117",
+          "type": "array",
+          "minItems": 1,
+          "element": {
+            "id": "retail_bpp_on_cancel_message_payment_element",
+            "type": "object",
+            "properties": {
+              // "uri": {
+              //   "type": "string",
+              //   "minLength": 1
+              // },
+              "params": {
+                "id": "retail_bpp_on_update_message_117",
+                "type": "object",
+                "properties": {
+                  "currency": {
+                    "id": "retail_bpp_on_update_message_118",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "transaction_id": {
+                    "id": "retail_bpp_on_update_message_119",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "amount": {
+                    "id": "retail_bpp_on_update_message_120",
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "status": {
+                "id": "retail_bpp_on_update_message_121",
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "id": "retail_bpp_on_update_message_122",
+                "type": "string",
+                "minLength": 1
+              },
+              "collected_by": {
+                "id": "retail_bpp_on_update_message_123",
+                "type": "string",
+                "minLength": 1
+              },
+              "@ondc/org/buyer_app_finder_fee_type": {
+                "id": "retail_bpp_on_update_message_124",
+                "type": "string",
+                "minLength": 1
+              },
+              "@ondc/org/buyer_app_finder_fee_amount": {
+                "id": "retail_bpp_on_update_message_125",
+                "type": "string",
+                "minLength": 1
+              },
+              "@ondc/org/settlement_basis": {
+                "id": "retail_bpp_on_update_message_126",
+                "type": "string",
+                "minLength": 1
+              },
+              "@ondc/org/settlement_window": {
+                "id": "retail_bpp_on_update_message_127",
+                "type": "string",
+                "minLength": 1
+              },
+              "@ondc/org/withholding_amount": {
+                "id": "retail_bpp_on_update_message_128",
+                "type": "string",
+                "minLength": 1
+              },
+              "@ondc/org/settlement_details": {
+                "id": "retail_bpp_on_update_message_129",
+                "type": "array",
+                "minItems": 1,
+                "element": {
+                  "id": "retail_bpp_on_update_message_130",
                   "type": "object",
                   "properties": {
-                    "currency": {
-                      "id": "retail_bpp_on_update_message_118",
+                    "settlement_counterparty": {
+                      "id": "retail_bpp_on_update_message_131",
                       "type": "string",
                       "minLength": 1
                     },
-                    "transaction_id": {
-                      "id": "retail_bpp_on_update_message_119",
+                    "settlement_phase": {
+                      "id": "retail_bpp_on_update_message_132",
                       "type": "string",
                       "minLength": 1
                     },
-                    "amount": {
-                      "id": "retail_bpp_on_update_message_120",
+                    "beneficiary_name": {
+                      "id": "retail_bpp_on_update_message_133",
                       "type": "string",
                       "minLength": 1
-                    }
-                  }
-                },
-                "status": {
-                  "id": "retail_bpp_on_update_message_121",
-                  "type": "string",
-                  "minLength": 1
-                },
-                "type": {
-                  "id": "retail_bpp_on_update_message_122",
-                  "type": "string",
-                  "minLength": 1
-                },
-                "collected_by": {
-                  "id": "retail_bpp_on_update_message_123",
-                  "type": "string",
-                  "minLength": 1
-                },
-                "@ondc/org/buyer_app_finder_fee_type": {
-                  "id": "retail_bpp_on_update_message_124",
-                  "type": "string",
-                  "minLength": 1
-                },
-                "@ondc/org/buyer_app_finder_fee_amount": {
-                  "id": "retail_bpp_on_update_message_125",
-                  "type": "string",
-                  "minLength": 1
-                },
-                "@ondc/org/settlement_basis": {
-                  "id": "retail_bpp_on_update_message_126",
-                  "type": "string",
-                  "minLength": 1
-                },
-                "@ondc/org/settlement_window": {
-                  "id": "retail_bpp_on_update_message_127",
-                  "type": "string",
-                  "minLength": 1
-                },
-                "@ondc/org/withholding_amount": {
-                  "id": "retail_bpp_on_update_message_128",
-                  "type": "string",
-                  "minLength": 1
-                },
-                "@ondc/org/settlement_details": {
-                  "id": "retail_bpp_on_update_message_129",
-                  "type": "array",
-                  "minItems": 1,
-                  "element": {
-                    "id": "retail_bpp_on_update_message_130",
-                    "type": "object",
-                    "properties": {
-                      "settlement_counterparty": {
-                        "id": "retail_bpp_on_update_message_131",
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "settlement_phase": {
-                        "id": "retail_bpp_on_update_message_132",
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "beneficiary_name": {
-                        "id": "retail_bpp_on_update_message_133",
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "settlement_type": {
-                        "id": "retail_bpp_on_update_message_134",
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "upi_address": {
-                        "id": "retail_bpp_on_update_message_135",
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "settlement_bank_account_no": {
-                        "id": "retail_bpp_on_update_message_136",
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "settlement_ifsc_code": {
-                        "id": "retail_bpp_on_update_message_137",
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "bank_name": {
-                        "id": "retail_bpp_on_update_message_138",
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "branch_name": {
-                        "id": "retail_bpp_on_update_message_139",
-                        "type": "string",
-                        "minLength": 1
-                      }
+                    },
+                    "settlement_type": {
+                      "id": "retail_bpp_on_update_message_134",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "upi_address": {
+                      "id": "retail_bpp_on_update_message_135",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "settlement_bank_account_no": {
+                      "id": "retail_bpp_on_update_message_136",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "settlement_ifsc_code": {
+                      "id": "retail_bpp_on_update_message_137",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "bank_name": {
+                      "id": "retail_bpp_on_update_message_138",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "branch_name": {
+                      "id": "retail_bpp_on_update_message_139",
+                      "type": "string",
+                      "minLength": 1
                     }
                   }
                 }
               }
-            },
-          },
-          "created_at": {
-            "id": "retail_bpp_on_update_message_140",
-            "type": "string",
-            "minLength": 1
-          },
-          "updated_at": {
-            "id": "retail_bpp_on_update_message_141",
-            "type": "string",
-            "minLength": 1
-          }
-        }
-      },
-      "offers": {
-        "id": "retail_bpp_message_offers_on_update",
-        "type": "array",
-        "optional": true,
-        "minItems": 1,
-        "element": {
-          "id": "retail_bpp_message_offers_element_on_update",
-          "type": "object",
-          "properties": {
-            "id": {
-              "id": "retail_bpp_message_offers_id_on_update",
-              "type": "string",
-              "minLength": 1
             }
-          }
+          },
+        },
+        "created_at": {
+          "id": "retail_bpp_on_update_message_140",
+          "type": "string",
+          "minLength": 1
+        },
+        "updated_at": {
+          "id": "retail_bpp_on_update_message_141",
+          "type": "string",
+          "minLength": 1
+        }
+      }, "required": {
+        "type": "array",
+        "element": {
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "type": "params",
+                  "flow": {
+                    "const": ["RET_11B_EB2B", "RET_11_EB2B"]
+                  }
+                }
+              },
+              "then": ["offers"]
+            }
+          ]
         }
       }
     },
-    "required": {
-      "type": "array",
-      "element": {
-        "allOf": [
-          {
-            "if": {
-              "properties": {
-                "type": "params",
-                "flow": {
-                  "const": ["RET_11B_EB2B", "RET_11_EB2B"]
-                }
-              }
-            },
-            "then": ["offers"]
-          }
-        ]
-      }
-    }
-  }
+  },
 }

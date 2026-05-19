@@ -257,6 +257,7 @@ module.exports = {
                           "locality": {
                             "id": "retail_bpp_on_cancel_message_51",
                             "type": "string",
+                            "optional": true,
                             "minLength": 1
                           },
                           "city": {
@@ -317,16 +318,19 @@ module.exports = {
                           "name": {
                             "id": "retail_bpp_on_cancel_message_62",
                             "type": "string",
+                            "optional": true,
                             "minLength": 1
                           },
                           "building": {
                             "id": "retail_bpp_on_cancel_message_63",
                             "type": "string",
+                            "optional": true,
                             "minLength": 1
                           },
                           "locality": {
                             "id": "retail_bpp_on_cancel_message_64",
                             "type": "string",
+                            "optional": true,
                             "minLength": 1
                           },
                           "city": {
@@ -342,6 +346,7 @@ module.exports = {
                           "country": {
                             "id": "retail_bpp_on_cancel_message_67",
                             "type": "string",
+                            "optional": true,
                             "minLength": 1
                           },
                           "area_code": {
@@ -430,7 +435,7 @@ module.exports = {
                     "if": {
                       "properties": {
                         "type": {
-                          "const": "Cancel"
+                          "const": ["Cancel"]
                         }
                       }
                     },

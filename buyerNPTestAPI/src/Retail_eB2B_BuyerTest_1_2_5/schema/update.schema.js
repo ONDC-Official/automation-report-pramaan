@@ -296,7 +296,7 @@ module.exports = {
                                         "if": {
                                             "properties": {
                                                 "update_target": {
-                                                    "const": "payment"
+                                                    "const": ["payment","Cancel"]
                                                 }
                                             }
                                         },
