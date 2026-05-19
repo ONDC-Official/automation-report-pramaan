@@ -408,6 +408,7 @@ module.exports = {
                   "item": {
                     "id": "retail_bpp_on_init_message_69",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       // "parent_item_id": {
                       //    "id": "retail_bpp_on_init_message_70",

@@ -536,6 +536,7 @@ module.exports = {
                   "item": {
                     "id": "retail_bpp_on_confirm_message_92",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       // "parent_item_id": {
                       //    "id": "retail_bpp_on_confirm_message_93",
