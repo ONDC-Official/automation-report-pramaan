@@ -458,7 +458,7 @@ async function getHTMLReports(test_id) {
       ).toString("base64")}`;
 
       return {
-        data: base64Report
+        data: mergedReport
       };
     }
 
