@@ -22,6 +22,7 @@ const testRunnerGiftCards = require("../giftCardTests/testRunner");
 
 // RSF Domain Test Runner
 const testRunnerRSF2_0 = require("../rsf2.0/testRunner");
+const testRunnerNTS10 = require("../nts10/testRunner");
 
 // Metro Mobility Test Runner
 const testRunnerMetro = require("../metroSellerNPTest/testRunner");
@@ -180,6 +181,8 @@ module.exports = async function (
             break;
           case "RSF2":
             testFunctions = testRunnerRSF2_0(givenTest, logs);
+          case "RECONCILIATION":
+            testFunctions = testRunnerNTS10(givenTest, logs);
             break;
           case "MOTOR_INSURANCE":
           case "MARINE_INSURANCE":

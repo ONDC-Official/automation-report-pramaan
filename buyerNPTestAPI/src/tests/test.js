@@ -42,6 +42,7 @@ const testRunnerRetail_eb2b_1_2_5 = require("../Retail_eB2B_BuyerTest_1_2_5/test
 
 // RSF Domain Test Runner
 const testRunnerRSF2_0 = require("../rsf2.0/testRunner");
+const testRunnerNTS10 = require("../nts10/testRunner");
 
 // IGM Domain Test Runner
 const testRunnerIGM = require("../igmTest/testRunner");
@@ -156,6 +157,9 @@ module.exports = async function ({
             break;
           case "RSF2":
             testFunctions = testRunnerRSF2_0(givenTest, logs);
+            break;
+          case "RECONCILIATION":
+            testFunctions = testRunnerNTS10(givenTest, logs);
             break;
           case "INVESTMENT":
             switch (version) {
