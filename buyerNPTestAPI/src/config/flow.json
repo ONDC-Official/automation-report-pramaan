@@ -9185,5 +9185,19 @@
         "action": "recon"
       }
     ]
+  },
+  {
+    "id": "NTS10",
+    "type": "RECONCILIATION",
+    "version": "2.0.0",
+    "flowType": "mandatory",
+    "name": "Flow:  Reconciliation and Settlement 2.0",
+    "description": "Flows to handle reconciliation and settlement 2.0",
+    "flow": [
+      {
+        "test": "recon",
+        "action": "recon"
+      }
+    ]
   }
 ]
