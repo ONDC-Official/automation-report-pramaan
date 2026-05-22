@@ -184,6 +184,7 @@ module.exports = {
               "@ondc/org/provider_name": {
                 "id": "retail_bpp_on_cancel_message_37",
                 "type": "string",
+                "optional": true,
                 "minLength": 1
               },
               "state": {
@@ -210,16 +211,19 @@ module.exports = {
               },
               "tracking": {
                 "id": "retail_bpp_on_cancel_message_42",
-                "type": "boolean"
+                "type": "boolean",
+                "optional": true,
               },
               "@ondc/org/TAT": {
                 "id": "retail_bpp_on_cancel_message_43",
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "optional": true,
               },
               "start": {
                 "id": "retail_bpp_on_cancel_message_44",
                 "type": "object",
+                "optional": true,
                 "properties": {
                   "location": {
                     "id": "retail_bpp_on_cancel_message_45",
@@ -253,6 +257,7 @@ module.exports = {
                           "locality": {
                             "id": "retail_bpp_on_cancel_message_51",
                             "type": "string",
+                            "optional": true,
                             "minLength": 1
                           },
                           "city": {
@@ -295,6 +300,7 @@ module.exports = {
               "end": {
                 "id": "retail_bpp_on_cancel_message_58",
                 "type": "object",
+                "optional": true,
                 "properties": {
                   "location": {
                     "id": "retail_bpp_on_cancel_message_59",
@@ -312,16 +318,19 @@ module.exports = {
                           "name": {
                             "id": "retail_bpp_on_cancel_message_62",
                             "type": "string",
+                            "optional": true,
                             "minLength": 1
                           },
                           "building": {
                             "id": "retail_bpp_on_cancel_message_63",
                             "type": "string",
+                            "optional": true,
                             "minLength": 1
                           },
                           "locality": {
                             "id": "retail_bpp_on_cancel_message_64",
                             "type": "string",
+                            "optional": true,
                             "minLength": 1
                           },
                           "city": {
@@ -337,6 +346,7 @@ module.exports = {
                           "country": {
                             "id": "retail_bpp_on_cancel_message_67",
                             "type": "string",
+                            "optional": true,
                             "minLength": 1
                           },
                           "area_code": {
@@ -351,6 +361,7 @@ module.exports = {
                   "person": {
                     "id": "retail_bpp_on_cancel_message_69",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "name": {
                         "id": "retail_bpp_on_cancel_message_70",
@@ -381,6 +392,7 @@ module.exports = {
                 "id": "retail_bpp_on_cancel_message_74",
                 "type": "array",
                 "minItems": 1,
+                "optional": true,
                 "element": {
                   "id": "retail_bpp_on_cancel_message_75",
                   "type": "object",
@@ -423,7 +435,7 @@ module.exports = {
                     "if": {
                       "properties": {
                         "type": {
-                          "const": "Cancel"
+                          "const": ["Cancel"]
                         }
                       }
                     },
@@ -496,6 +508,7 @@ module.exports = {
                   "@ondc/org/item_quantity": {
                     "id": "retail_bpp_on_cancel_message_88",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "count": {
                         "id": "retail_bpp_on_cancel_message_89",
@@ -768,6 +781,41 @@ module.exports = {
           "id": "retail_bpp_on_cancel_message_124",
           "type": "string",
           "minLength": 1
+        },
+        "offers": {
+          "id": "retail_bpp_message_offers_on_cancel",
+          "type": "array",
+          "minItems": 1,
+          "optional": true,
+          "element": {
+            "id": "retail_bpp_message_offers_element_on_cancel",
+            "type": "object",
+            "properties": {
+              "id": {
+                "id": "retail_bpp_message_offers_id_on_cancel",
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      },
+      "required": {
+        "type": "array",
+        "element": {
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "type": "params",
+                  "flow": {
+                    "const": ["RET_11B_EB2B", "RET_11_EB2B"]
+                  }
+                }
+              },
+              "then": ["offers"]
+            }
+          ]
         }
       }
     }

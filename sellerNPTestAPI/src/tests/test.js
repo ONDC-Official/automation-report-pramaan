@@ -398,14 +398,14 @@ module.exports = async function (
           reportPath: reportPath,
         });
         await fs.unlink(reportPath);
-        // axios.post(analyticsAPI, {
-        //   route: "save_flow",
-        //   test_id: test_id,
-        //   flow_id: flow_id,
-        //   role: "Seller"
-        // }, {
-        //   headers: { "Content-Type": "application/json" }
-        // });
+        axios.post(analyticsAPI, {
+          route: "save_flow",
+          test_id: test_id,
+          flow_id: flow_id,
+          role: "Seller"
+        }, {
+          headers: { "Content-Type": "application/json" }
+        });
       })
     );
   } catch (err) {

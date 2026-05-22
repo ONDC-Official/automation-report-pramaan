@@ -296,7 +296,7 @@ module.exports = {
                                         "if": {
                                             "properties": {
                                                 "update_target": {
-                                                    "const": "payment"
+                                                    "const": ["payment","Cancel"]
                                                 }
                                             }
                                         },
@@ -313,6 +313,7 @@ module.exports = {
                 "payments": {
                     "id": "retail_bap_update_message_13",
                     "type": "array",
+                    "optional": true,
                     "elements": {
                         "id": "retail_bap_update_message_payment_elements_01",
                         "type": "object",
