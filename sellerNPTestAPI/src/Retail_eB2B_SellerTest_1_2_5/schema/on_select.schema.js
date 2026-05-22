@@ -185,6 +185,7 @@ module.exports = {
                   "item": {
                     "id": "retail_bpp_on_select_message_37",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "quantity": {
                         "id": "retail_bpp_on_select_message_38",
@@ -337,6 +338,7 @@ module.exports = {
           "id": "retail_bpp_message_offers_on_select",
           "type": "array",
           "minItems": 1,
+          "optional": true,
           "element": {
             "id": "retail_bpp_message_offers_element_on_select",
             "type": "object",

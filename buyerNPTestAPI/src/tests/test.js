@@ -142,7 +142,7 @@ module.exports = async function ({
               : version === domainVersion)
           )
         );
-        
+
         let testFunctions;
         switch (givenTest?.type) {
           case "METRO":
@@ -302,16 +302,16 @@ module.exports = async function ({
           reportPath: reportPath,
         });
 
-        // await fs.unlink(reportPath);
+        await fs.unlink(reportPath);
 
-        axios.post(analyticsAPI, {
-          route: "save_flow",
-          test_id: test_id,
-          flow_id: flow_id,
-          role: "Buyer"
-        }, {
-          headers: { "Content-Type": "application/json" }
-        });
+          axios.post(analyticsAPI, {
+            route: "save_flow",
+            test_id: test_id,
+            flow_id: flow_id,
+            role: "Buyer"
+          }, {
+            headers: { "Content-Type": "application/json" }
+          });
       })
     );
   } catch (err) {
