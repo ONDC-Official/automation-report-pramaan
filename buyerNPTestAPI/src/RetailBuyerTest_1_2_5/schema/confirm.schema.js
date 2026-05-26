@@ -181,8 +181,7 @@ module.exports = {
                             "ONDC:RET1A",
                             "ONDC:RET1B",
                             "ONDC:RET1C",
-                            "ONDC:RET1D",
-                            "ONDC:RETINVL"
+                            "ONDC:RET1D"
                           ]
                         }
                       }
@@ -784,8 +783,7 @@ module.exports = {
                                     "ONDC:RET1A",
                                     "ONDC:RET1B",
                                     "ONDC:RET1C",
-                                    "ONDC:RET1D",
-                                    "ONDC:RETINVL"
+                                    "ONDC:RET1D"
                                   ]
                                 }
                               }
