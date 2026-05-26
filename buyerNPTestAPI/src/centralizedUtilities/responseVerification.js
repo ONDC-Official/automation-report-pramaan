@@ -14,7 +14,8 @@ const actionMap = {
     "issue_status": "on_issue_status",
     "issue": "on_issue",
     "recon": "on_recon",
-    "update": "on_update"
+    "update": "on_update",
+    "track": "on_track"
 }
 
 const actionsThatRequireSyncAPIs = [
