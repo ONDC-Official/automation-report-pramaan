@@ -4510,5 +4510,124 @@
         "action": "status"
       }
     ]
+  },
+  {
+    "id": "BUYER_SIDE_ORDER_CANCELLATION",
+    "type": "RETINVL",
+    "domain": "ONDC:RETINVL",
+    "version": "1.2.5",
+    "flowType": "mandatory",
+    "name": "Buyer Side Order Cancellation Flow",
+    "description": "Buyer Side Order Cancellation Flow",
+    "flow": [
+      {
+        "test": "search",
+        "action": "search"
+      },
+      {
+        "test": "init",
+        "action": "init"
+      },
+      {
+        "test": "confirm",
+        "action": "confirm"
+      },
+      {
+        "test": "cancel",
+        "action": "cancel"
+      }
+    ]
+  },
+  {
+    "id": "OFFERS_FLOW",
+    "type": "RETINVL",
+    "domain": "ONDC:RETINVL",
+    "version": "1.2.5",
+    "flowType": "mandatory",
+    "name": "Offers Flow for Inventory Less",
+    "description": "Offers Flow for Inventory Less (Buy now journey and find best price)",
+    "flow": [
+      {
+        "test": "search",
+        "action": "search"
+      },
+      {
+        "test": "init",
+        "action": "init"
+      },
+      {
+        "test": "confirm",
+        "action": "confirm"
+      },
+      {
+        "test": "track",
+        "action": "track"
+      }
+    ]
+  },
+  {
+    "id": "ORDER_FLOW_BASELINE",
+    "type": "RETINVL",
+    "domain": "ONDC:RETINVL",
+    "version": "1.2.5",
+    "flowType": "mandatory",
+    "name": "Order Flow Baseline for Inventory Less",
+    "description": "Order Flow Baseline for Inventory Less (Buy now journey and find best price)",
+    "flow": [
+      {
+        "test": "init",
+        "action": "init"
+      },
+      {
+        "test": "confirm",
+        "action": "confirm"
+      },
+      {
+        "test": "track",
+        "action": "track"
+      }
+    ]
+  },
+  {
+    "id": "ORDER_FLOW_BASELINE_ILBP",
+    "type": "RETINVL",
+    "domain": "ONDC:RETINVL",
+    "version": "1.2.5",
+    "flowType": "mandatory",
+    "name": "Order Flow Baseline for Inventory Less",
+    "description": "Order Flow Baseline for Inventory Less (find best price)",
+    "flow": [
+      {
+        "test": "init",
+        "action": "init"
+      },
+      {
+        "test": "confirm",
+        "action": "confirm"
+      },
+      {
+        "test": "status",
+        "action": "status"
+      },
+      {
+        "test": "track",
+        "action": "track"
+      }
+    ]
+  },
+  {
+    "id": "RETINVL_DISCOVERY_FLOW",
+    "type": "RETINVL",
+    "domain": "ONDC:RETINVL",
+    "version": "1.2.5",
+    "flowType": "mandatory",
+    "name": "Discovery Flow for Inventory Less",
+    "description": "Discovery Flow for Inventory Less (Buy now journey and find best price)",
+    "flow": [
+      {
+        "test": "search",
+        "action": "search"
+      }
+    ]
   }
 ]

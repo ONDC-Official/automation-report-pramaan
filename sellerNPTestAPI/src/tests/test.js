@@ -41,6 +41,8 @@ const testRunnerRetail = require("../RetailSellerNpTest/testRunner");
 const testRunnerRetail_1_2_5 = require("../RetailSellerTest_1_2_5/testRunner");
 const testRunnerRetail_eb2b_1_2_5 = require("../Retail_eB2B_SellerTest_1_2_5/testRunner");
 
+const testRunnerRetailINVL = require("../RetailINVLSellerTest_1_2_5/testRunner");
+
 // Intercity Test Runner
 const testRunnerIntercity = require("../IntercitySellerNPTest/testRunner");
 
@@ -80,6 +82,13 @@ const testRunnerHotelBooking = require("../hotelSellerNPTest/testRunner");
 
 const reportDir = path.resolve(__dirname, "../output");
 
+function domainMatchesFlow(domain = "", flowDomain) {
+  if (!flowDomain) return true;
+  if (domain === flowDomain) return true;
+  if (domain === "ONDC:RETINVL" && flowDomain === "ONDC:RET") return false;
+  return domain.startsWith(flowDomain);
+}
+
 module.exports = async function (
   { id, version, domain, environment, type, test_id, tests, aa_mandatory = true },
   queries = {}
@@ -116,6 +125,7 @@ module.exports = async function (
           })
 
           logs = response.data;
+          console.log("Logs fetched from Protocol Workbench",JSON.stringify(logs));
         }
 
         if (!logs) {
@@ -139,7 +149,7 @@ module.exports = async function (
         const currentDomain = logs.map(log => log?.request?.context?.domain)[0];
         const givenTest = FLOWS.find(({ id, domain: flowDomain, for: flowFor, version: domainVersion }) =>
           id === flow_id &&
-          (!flowDomain || domain.startsWith(flowDomain)) &&
+          domainMatchesFlow(domain, flowDomain) &&
           (!flowFor || flowFor === type) &&
           (
             !domainVersion ||
@@ -148,6 +158,8 @@ module.exports = async function (
               : version === domainVersion)
           )
         );
+        console.log("givenTest",givenTest);
+        
         let testFunctions;
         switch (givenTest?.type) {
           case "METRO":
@@ -233,6 +245,9 @@ module.exports = async function (
           case "RETAIL_EB2B_1_2_5":
             testFunctions = testRunnerRetail_eb2b_1_2_5(givenTest, logs, domain, test?.type);
             break;
+          case "RETINVL":
+            testFunctions = testRunnerRetailINVL(givenTest, logs, domain, test?.type);
+            break;
           case "INTERCITY":
             testFunctions = testRunnerIntercity(givenTest, logs, type);
             break;
@@ -290,7 +305,7 @@ module.exports = async function (
           testRunner.suite.addSuite(infoSuite);
         }
 
-        testFunctions.map(async (fn) => {
+        await Promise.all(testFunctions.map(async (fn) => {
           const testSuite = await fn();
           if (Array.isArray(testSuite)) {
             testSuite.forEach((suite) => {
@@ -299,7 +314,7 @@ module.exports = async function (
             return;
           }
           parentTestSuite.addSuite(testSuite);
-        });
+        }));
         const umbrellaSuiteForRetailOnNetwork = new Mocha.Suite(
           `${givenTest?.name}`
         );
@@ -326,10 +341,10 @@ module.exports = async function (
             logisticLogs,
             logs
           );
-          logisticsFunctions.map(async (fn) => {
+          await Promise.all(logisticsFunctions.map(async (fn) => {
             const testSuite = await fn();
             forwardLogisticsSuite.addSuite(testSuite);
-          });
+          }));
 
           // Adding Retail suite to umbrella as well
           umbrellaSuiteForRetailOnNetwork.addSuite(parentTestSuite);
@@ -353,10 +368,10 @@ module.exports = async function (
             logs,
             logisticReturnLogs
           );
-          logisticsBuyerReturnFunctions.map(async (fn) => {
+          await Promise.all(logisticsBuyerReturnFunctions.map(async (fn) => {
             const testSuite = await fn();
             forwardLogisticsSuite.addSuite(testSuite);
-          });
+          }));
 
           umbrellaSuiteForRetailOnNetwork.addSuite(returnLogisticsSuite);
         }
@@ -398,14 +413,14 @@ module.exports = async function (
           reportPath: reportPath,
         });
         await fs.unlink(reportPath);
-        axios.post(analyticsAPI, {
-          route: "save_flow",
-          test_id: test_id,
-          flow_id: flow_id,
-          role: "Seller"
-        }, {
-          headers: { "Content-Type": "application/json" }
-        });
+        // axios.post(analyticsAPI, {
+        //   route: "save_flow",
+        //   test_id: test_id,
+        //   flow_id: flow_id,
+        //   role: "Seller"
+        // }, {
+        //   headers: { "Content-Type": "application/json" }
+        // });
       })
     );
   } catch (err) {

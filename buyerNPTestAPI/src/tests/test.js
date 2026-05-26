@@ -40,6 +40,8 @@ const testRunnerRetail = require("../RetailBuyerNpTest/testRunner");
 const testRunnerRetail_1_2_5 = require("../RetailBuyerTest_1_2_5/testRunner");
 const testRunnerRetail_eb2b_1_2_5 = require("../Retail_eB2B_BuyerTest_1_2_5/testRunner");
 
+const testRunnerRetailINVL = require("../RetailINVLBuyerTest_1_2_5/testRunner");
+
 // RSF Domain Test Runner
 const testRunnerRSF2_0 = require("../rsf2.0/testRunner");
 const testRunnerNTS10 = require("../nts10/testRunner");
@@ -71,6 +73,13 @@ const { FLOWS } = require("../config");
 const { analyticsAPI, PW_LOGS_API, PW_LOGS_API_KEY } = require("../utils/env");
 
 const reportDir = path.resolve(__dirname, "../output");
+
+function domainMatchesFlow(domain = "", flowDomain) {
+  if (!flowDomain) return true;
+  if (domain === flowDomain) return true;
+  if (domain === "ONDC:RETINVL" && flowDomain === "ONDC:RET") return false;
+  return domain.startsWith(flowDomain);
+}
 
 module.exports = async function ({
   id,
@@ -133,7 +142,7 @@ module.exports = async function ({
         */
         const givenTest = FLOWS.find(({ id, domain: flowDomain, for: flowFor, version: domainVersion }) =>
           id === flow_id &&
-          (!flowDomain || domain.startsWith(flowDomain)) &&
+          domainMatchesFlow(domain, flowDomain) &&
           (!flowFor || flowFor === type) &&
           (
             !domainVersion ||
@@ -203,6 +212,9 @@ module.exports = async function ({
           case "RETAIL_EB2B_1_2_5":
             testFunctions = testRunnerRetail_eb2b_1_2_5(givenTest, logs, domain, test?.type);
             break;
+          case "RETINVL":
+            testFunctions = testRunnerRetailINVL(givenTest, logs, domain, test?.type);
+            break;
           case "AIRLINE":
             testFunctions = testRunnerAirline(givenTest, logs);
             break;
@@ -257,7 +269,7 @@ module.exports = async function ({
           testRunner.suite.addSuite(infoSuite);
         }
 
-        testFunctions.map(async (fn) => {
+        await Promise.all(testFunctions.map(async (fn) => {
           const testSuite = await fn();
           if (Array.isArray(testSuite)) {
             testSuite.forEach((suite) => {
@@ -266,7 +278,7 @@ module.exports = async function ({
             return;
           }
           parentTestSuite.addSuite(testSuite);
-        });
+        }));
 
         testRunner.suite.addSuite(parentTestSuite);
 
