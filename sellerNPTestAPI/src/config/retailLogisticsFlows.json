@@ -182,7 +182,11 @@
                 "action": "on_status"
             },
             {
-                "test": "on_status_pickup",
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_picked_up",
                 "action": "on_status"
             },
             {
@@ -6967,6 +6971,169 @@
             {
                 "test": "on_status",
                 "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "BUYER_SIDE_ORDER_CANCELLATION",
+        "type": "RETINVL",
+        "domain": "ONDC:RETINVL",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Buyer Side Order Cancellation Flow",
+        "description": "Buyer Side Order Cancellation Flow",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_cancel",
+                "action": "on_cancel"
+            }
+        ]
+    },
+    {
+        "id": "OFFERS_FLOW",
+        "type": "RETINVL",
+        "domain": "ONDC:RETINVL",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Offers Flow for Inventory Less",
+        "description": "Offers Flow for Inventory Less (Buy now journey and find best price)",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "ORDER_FLOW_BASELINE",
+        "type": "RETINVL",
+        "domain": "ONDC:RETINVL",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Order Flow Baseline for Inventory Less",
+        "description": "Order Flow Baseline for Inventory Less (Buy now journey and find best price)",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "ORDER_FLOW_BASELINE_ILBP",
+        "type": "RETINVL",
+        "domain": "ONDC:RETINVL",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Order Flow Baseline for Inventory Less",
+        "description": "Order Flow Baseline for Inventory Less (find best price)",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
+            },
+            {
+                "test": "on_init",
+                "action": "on_init"
+            },
+            {
+                "test": "on_confirm",
+                "action": "on_confirm"
+            },
+            {
+                "test": "on_status_packed",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_assign_agent",
+                "action": "on_status"
+            },
+            {
+                "test": "on_track",
+                "action": "on_track"
+            },
+            {
+                "test": "on_status_picked_up",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_out_for_delivery",
+                "action": "on_status"
+            },
+            {
+                "test": "on_status_delivered",
+                "action": "on_status"
+            }
+        ]
+    },
+    {
+        "id": "RETINVL_DISCOVERY_FLOW",
+        "type": "RETINVL",
+        "domain": "ONDC:RETINVL",
+        "version": "1.2.5",
+        "flowType": "mandatory",
+        "name": "Discovery Flow for Inventory Less",
+        "description": "Discovery Flow for Inventory Less (Buy now journey and find best price)",
+        "flow": [
+            {
+                "test": "on_search",
+                "action": "on_search"
             }
         ]
     }
