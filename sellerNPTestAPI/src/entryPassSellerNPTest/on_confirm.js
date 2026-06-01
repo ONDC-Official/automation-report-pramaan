@@ -8,7 +8,7 @@ async function on_confirm({ context, message } = {}, driverState = "", isSelfPic
     const testSuite = new Mocha.Suite(`on_confirm Request Verification`);
     try {
         const responseTestSuite = response_verification({ context, message }, logs, constants);
-        contextTests(context, "on_confirm", testSuite);
+        contextTests(context, "on_confirm", testSuite, logs);
         if (driverState === "DRIVER_NOT_FOUND") {
             // const { error } = log;
 
