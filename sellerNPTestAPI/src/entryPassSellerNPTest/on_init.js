@@ -9,7 +9,7 @@ async function on_init({ context, message } = {}, isSelfPickup = false, logs = [
     try {
         const testSuite = new Mocha.Suite(`on_init Request Verification`);
         const responseTestSuite = response_verification({ context, message }, logs, constants);
-        contextTests(context, "on_init", testSuite);
+        contextTests(context, "on_init", testSuite, logs);
         const messageTestSuite = Mocha.Suite.create(testSuite, "Verification of Message");
 
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message' which is an object", function () {

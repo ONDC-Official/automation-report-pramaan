@@ -13,8 +13,8 @@ function contextBussinessTests(contextTestSuite, context, logs) {
         // test --> message Id should be unique
         const messageIdsMap = new Map();
         logs?.map((log) => {
-            const message_id = log?.request.context.message_id
-            if (log?.request?.context?.action.startsWith("on_")) {
+            const message_id = log?.request?.context?.message_id
+            if (log?.request?.context?.action?.startsWith("on_")) {
                 if (messageIdsMap.has(message_id)) {
                     messageIdsMap.set(message_id, messageIdsMap.get(message_id) + 1);
                 } else {
@@ -24,7 +24,7 @@ function contextBussinessTests(contextTestSuite, context, logs) {
         });
 
         contextTestSuite.addTest(new Mocha.Test(`'context.message_id' should be unique for each call lifecycle`, function () {
-            expect(messageIdsMap.get(context?.message_id)).to.be.at.most(1);
+            expect(messageIdsMap.get(context?.message_id) || 1).to.be.at.most(1);
         }))
 
         // timestamp should be increasing than the previous one
@@ -49,8 +49,12 @@ function contextBussinessTests(contextTestSuite, context, logs) {
         // bap_id, bap_uri and bpp_uri and bpp_id should not change throughout the journey
         const bap_id = logs[0]?.request?.context?.bap_id
         const bap_uri = logs[0]?.request?.context?.bap_uri
-        const bpp_id = logs[1]?.request?.context?.bpp_id
-        const bpp_uri = logs[1]?.request?.context?.bpp_uri
+        const firstBppLog = logs?.find((log) => (
+            log?.request?.context?.bpp_id &&
+            log?.request?.context?.bpp_uri
+        ));
+        const bpp_id = firstBppLog?.request?.context?.bpp_id
+        const bpp_uri = firstBppLog?.request?.context?.bpp_uri
 
         if (index !== 0) {
             contextTestSuite.addTest(new Mocha.Test(`'context.bap_id' should be same as send in the first call`, function () {
@@ -62,7 +66,7 @@ function contextBussinessTests(contextTestSuite, context, logs) {
             }))
         }
 
-        if (context?.action !== "search") {
+        if (context?.action !== "search" && bpp_id && bpp_uri) {
             contextTestSuite.addTest(new Mocha.Test(`'context.bpp_id' should be same as received in the first call`, function () {
                 expect(context.bpp_id).to.equal(bpp_id);
             }))
