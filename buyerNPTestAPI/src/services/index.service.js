@@ -438,7 +438,7 @@ async function getHTMLReports(test_id) {
         result.title = reports[index]?.flow_id;
         return result;
       });
-console.log("mergedReporttttttttt",JSON.stringify(mergedReport))
+      console.log("mergedReporttttttttt",JSON.stringify(mergedReport))
       await generator.create(mergedReport, {
         reportDir: reportDir,
         reportTitle: `Pramaan Test Report ID: ${test_id} generated at: ${JSON.stringify(
