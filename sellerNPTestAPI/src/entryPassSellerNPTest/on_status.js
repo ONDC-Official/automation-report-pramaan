@@ -6,7 +6,7 @@ const { settlementTermsListTests } = require('../bussinessTests/rideHailingBusin
 async function on_status({ context, message } = {}, logs = [], state = "", isSelfPickup = false) {
     const testSuite = new Mocha.Suite(`on_status${state ? ` (${state})` : ""} Request Verification`);
     try {
-        contextTests(context, "on_status", testSuite);
+        contextTests(context, "on_status", testSuite, logs);
         const messageTestSuite = Mocha.Suite.create(testSuite, "Verification of Message");
 
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message' which is an object", function () {

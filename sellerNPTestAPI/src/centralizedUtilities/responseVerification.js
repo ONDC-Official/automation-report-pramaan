@@ -33,8 +33,16 @@ module.exports = function response_verification({ context, message } = {}, logs 
     const domain = logs[0]?.request?.context?.domain
     const responseAction = counterLog?.request?.context?.action;
     let test_id_template = `${domain}_bpp_sync_${actionMap[context?.action || "-"]}_response`;
+    const isExpectedUnsolicitedEntryPassOnSearch =
+        constants?.type === "ENTRY_PASS" &&
+        context?.action === "on_search" &&
+        constants?.step !== "on_search_one";
 
     const testSuite = new Mocha.Suite(`${actionMap[context?.action]} sync response verification`);
+    if (!counterLog && isExpectedUnsolicitedEntryPassOnSearch) {
+        return new Mocha.Suite(`Unsolicited Call`)
+    }
+
     if (context?.domain === "ONDC:FIS14") {
         if ((constants?.action === "on_confirm" && constants?.step === "I") || (constants?.action === "on_search") || (constants?.action === "on_select") || (constants?.action === "on_init")) {
             if (actionsThatRequireSyncAPIs.includes(context?.action) && !(counterLog)) {
