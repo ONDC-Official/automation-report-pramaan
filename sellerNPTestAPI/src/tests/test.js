@@ -413,6 +413,7 @@ module.exports = async function (
           flow_id,
           reportPath: reportPath,
         });
+        
         await fs.unlink(reportPath);
         axios.post(analyticsAPI, {
           route: "save_flow",
