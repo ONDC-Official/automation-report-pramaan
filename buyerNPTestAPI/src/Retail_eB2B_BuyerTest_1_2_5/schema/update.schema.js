@@ -5,7 +5,8 @@ module.exports = {
         "update_target": {
             "id": "retail_bap_update_message_02",
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "passKeysToParams": ["update_target"]
         },
         "order": {
             "id": "retail_bap_update_message_03",
@@ -28,7 +29,8 @@ module.exports = {
                             "id": {
                                 "id": "retail_bap_update_message_07",
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "optional": true
                             },
                             "type": {
                                 "id": "retail_bap_update_message_08",
@@ -282,8 +284,9 @@ module.exports = {
                                     {
                                         "if": {
                                             "properties": {
+                                                "type": "params",
                                                 "update_target": {
-                                                    "const": "item"
+                                                    "const": ["item"]
                                                 }
                                             }
                                         },
@@ -295,6 +298,7 @@ module.exports = {
                                     {
                                         "if": {
                                             "properties": {
+                                                "type": "params",
                                                 "update_target": {
                                                     "const": ["payment","Cancel"]
                                                 }
@@ -314,7 +318,7 @@ module.exports = {
                     "id": "retail_bap_update_message_13",
                     "type": "array",
                     "optional": true,
-                    "elements": {
+                    "element": {
                         "id": "retail_bap_update_message_payment_elements_01",
                         "type": "object",
                         "properties": {
@@ -365,20 +369,22 @@ module.exports = {
                         {
                             "if": {
                                 "properties": {
+                                    "type": "params",
                                     "update_target": {
-                                        "const": "payment"
+                                        "const": ["payment"]
                                     }
                                 }
                             },
                             "then": [
                                 "id",
                                 "fulfillments",
-                                "payment"
+                                "payments"
                             ]
                         },
                         {
                             "if": {
                                 "properties": {
+                                    "type": "params",
                                     "update_target": {
                                         "const": "item"
                                     }
