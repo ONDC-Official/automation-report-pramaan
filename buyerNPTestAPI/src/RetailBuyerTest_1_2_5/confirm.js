@@ -5,7 +5,7 @@ const { generateTests } = require("./common");
 const response_verification = require("../centralizedUtilities/responseVerification");
 
 
-function confirmMessageTests({ context, message } = {}, constants = {}) {
+function confirmMessageTests({ context, message } = {}, logs = [], constants = {}) {
     try {
         // generating the tests using recursive methods
         if (constants?.flow === "RET_ENH_001" || constants?.flow === "RET_ENH_01E" || constants?.flow === "RET_ENH_00A" || constants?.flow === "RET_ENH_009_FREEBIE" || constants?.flow === "RET_ENH_009_DISCOUNT" || constants?.flow === "RET_ENH_009_BUYXGETY_B" || constants?.flow === "RET_ENH_009_BUYXGETY_A" || constants?.flow === "RET_ENH_009_COMBO") {
@@ -874,7 +874,7 @@ module.exports = async function confirm({ context, message } = {}, logs = [], co
         constants = { ...constants, action: "confirm" };
 
         testSuite.addSuite(contextTests(context, constants, logs));
-        testSuite.addSuite(confirmMessageTests({ context, message }, constants));
+        testSuite.addSuite(confirmMessageTests({ context, message }, logs, constants));
         const responseTestSuite = response_verification({ context, message }, logs);
 
         return [testSuite, responseTestSuite];
