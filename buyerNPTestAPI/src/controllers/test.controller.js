@@ -62,7 +62,6 @@ module.exports = async function (req, res) {
        */
       const TRACKED_CATEGORIES = ["MANDATORY", "OPTIONAL", "REPORTABLE"];
       const flow_summary = {};
-      console.log("flowsummaryTests", JSON.stringify(req.body));
       for (const category of TRACKED_CATEGORIES) {
         const flowsInCategory = (req.body.tests || []).filter(
           (t) => t.type && t.type.toUpperCase() === category
