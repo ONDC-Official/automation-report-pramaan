@@ -4,7 +4,7 @@ const initSchema = require("./schema/init.schema");
 const { generateTests } = require("./common");
 const response_verification = require("../centralizedUtilities/responseVerification");
 
-function initMessageTests({ context, message } = {}, constants = {}) {
+function initMessageTests({ context, message } = {}, logs = [], constants = {}) {
     try {
         // generating the tests using recursive methods
         if (constants?.flow === "RET_ENH_001" || constants?.flow === "RET_ENH_01E" || constants?.flow === "RET_ENH_00A" || constants?.flow === "RET_ENH_009_FREEBIE" || constants?.flow === "RET_ENH_009_COMBO" || constants?.flow === "RET_ENH_009_DISCOUNT" || constants?.flow === "RET_ENH_009_BUYXGETY_B" || constants?.flow === "RET_ENH_009_BUYXGETY_A" || constants?.flow === "RET_ENH_009_SLAB") {
@@ -478,7 +478,7 @@ module.exports = async function init({ context, message } = {}, logs = [], const
         constants = { ...constants, action: "init" };
 
         testSuite.addSuite(contextTests(context, constants, logs));
-        testSuite.addSuite(initMessageTests({ context, message }, constants));
+        testSuite.addSuite(initMessageTests({ context, message }, logs, constants));
         const responseTestSuite = response_verification({ context, message }, logs);
 
         return [testSuite, responseTestSuite];

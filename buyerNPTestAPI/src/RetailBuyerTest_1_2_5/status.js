@@ -3,7 +3,7 @@ const contextTests = require("./context");
 const statusSchema = require("./schema/status.schema");
 const { generateTests } = require("./common");
 
-function statusMessageTests({ context, message } = {}, constants = {}) {
+function statusMessageTests({ context, message } = {}, logs = [], constants = {}) {
     try {
         // generating the tests using recursive methods
         const messageTestSuite = generateTests({ context, message }, statusSchema, "Verification of Message", constants);
@@ -19,7 +19,7 @@ module.exports = async function status({ context, message }, logs = [], constant
         constants = { ...constants, action: "status" };
 
         testSuite.addSuite(contextTests(context, constants, logs));
-        testSuite.addSuite(statusMessageTests({ context, message }, constants));
+        testSuite.addSuite(statusMessageTests({ context, message }, logs, constants));
 
         return testSuite;
     } catch (err) {
