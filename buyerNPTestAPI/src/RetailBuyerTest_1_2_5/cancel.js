@@ -3,7 +3,7 @@ const contextTests = require("./context");
 const cancelSchema = require("./schema/cancel.schema");
 const { generateTests } = require("./common");
 
-function cancelMessageTests({ context, message } = {}, constants = {}) {
+function cancelMessageTests({ context, message } = {}, logs = [], constants = {}) {
     try {
         // generating the tests using recursive methods
         const messageTestSuite = generateTests({ context, message }, cancelSchema, "Verification of Message", constants);
@@ -20,7 +20,7 @@ module.exports = async function cancel({ context, message }, logs = [], constant
         constants = { ...constants, action: "cancel" };
 
         testSuite.addSuite(contextTests(context, constants, logs));
-        testSuite.addSuite(cancelMessageTests({ context, message }, constants));
+        testSuite.addSuite(cancelMessageTests({ context, message }, logs, constants));
 
         return testSuite;
     } catch (err) {

@@ -3,7 +3,7 @@ const contextTests = require("./context");
 const trackSchema = require("./schema/track.schema"); 
 const { generateTests } = require("./common");
 
-function trackMessageTests({ context, message } = {}, constants = {}) {
+function trackMessageTests({ context, message } = {}, logs = [], constants = {}) {
     try {
         // generating the tests using recursive methods
         const messageTestSuite = generateTests({ context, message }, trackSchema, "Verification of Message", constants);
@@ -20,7 +20,7 @@ module.exports = async function track({ context, message }, logs = [], constants
         constants = { ...constants, action: "track" };
 
         testSuite.addSuite(contextTests(context, constants, logs));
-        testSuite.addSuite(trackMessageTests({ context, message }, constants));
+        testSuite.addSuite(trackMessageTests({ context, message }, logs, constants));
 
         return testSuite;
     } catch (err) {
