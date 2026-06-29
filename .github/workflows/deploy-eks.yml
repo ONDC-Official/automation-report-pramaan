@@ -5,9 +5,11 @@ on:
   push:
     branches:
       - main
+      - staging
       - draft-*
       - release-staging
       - release-*
+      
 
 permissions:
   packages: write
@@ -35,7 +37,7 @@ jobs:
           VERSION=$(node -p "require('./buyerNPTestAPI/package.json').version")
           SHORT_SHA=$(git rev-parse --short=7 HEAD)
 
-          if [[ "${{ github.ref_name }}" == release-* ]]; then
+          if [[ "${{ github.ref_name }}" == release-* ]] || [[ "${{ github.ref_name }}" == "staging" ]]; then
             ENV=staging
             TARGET="k8/aws/helm/service-layer/values-staging.yaml"
           else
@@ -56,6 +58,7 @@ jobs:
   build-buyer:
     needs: version
     runs-on: ubuntu-latest
+    environment: ${{ needs.version.outputs.environment }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -75,7 +78,9 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/ondc-official/automation-report-pramaan-buyer
-          tags: ${{ needs.version.outputs.image_tag }}
+          tags: |
+            ${{ needs.version.outputs.image_tag }}
+            ${{ (startsWith(github.ref_name, 'release-') || github.ref_name == 'staging') && 'latest' || '' }}
           labels: |
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
@@ -98,6 +103,7 @@ jobs:
   build-seller:
     needs: version
     runs-on: ubuntu-latest
+    environment: ${{ needs.version.outputs.environment }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -117,7 +123,9 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/ondc-official/automation-report-pramaan-seller
-          tags: ${{ needs.version.outputs.image_tag }}
+          tags: |
+            ${{ needs.version.outputs.image_tag }}
+            ${{ (startsWith(github.ref_name, 'release-') || github.ref_name == 'staging') && 'latest' || '' }}
           labels: |
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
@@ -140,6 +148,7 @@ jobs:
   update-iac:
     needs: [version, build-buyer, build-seller]
     runs-on: ubuntu-latest
+    environment: ${{ needs.version.outputs.environment }}
     steps:
       - name: Generate GitHub App token
         id: app-token
