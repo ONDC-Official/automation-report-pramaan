@@ -55,9 +55,36 @@ module.exports = async function (req, res) {
         headers: { "Content-Type": "application/json" }
       });
 
+      /**
+       * Compute flow_summary from the tests array.
+       * Each test item has a `type` field (e.g. "MANDATORY", "OPTIONAL", "REPORTABLE").
+       * We count total flows per category and how many were actually submitted (i.e. have a transaction_id).
+       */
+      const TRACKED_CATEGORIES = ["MANDATORY", "OPTIONAL", "REPORTABLE"];
+      const flow_summary = {};
+      for (const category of TRACKED_CATEGORIES) {
+        const flowsInCategory = (req.body.tests || []).filter(
+          (t) => t.type && t.type.toUpperCase() === category
+        );
+        if (flowsInCategory.length === 0) continue;
+
+        // A flow is considered "completed" if it has a non-empty transaction_id
+        const completedFlows = flowsInCategory.filter(
+          (t) => t.transaction_id && t.transaction_id.trim() !== ""
+        );
+
+        flow_summary[category] = {
+          total: flowsInCategory.length,
+          completed: completedFlows.length,
+        };
+      }
+
       setTimeout(async () => {
         const report = await getHTMLReports(req.body.test_id);
-        axios.post(`${PW_LOGS_API}/callback/${req.body.test_id}`, report, {
+        axios.post(`${PW_LOGS_API}/callback/${req.body.test_id}`, {
+          ...report,
+          flow_summary,
+        }, {
           headers: {
             "Content-Type": "application/json",
             'x-api-key': PW_LOGS_API_KEY

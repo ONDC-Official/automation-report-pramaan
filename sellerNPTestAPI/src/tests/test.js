@@ -384,6 +384,7 @@ module.exports = async function (
 
         await new Promise((resolve, reject) => {
           testRunner.run(async (failures) => {
+            console.log(`flow_id_fail_pass: ${flow_id} -> ${failures === 0 ? "PASS" : "FAIL"} (failures: ${failures})`);
             if (failures) {
               // reject(new Error(`TestRunner finished with ${failures} failures`));
               resolve();
@@ -412,6 +413,7 @@ module.exports = async function (
           flow_id,
           reportPath: reportPath,
         });
+        
         await fs.unlink(reportPath);
         axios.post(analyticsAPI, {
           route: "save_flow",
