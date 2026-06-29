@@ -1,10 +1,10 @@
-name: Deploy Automation Frontend to https://dev-workbench.ondc.tech/
+name: Build and Deploy to EKS
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - main-tech
+      - main
       - draft-*
       - release-staging
       - release-*
@@ -15,9 +15,6 @@ permissions:
 jobs:
   # ──────────────────────────────────────────────
   # Job 1: Read semver, compute image tag and target file
-  # - Read version from frontend/package.json
-  # - Compose tag as <env>-<semver>-<short-sha>
-  # - Do NOT auto-increment in CI
   # ──────────────────────────────────────────────
   version:
     runs-on: ubuntu-latest
@@ -35,15 +32,11 @@ jobs:
       - name: Read version and build image tag
         id: set
         run: |
-          # Read semver from frontend/package.json
-          VERSION=$(node -p "require('./frontend/package.json').version")
-
-          # Short SHA for traceability
+          VERSION=$(node -p "require('./buyerNPTestAPI/package.json').version")
           SHORT_SHA=$(git rev-parse --short=7 HEAD)
 
-          # Environment mapping: release-* -> staging, else -> dev
           if [[ "${{ github.ref_name }}" == release-* ]]; then
-            ENV=staging-eks
+            ENV=staging
             TARGET="k8/aws/helm/service-layer/values-staging.yaml"
           else
             ENV=dev
@@ -52,18 +45,17 @@ jobs:
 
           IMAGE_TAG="${ENV}-${VERSION}-${SHORT_SHA}"
 
-          echo "version=${VERSION}"      >> $GITHUB_OUTPUT
-          echo "image_tag=${IMAGE_TAG}"  >> $GITHUB_OUTPUT
-          echo "environment=${ENV}"      >> $GITHUB_OUTPUT
-          echo "target_file=${TARGET}"   >> $GITHUB_OUTPUT
+          echo "version=${VERSION}"       >> $GITHUB_OUTPUT
+          echo "image_tag=${IMAGE_TAG}"   >> $GITHUB_OUTPUT
+          echo "environment=${ENV}"       >> $GITHUB_OUTPUT
+          echo "target_file=${TARGET}"    >> $GITHUB_OUTPUT
 
   # ──────────────────────────────────────────────
-  # Job 2a: Build & push backend image (parallel)
+  # Job 2a: Build & push buyer image (parallel)
   # ──────────────────────────────────────────────
-  build-backend:
+  build-buyer:
     needs: version
     runs-on: ubuntu-latest
-    environment: ${{ needs.version.outputs.environment }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -78,44 +70,34 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Print backend build environment values
-        run: |
-          echo "GitHub Actions environment: ${{ needs.version.outputs.environment }}"
-          echo "Backend build context: backend"
-          echo "Backend Dockerfile: backend/Dockerfile"
-          echo "Backend-specific build env vars: none configured in this workflow"
-
-      - name: Set backend image metadata
-        id: meta-backend
+      - name: Set buyer image metadata
+        id: meta-buyer
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/ondc-official/automation-frontend/backend
-          tags: |
-            ${{ needs.version.outputs.image_tag }}
-            ${{ startsWith(github.ref_name, 'release-') && 'latest' || '' }}
+          images: ghcr.io/ondc-official/automation-report-pramaan-buyer
+          tags: ${{ needs.version.outputs.image_tag }}
           labels: |
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.version=${{ needs.version.outputs.version }}
 
-      - name: Build and push backend image
+      - name: Build and push buyer image
         uses: docker/build-push-action@v5
         with:
-          context: backend
-          file: backend/Dockerfile
+          context: ./buyerNPTestAPI
+          file: ./Dockerfile.js
           push: true
-          tags: ${{ steps.meta-backend.outputs.tags }}
-          labels: ${{ steps.meta-backend.outputs.labels }}
-          cache-from: type=gha,scope=backend
-          cache-to: type=gha,mode=max,scope=backend
+          tags: ${{ steps.meta-buyer.outputs.tags }}
+          labels: ${{ steps.meta-buyer.outputs.labels }}
+          cache-from: type=gha,scope=buyer
+          cache-to: type=gha,mode=max,scope=buyer
 
   # ──────────────────────────────────────────────
-  # Job 2b: Build & push frontend image (parallel)
+  # Job 2b: Build & push seller image (parallel)
   # ──────────────────────────────────────────────
-  build-frontend:
+  build-seller:
     needs: version
     runs-on: ubuntu-latest
-    environment: ${{ needs.version.outputs.environment }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -128,58 +110,36 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ github.token }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Print frontend build environment values
-        run: |
-          echo "GitHub Actions environment: ${{ needs.version.outputs.environment }}"
-          echo "VITE_BACKEND_URL=${{ vars.VITE_BACKEND_URL }}"
-          echo "VITE_BAP_URL=${{ vars.VITE_BAP_URL }}"
-          echo "VITE_BASE_URL=${{ vars.VITE_BASE_URL }}"
-          echo "VITE_BPP_URL=${{ vars.VITE_BPP_URL }}"
-          echo "VITE_DB_SERVICE_API_KEY=[redacted]"
-          echo "VITE_DEVELOPER_GUIDE_BACKEND_URL=${{ vars.VITE_DEVELOPER_GUIDE_BACKEND_URL }}"
-          echo "VITE_ENVIRONMENT=${{ vars.VITE_ENVIRONMENT }}"
-
-      - name: Set frontend image metadata
-        id: meta-frontend
+      - name: Set seller image metadata
+        id: meta-seller
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/ondc-official/automation-frontend/frontend
-          tags: |
-            ${{ needs.version.outputs.image_tag }}
-            ${{ startsWith(github.ref_name, 'release-') && 'latest' || '' }}
+          images: ghcr.io/ondc-official/automation-report-pramaan-seller
+          tags: ${{ needs.version.outputs.image_tag }}
           labels: |
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.version=${{ needs.version.outputs.version }}
 
-      - name: Build and push frontend image
+      - name: Build and push seller image
         uses: docker/build-push-action@v5
         with:
-          context: frontend
-          file: frontend/Dockerfile.eks
+          context: ./sellerNPTestAPI
+          file: ./Dockerfile.js
           push: true
-          tags: ${{ steps.meta-frontend.outputs.tags }}
-          labels: ${{ steps.meta-frontend.outputs.labels }}
-          build-args: |
-            VITE_BACKEND_URL=${{ vars.VITE_BACKEND_URL }}
-            VITE_BAP_URL=${{ vars.VITE_BAP_URL }}
-            VITE_BASE_URL=${{ vars.VITE_BASE_URL }}
-            VITE_BPP_URL=${{ vars.VITE_BPP_URL }}
-            VITE_DB_SERVICE_API_KEY=${{ vars.VITE_DB_SERVICE_API_KEY }}
-            VITE_DEVELOPER_GUIDE_BACKEND_URL=${{ vars.VITE_DEVELOPER_GUIDE_BACKEND_URL }}
-            VITE_ENVIRONMENT=${{ vars.VITE_ENVIRONMENT }}
-          cache-from: type=gha,scope=frontend
-          cache-to: type=gha,mode=max,scope=frontend
+          tags: ${{ steps.meta-seller.outputs.tags }}
+          labels: ${{ steps.meta-seller.outputs.labels }}
+          cache-from: type=gha,scope=seller
+          cache-to: type=gha,mode=max,scope=seller
 
   # ──────────────────────────────────────────────
   # Job 3: Update image tags in IaC Helm values
   # ──────────────────────────────────────────────
   update-iac:
-    needs: [version, build-backend, build-frontend]
+    needs: [version, build-buyer, build-seller]
     runs-on: ubuntu-latest
-    environment: ${{ needs.version.outputs.environment }}
     steps:
       - name: Generate GitHub App token
         id: app-token
@@ -196,7 +156,7 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           path: automation-iac
 
-      - name: Update uiBackend and uiFrontend image tags in Helm values
+      - name: Update buyer and seller image tags in Helm values file
         run: |
           python3 << 'PYEOF'
           import re, os
@@ -210,20 +170,16 @@ jobs:
           current_section = None
           result = []
           for line in lines:
-              # Track top-level YAML keys (no leading whitespace)
               if re.match(r'^[a-zA-Z]', line):
                   current_section = line.strip().rstrip(':').split(':')[0]
-
-              # Replace tag: under uiBackend or uiFrontend sections
-              if current_section in ('uiBackend', 'uiFrontend') and re.match(r'^\s+tag:\s', line):
+              if current_section in ('reportPramaanBuyer', 'reportPramaanSeller') and re.match(r'^\s+tag:\s', line):
                   line = re.sub(r'(tag:\s*).*', rf'\g<1>{image_tag}', line)
-
               result.append(line)
 
           with open(target, 'w') as f:
               f.writelines(result)
 
-          print(f"Updated uiBackend and uiFrontend image tags to: {image_tag}")
+          print(f"Updated reportPramaanBuyer and reportPramaanSeller image tags to: {image_tag}")
           PYEOF
         env:
           TARGET_FILE: ${{ needs.version.outputs.target_file }}
@@ -235,8 +191,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add "${{ needs.version.outputs.target_file }}"
-          git commit -m "ci: update workbench-ui image tags to ${{ needs.version.outputs.image_tag }} (${{ needs.version.outputs.environment }})"
-          for i in 1 2 3; do
-            git pull --rebase origin main && git push && break
-            sleep $((i * 5))
-          done
+          if git diff --staged --quiet; then
+            echo "Image tag already up to date, skipping commit."
+          else
+            git commit -m "ci: update automation-report-pramaan image tags to ${{ needs.version.outputs.image_tag }} (${{ needs.version.outputs.environment }})"
+            for i in 1 2 3; do
+              git pull --rebase origin main && git push && break
+              sleep $((i * 5))
+            done
+          fi
