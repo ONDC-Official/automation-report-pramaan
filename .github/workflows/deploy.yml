@@ -1,4 +1,4 @@
-name: Deploy Automation APIs
+name: Deploy Pramaan
 
 on:
   workflow_dispatch:
