@@ -25,6 +25,17 @@ module.exports = function testRunnerSachetInsurance(givenTest, logs) {
     try {
         const category = (logs?.find((log) => log?.action === "search") ?? {})?.request?.message?.intent?.category?.descriptor?.code;
 
+        // Pramaan models on_search_one/two/three as one continuous flow, but Workbench can run
+        // each on_search as its own isolated flow (or bundle only a subset, e.g. the Purchase
+        // Journey leg only re-sends the final on_search). `logs` here may legitimately contain
+        // fewer "on_search" entries than the flow definition has search-type steps. Track how
+        // many search-type steps this flow definition has declared *so far* and use that as the
+        // position into this run's own filtered on_search logs, instead of trusting the fixed
+        // searchIndex position (0/1/2) which breaks once logs don't contain all three. The
+        // searchIndex/romanIndex lookup is kept only to pick which assertion tier (I/II/III)
+        // applies to that semantic step.
+        let searchStepsSeen = 0;
+
         const testFunctions = givenTest.flow
             .map((currentStep) => {
                 let particularLogs;
@@ -60,11 +71,14 @@ module.exports = function testRunnerSachetInsurance(givenTest, logs) {
                 switch (currentStep.test) {
                     case "on_search_one":
                     case "on_search_two":
-                    case "on_search_three":
-                        const search = logs.filter(log => log.action === currentStep.action)?.[searchIndex[currentStep.test]];
+                    case "on_search_three": {
+                        const positionInThisRun = searchStepsSeen++;
+                        const roman = romanIndex[searchIndex[currentStep.test] + 1];
+                        const search = particularLogs?.[positionInThisRun];
                         if (search?.request)
-                            return () => on_search(search?.request, romanIndex[searchIndex[currentStep.test] + 1], flowId, logs, constants);
-                        return () => on_search({}, romanIndex[searchIndex[currentStep.test] + 1], flowId, logs, constants);
+                            return () => on_search(search?.request, roman, flowId, logs, constants);
+                        return () => on_search({}, roman, flowId, logs, constants);
+                    }
                     case "on_select":
                         if (particularLogs?.request)
                             return () => on_select(particularLogs?.request, flowId, logs, constants);

@@ -36,13 +36,57 @@
         "description": "Flow from search to confirm - Accidental",
         "flow": [
             {
-                "test": "search_one",
+                "test": "search_three",
                 "action": "search"
             },
             {
-                "test": "search_two",
+                "test": "select",
+                "action": "select"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            }
+        ]
+    },
+    {
+        "id": "INS_SGRTD_4",
+        "type": "SACHET_INSURANCE",
+        "version": "2.0.0",
+        "domain": "ONDC:FIS13",
+        "name": "Flow: Order to Confirm to Fulfilment - Transit",
+        "description": "Flow from search to confirm - Transit",
+        "flow": [
+            {
+                "test": "search_three",
                 "action": "search"
             },
+            {
+                "test": "select",
+                "action": "select"
+            },
+            {
+                "test": "init",
+                "action": "init"
+            },
+            {
+                "test": "confirm",
+                "action": "confirm"
+            }
+        ]
+    },
+    {
+        "id": "INS_SGRTD_5",
+        "type": "SACHET_INSURANCE",
+        "version": "2.0.0",
+        "domain": "ONDC:FIS13",
+        "name": "Flow: Order to Confirm to Fulfilment - Hospicash",
+        "description": "Flow from search to confirm - Hospicash",
+        "flow": [
             {
                 "test": "search_three",
                 "action": "search"
