@@ -476,7 +476,6 @@ module.exports = {
                                                         },
                                                         "then": [
                                                             "parent_item_id",
-                                                            "quantity",
                                                             "price",
                                                             "tags"
                                                         ]
@@ -508,7 +507,6 @@ module.exports = {
                                                             }
                                                         },
                                                         "then": [
-                                                            "quantity",
                                                             "price"
                                                         ]
                                                     }

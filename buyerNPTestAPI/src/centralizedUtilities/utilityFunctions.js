@@ -151,29 +151,24 @@ function getPropertyByIfThenClause({ structure, data, params }) {
         return null;
     }
 
-    // Check if the data matches the properties
+    // Check if the data matches the properties (ALL condition keys must match - AND, not OR)
     function matches(properties, data, params) {
-        for (let key in properties) {
-            if (typeof properties[key] === "object" && !properties[key]?.const && !Array.isArray(properties[key])) {
+        const conditionKeys = Object.keys(properties || {}).filter((key) => key !== "type");
+        if (conditionKeys.length === 0) return false;
+
+        return conditionKeys.every((key) => {
+            const condition = properties[key];
+
+            if (typeof condition === "object" && !condition?.const && !Array.isArray(condition)) {
                 // Recursively check nested properties
-                if (matches(properties[key], data?.[key], params?.[key])) {
-                    return true;
-                }
-            } else if (
-                properties.type === "params" &&
-                properties[key]?.const &&
-                (params?.[key] === properties[key].const || properties[key].const.includes(params?.[key]))
-            ) {
-                return true;
-            } else if (
-                properties.type !== "params" &&
-                properties[key]?.const &&
-                (data?.[key] === properties[key].const || properties[key].const.includes(data?.[key]))
-            ) {
-                return true;
+                return matches(condition, data?.[key], params?.[key]);
             }
-        }
-        return false;
+
+            if (!condition?.const) return false;
+
+            const source = properties.type === "params" ? params : data;
+            return source?.[key] === condition.const || condition.const.includes(source?.[key]);
+        });
     }
 
 
