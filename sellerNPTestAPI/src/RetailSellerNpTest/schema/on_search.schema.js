@@ -652,6 +652,7 @@ module.exports = {
                                         "time": {
                                             "id": "retail_bpp_on_search_message_84",
                                             "type": "object",
+                                            "optional": true,
                                             "properties": {
                                                 "label": {
                                                     "id": "retail_bpp_on_search_message_85",
@@ -742,6 +743,7 @@ module.exports = {
                                                 "unitized": {
                                                     "id": "retail_bpp_on_search_message_98",
                                                     "type": "object",
+                                                    "optional": true,
                                                     "properties": {
                                                         "measure": {
                                                             "id": "retail_bpp_on_search_message_99",
@@ -874,13 +876,13 @@ module.exports = {
                                                 "value": {
                                                     "id": "retail_bpp_on_search_message_111",
                                                     "type": "string",
-                                                    "pattern": "^(?!0+$)(?!0*\\.0+$)\\d+(\\.\\d{1,2})?$",
+                                                    "pattern": "^\\d+(\\.\\d{1,2})?$",
                                                     "errorMessage": "Price value should be a number in string with upto 2 decimal places"
                                                 },
                                                 "maximum_value": {
                                                     "id": "retail_bpp_on_search_message_112",
                                                     "type": "string",
-                                                    "pattern": "^(?!0+$)(?!0*\\.0+$)\\d+(\\.\\d{1,2})?$"
+                                                    "pattern": "^\\d+(\\.\\d{1,2})?$"
                                                 }
                                             },
                                             "required": [
@@ -896,45 +898,55 @@ module.exports = {
                                         },
                                         "fulfillment_id": {
                                             "id": "retail_bpp_on_search_message_114",
-                                            "type": "string"
+                                            "type": "string",
+                                            "optional": true
                                         },
                                         "location_id": {
                                             "id": "retail_bpp_on_search_message_115",
-                                            "type": "string"
+                                            "type": "string",
+                                            "optional": true
                                         },
                                         "@ondc/org/returnable": {
                                             "id": "retail_bpp_on_search_message_116",
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "optional": true
                                         },
                                         "@ondc/org/cancellable": {
                                             "id": "retail_bpp_on_search_message_117",
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "optional": true
                                         },
                                         "@ondc/org/return_window": {
                                             "id": "retail_bpp_on_search_message_118",
                                             "type": "string",
+                                            "optional": true,
                                             "format": "duration"
                                         },
                                         "@ondc/org/seller_pickup_return": {
                                             "id": "retail_bpp_on_search_message_119",
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "optional": true
                                         },
                                         "@ondc/org/time_to_ship": {
                                             "id": "retail_bpp_on_search_message_120",
                                             "type": "string",
+                                            "optional": true,
                                             "format": "duration"
                                         },
                                         "@ondc/org/available_on_cod": {
                                             "id": "retail_bpp_on_search_message_121",
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "optional": true
                                         },
                                         "@ondc/org/contact_details_consumer_care": {
                                             "id": "retail_bpp_on_search_message_122",
-                                            "type": "string"
+                                            "type": "string",
+                                            "optional": true
                                         },
                                         "@ondc/org/statutory_reqs_packaged_commodities": {
                                             "id": "retail_bpp_on_search_message_123",
                                             "type": "object",
+                                            "optional": true,
                                             "properties": {
                                                 "manufacturer_or_packer_name": {
                                                     "id": "retail_bpp_on_search_message_124",
@@ -963,6 +975,7 @@ module.exports = {
                                         "@ondc/org/statutory_reqs_prepackaged_food": {
                                             "id": "retail_bpp_on_search_message_128",
                                             "type": "object",
+                                            "optional": true,
                                             "properties": {
                                                 "nutritional_info": {
                                                     "id": "retail_bpp_on_search_message_129",

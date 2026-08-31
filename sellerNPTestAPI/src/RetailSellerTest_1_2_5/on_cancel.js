@@ -5,12 +5,41 @@ const onCancelSchema = require("./schema/on_cancel.schema");
 const { generateTests } = require("./common");
 const response_verification = require("../centralizedUtilities/responseVerification");
 
-function onCancelMessageTests({ context, message }, step, constants) {
+function lastActionLog(logs, action) {
+    try {
+        const log = logs?.filter((log) => log?.request?.context?.action === action);
+
+        return log && log.length ? log?.pop()?.request : false;
+    } catch (err) {
+        console.log(err);
+    }
+}
+function onCancelMessageTests({ context, message }, step, constants, logs) {
     try {
         // generating the tests using recursive methods
         if (constants?.flow !== "RET_ENH_005") {
 
             const messageTestSuite = generateTests({ context, message }, onCancelSchema, "Verification of Message", constants);
+
+            const SNP_CANCELLATION_REASON_CODES = ["002", "005", "011", "012", "013", "014", "015", "016", "018", "998"];
+            const reasonId = message?.order?.cancellation?.reason?.id;
+            // Who actually cancelled can't be determined by comparing NP ids -
+            // context.bap_id/bpp_id can be identical in a workbench-to-workbench
+            // self-test. Instead, check transaction history: if the buyer's own
+            // 'cancel' request is present in this transaction's logs, this is a
+            // buyer-initiated cancellation and reason.id must be the exact value
+            // the buyer sent - not just any buyer-side code. Otherwise this must
+            // be a seller/merchant-initiated cancellation.
+            const cancelLog = lastActionLog(logs, "cancel");
+            const buyerReasonId = cancelLog?.message?.cancellation_reason_id;
+            messageTestSuite.addTest(new Mocha.Test("'message.order.cancellation.reason.id' should match whoever actually initiated the cancellation", function () {
+                if (cancelLog) {
+                    expect(reasonId).to.equal(buyerReasonId);
+                } else {
+                    expect(reasonId).to.be.oneOf(SNP_CANCELLATION_REASON_CODES);
+                }
+            }));
+
             return messageTestSuite;
         }
         if (constants?.flow === "RET_ENH_005") {
@@ -696,8 +725,9 @@ module.exports = async function on_cancel({ context, message } = {}, step, logs 
         };
 
         const responseTestSuite = response_verification({ context, message }, logs, constants);
+        testSuite.addSuite(response_verification.own_sync_response_verification({ context }, logs));
         testSuite.addSuite(contextTests(context, constants, logs));
-        testSuite.addSuite(onCancelMessageTests({ context, message }, step, constants));
+        testSuite.addSuite(onCancelMessageTests({ context, message }, step, constants, logs));
 
         return [responseTestSuite, testSuite];
     } catch (err) {

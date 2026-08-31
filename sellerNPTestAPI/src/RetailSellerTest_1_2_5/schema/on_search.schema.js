@@ -697,12 +697,14 @@ module.exports = {
                         "fulfillment_id": {
                            "id": "retail_bpp_on_search_message_126",
                           "type": "string",
-                          "minLength": 1
+                          "minLength": 1,
+                          "optional": true
                         },
                         "location_id": {
                            "id": "retail_bpp_on_search_message_127",
                           "type": "string",
-                          "minLength": 1
+                          "minLength": 1,
+                          "optional": true
                         },
                         "related": {
                           "id": "retail_bpp_on_search_message_128",
@@ -714,34 +716,41 @@ module.exports = {
                         },
                         "@ondc/org/returnable": {
                           "id": "retail_bpp_on_search_message_130",
-                          "type": "boolean"
+                          "type": "boolean",
+                          "optional": true
                         },
                         "@ondc/org/cancellable": {
                           "id": "retail_bpp_on_search_message_131",
-                          "type": "boolean"
+                          "type": "boolean",
+                          "optional": true
                         },
                         "@ondc/org/return_window": {
                           "id": "retail_bpp_on_search_message_132",
                           "type": "string",
-                          "minLength": 1
+                          "minLength": 1,
+                          "optional": true
                         },
                         "@ondc/org/seller_pickup_return": {
                           "id": "retail_bpp_on_search_message_133",
-                          "type": "boolean"
+                          "type": "boolean",
+                          "optional": true
                         },
                         "@ondc/org/time_to_ship": {
                           "id": "retail_bpp_on_search_message_134",
                           "type": "string",
-                          "minLength": 1
+                          "minLength": 1,
+                          "optional": true
                         },
                         "@ondc/org/available_on_cod": {
                           "id": "retail_bpp_on_search_message_135",
-                          "type": "boolean"
+                          "type": "boolean",
+                          "optional": true
                         },
                         "@ondc/org/contact_details_consumer_care": {
                           "id": "retail_bpp_on_search_message_136",
                           "type": "string",
-                          "minLength": 1
+                          "minLength": 1,
+                          "optional": true
                         },
                         "tags": {
                           "id": "retail_bpp_on_search_message_137",
@@ -828,7 +837,6 @@ module.exports = {
                                                 "domain": {
                                                     "const": [
                                                         "ONDC:RET12",
-                                                        "ONDC:RET11",
                                                         "ONDC:RET10"
                                                     ]
                                                 }
@@ -855,6 +863,30 @@ module.exports = {
                                              "@ondc/org/available_on_cod",
                                               "@ondc/org/contact_details_consumer_care",
                                               "tags"
+                                        ]
+                                    },
+                                    {
+                                        "if": {
+                                            "properties": {
+                                                "id": "retail_bpp_on_search_message_202",
+                                                "type": "params",
+                                                "domain": {
+                                                    "const": [
+                                                        "ONDC:RET11"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "then": [
+                                            "id",
+                                            "time",
+                                            "rating",
+                                            "descriptor",
+                                            "quantity",
+                                            "price",
+                                            "category_id",
+                                            "category_ids",
+                                            "tags"
                                         ]
                                     }
                                 ]

@@ -26,6 +26,63 @@ const actionsThatRequireSyncAPIs = [
     "on_info"
 ]
 
+// Verifies the sync ack/nack that THIS call itself received (as opposed to
+// response_verification below, which checks the paired forward-action's sync
+// response). Needed because a seller's on_ callback can itself be NACKed by
+// the gateway/BAP (e.g. catalog schema violations on on_search) - that NACK
+// otherwise goes completely unreported since the rest of the report only
+// validates the callback's own message content, not whether it was accepted.
+function own_sync_response_verification({ context } = {}, logs = []) {
+    const domain = logs[0]?.request?.context?.domain;
+    const test_id_template = `${domain}_bpp_own_sync_${actionMap[context?.action] || context?.action}_response`;
+    const testSuite = new Mocha.Suite(`${context?.action} own sync response verification`);
+
+    const selfLog = logs?.find((log) => log?.message_id === context?.message_id && log?.action === context?.action);
+    if (!selfLog) {
+        return testSuite;
+    }
+
+    let count = 1;
+    const responseMessage = selfLog?.response?.message;
+    const responseError = selfLog?.response?.error;
+
+    testSuite.addTest(new Mocha.Test(`'[id: ${test_id_template}_${count++}_type]' 'message' should be an object`, function () {
+        expect(responseMessage).to.be.an("object");
+    }));
+
+    testSuite.addTest(new Mocha.Test(`'[id: ${test_id_template}_${count++}_type]' 'message.ack' should be an object`, function () {
+        expect(responseMessage).to.have.property("ack").that.is.an("object");
+    }));
+
+    testSuite.addTest(new Mocha.Test(`'[id: ${test_id_template}_${count++}_type]' 'message.ack.status' should be a string`, function () {
+        expect(responseMessage?.ack).to.have.property("status").that.is.a("string");
+    }));
+
+    testSuite.addTest(new Mocha.Test(`'[id: ${test_id_template}_${count++}_enum]' 'message.ack.status' should be one of ['ACK', 'NACK']`, function () {
+        expect(responseMessage?.ack?.status).to.be.oneOf(["ACK", "NACK"]);
+    }));
+
+    if (responseMessage?.ack?.status === "NACK") {
+        testSuite.addTest(new Mocha.Test(`'[id: ${test_id_template}_${count++}_type]' 'error' should be present and an object when 'ack.status' is 'NACK'`, function () {
+            expect(responseError).to.exist.and.to.be.an("object");
+        }));
+
+        testSuite.addTest(new Mocha.Test(`'[id: ${test_id_template}_${count++}_type]' 'error.code' should be a string when 'ack.status' is 'NACK'`, function () {
+            expect(responseError).to.have.property("code").that.is.a("string");
+        }));
+
+        testSuite.addTest(new Mocha.Test(`'[id: ${test_id_template}_${count++}_type]' 'error.message' should be a string when 'ack.status' is 'NACK'`, function () {
+            expect(responseError).to.have.property("message").that.is.a("string");
+        }));
+    } else {
+        testSuite.addTest(new Mocha.Test(`'[id: ${test_id_template}_${count++}_type]' 'error' should not be present when 'ack.status' is 'ACK'`, function () {
+            expect(responseError).to.not.exist;
+        }));
+    }
+
+    return testSuite;
+}
+
 module.exports = function response_verification({ context, message } = {}, logs = [], constants = {}) {
     const counterLog = logs?.find((log) => (log?.message_id === context?.message_id) && !log?.action?.startsWith("on_"));
     const { context: responseContext, message: responseMessage, error: responseError } = counterLog?.response || {};
@@ -153,3 +210,5 @@ module.exports = function response_verification({ context, message } = {}, logs 
         return testSuite;
     }
 }
+
+module.exports.own_sync_response_verification = own_sync_response_verification;

@@ -614,15 +614,18 @@ module.exports = {
               "cancellation_fee": {
                 "id": "retail_bpp_on_confirm_message_90",
                 "type": "object",
+                "anyOf": ["percentage", "amount"],
                 "properties": {
-                  // "percentage": {
-                  //   "id": "retail_bpp_on_confirm_message_91",
-                  //   "type": "string",
-                  //   "minLength": 1
-                  // },
+                  "percentage": {
+                    "id": "retail_bpp_on_confirm_message_91",
+                    "type": "string",
+                    "optional": true,
+                    "minLength": 1
+                  },
                   "amount": {
                     "id": "retail_bpp_on_confirm_message_92",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "currency": {
                         "id": "retail_bpp_on_confirm_message_93",

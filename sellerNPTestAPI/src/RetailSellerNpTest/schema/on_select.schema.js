@@ -221,7 +221,6 @@ module.exports = {
                                         },
                                         "then": [
                                             "id",
-                                            "quantity",
                                             "fulfillment_id",
                                             "parent_item_id",
                                             "tags"

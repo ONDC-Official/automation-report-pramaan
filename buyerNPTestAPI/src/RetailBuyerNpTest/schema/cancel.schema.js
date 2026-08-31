@@ -9,7 +9,8 @@ module.exports = {
         "cancellation_reason_id": {
             "type": "string",
             "minLength": 1,
-            "enum": ["002", "021", "022", "023", "024", "051", "011", "013", "014", "016", "018", "052", "053"]
+            "enum": ["051", "052", "053","999"],
+            "errorMessage": "cancellation_reason_id must be one of the codes a buyer (BNP) is permitted to use: 051 (Store is not accepting order), 052 (Order/fulfillment not received as per O2D TAT), 053 (Buyer wants to modify address/other order details)"
         }
     }
 }
