@@ -542,6 +542,7 @@ module.exports = {
                                     "@ondc/org/item_quantity": {
                                         "id": "retail_bpp_on_status_message_92",
                                         "type": "object",
+                                        "optional": true,
                                         "properties": {
                                             "count": {
                                                 "id": "retail_bpp_on_status_message_93",
@@ -573,10 +574,12 @@ module.exports = {
                                     "item": {
                                         "id": "retail_bpp_on_status_message_98",
                                         "type": "object",
+                                        "optional": true,
                                         "properties": {
                                             "parent_item_id": {
                                                 "id": "retail_bpp_on_status_message_99",
-                                                "type": "string"
+                                                "type": "string",
+                                                "optional": true
                                             },
                                             "price": {
                                                 "id": "retail_bpp_on_status_message_100",
@@ -597,6 +600,7 @@ module.exports = {
                                             "tags": {
                                                 "id": "retail_bpp_on_status_message_103",
                                                 "type": "array",
+                                                "optional": true,
                                                 "element": {
                                                     "id": "retail_bpp_on_status_message_104",
                                                     "type": "object",

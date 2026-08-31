@@ -49,7 +49,8 @@ module.exports = {
                             },
                             "parent_item_id": {
                                 "id": "retail_bpp_on_init_message_113",
-                                "type": "string"
+                                "type": "string",
+                                "optional": true
                             },
                             "quantity": {
                                 "id": "retail_bpp_on_init_message_11",
@@ -69,6 +70,7 @@ module.exports = {
                             "tags": {
                                 "id": "retail_bpp_on_init_message_127",
                                 "type": "array",
+                                "optional": true,
                                 "minItems": 1,
                                 "element": {
                                     "id": "retail_bpp_on_init_message_128",
@@ -240,6 +242,7 @@ module.exports = {
                                     "@ondc/org/item_quantity": {
                                         "id": "retail_bpp_on_init_message_22",
                                         "type": "object",
+                                        "optional": true,
                                         "properties": {
                                             "count": {
                                                 "id": "retail_bpp_on_init_message_23",
@@ -271,10 +274,12 @@ module.exports = {
                                     "item": {
                                         "id": "retail_bpp_on_init_message_28",
                                         "type": "object",
+                                        "optional": true,
                                         "properties": {
                                             "parent_item_id": {
                                                 "id": "retail_bpp_on_init_message_29",
-                                                "type": "string"
+                                                "type": "string",
+                                                "optional": true
                                             },
                                             "price": {
                                                 "id": "retail_bpp_on_init_message_34",
@@ -295,6 +300,7 @@ module.exports = {
                                             "tags": {
                                                 "id": "retail_bpp_on_init_message_113",
                                                 "type": "array",
+                                                "optional": true,
                                                 "element": {
                                                     "id": "retail_bpp_on_init_message_114",
                                                     "type": "object",
