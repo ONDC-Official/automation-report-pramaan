@@ -579,6 +579,7 @@ module.exports = {
                                         "properties": {
                                             "parent_item_id": {
                                                 "id": "retail_bpp_on_status_message_99",
+                                                "optional": true,
                                                 "type": "string",
                                                 "optional": true
                                             },
@@ -776,7 +777,6 @@ module.exports = {
                                                         },
                                                         "then": [
                                                             "parent_item_id",
-                                                            "quantity",
                                                             "price",
                                                             "tags"
                                                         ]
@@ -808,7 +808,6 @@ module.exports = {
                                                             }
                                                         },
                                                         "then": [
-                                                            "quantity",
                                                             "price"
                                                         ]
                                                     }

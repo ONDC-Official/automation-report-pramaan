@@ -76,12 +76,14 @@ module.exports = {
               },
               "parent_item_id": {
                 "id": "retail_bap_confirm_message_93",
+                "optional": true,
                 "type": "string",
                 "minLength": 1
               },
               "tags": {
                 "id": "retail_bap_confirm_message_94",
                 "type": "array",
+                "optional": true,
                 "minItems": 1,
                 "element": {
                   "id": "retail_bap_confirm_message_95",
@@ -188,7 +190,6 @@ module.exports = {
                     },
                     "then": [
                       "id",
-                      "location_id",
                       "quantity"
                     ]
                   },
@@ -204,7 +205,6 @@ module.exports = {
                     "then": [
                       "id",
                       "parent_item_id",
-                      "location_id",
                       "quantity",
                       "tags"
                     ]
@@ -530,7 +530,8 @@ module.exports = {
                   "@ondc/org/title_type": {
                     "id": "retail_bap_confirm_message_55",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "passKeysToParams": ["@ondc/org/title_type"]
                   },
                   "price": {
                     "id": "retail_bap_confirm_message_56",
@@ -551,6 +552,7 @@ module.exports = {
                   "@ondc/org/item_quantity": {
                     "id": "retail_bpp_on_confirm_message_108",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "count": {
                         "id": "retail_bpp_on_confirm_message_109",
@@ -566,14 +568,17 @@ module.exports = {
                   "item": {
                     "id": "retail_bpp_on_confirm_message_110",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "parent_item_id": {
                         "id": "retail_bpp_on_confirm_message_111",
-                        "type": "string"
+                        "type": "string",
+                        "optional": true
                       },
                       "price": {
                         "id": "retail_bpp_on_confirm_message_112",
                         "type": "object",
+                        "optional": true,
                         "properties": {
                           "currency": {
                             "id": "retail_bpp_on_confirm_message_113",
@@ -590,6 +595,7 @@ module.exports = {
                       "tags": {
                         "id": "retail_bpp_on_confirm_message_127",
                         "type": "array",
+                        "optional": true,
                         "element": {
                           "id": "retail_bpp_on_confirm_message_128",
                           "type": "object",
@@ -751,6 +757,9 @@ module.exports = {
                             "if": {
                               "properties": {
                                 "type": "params",
+                                "@ondc/org/title_type": {
+                                  "const": "item"
+                                },
                                 "domain": {
                                   "const": [
                                     "ONDC:RET11"
@@ -760,7 +769,6 @@ module.exports = {
                             },
                             "then": [
                               "parent_item_id",
-                              "quantity",
                               "price",
                               "tags"
                             ]
@@ -769,6 +777,9 @@ module.exports = {
                             "if": {
                               "properties": {
                                 "type": "params",
+                                "@ondc/org/title_type": {
+                                  "const": "item"
+                                },
                                 "domain": {
                                   "const": [
                                     "ONDC:RET10",
@@ -789,7 +800,6 @@ module.exports = {
                               }
                             },
                             "then": [
-                              "quantity",
                               "price"
                             ]
                           }
