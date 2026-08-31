@@ -378,7 +378,8 @@ module.exports = {
                                                                 "child",
                                                                 "origin",
                                                                 "veg_nonveg",
-                                                                "custom_group"
+                                                                "custom_group",
+                                                                "quote"
                                                             ]
                                                         },
                                                         "list": {
@@ -406,7 +407,7 @@ module.exports = {
                                                                                 "value": {
                                                                                     "id": "retail_bpp_on_select_message_56",
                                                                                     "type": "string",
-                                                                                    "enum": ["item", "customization"]
+                                                                                    "enum": ["item", "customization", "fulfillment"]
                                                                                 }
                                                                             }
                                                                         }
