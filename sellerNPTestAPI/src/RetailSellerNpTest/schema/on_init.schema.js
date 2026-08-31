@@ -638,15 +638,18 @@ module.exports = {
                             "cancellation_fee": {
                                 "id": "retail_bpp_on_init_message_46",
                                 "type": "object",
+                                "anyOf": ["percentage", "amount"],
                                 "properties": {
                                     "percentage": {
                                         "id": "retail_bpp_on_init_message_47",
                                         "type": "string",
+                                        "optional": true,
                                         "minLength": 1
                                     },
                                     "amount": {
                                         "id": "retail_bpp_on_init_message_48",
                                         "type": "object",
+                                        "optional": true,
                                         "properties": {
                                             "currency": {
                                                 "id": "retail_bpp_on_init_message_49",

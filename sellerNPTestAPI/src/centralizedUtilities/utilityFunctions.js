@@ -141,7 +141,13 @@ function getPropertyByIfThenClause({ structure, data, params }) {
 
     // Check if the data matches the properties (ALL condition keys must match - AND, not OR)
     function matches(properties, data, params) {
-        const conditionKeys = Object.keys(properties || {}).filter((key) => key !== "type");
+        // "type": "params" is a marker meaning "check the other keys against
+        // params, not data" - it is only a marker when its value is literally
+        // the string "params". Schemas also use "type" as a real field name
+        // (e.g. fulfillment.type === "RTO"), in which case its value is an
+        // object like {const:...} and it must be treated as a normal condition.
+        const isParamsMode = properties?.type === "params";
+        const conditionKeys = Object.keys(properties || {}).filter((key) => !(isParamsMode && key === "type"));
         if (conditionKeys.length === 0) return false;
 
         return conditionKeys.every((key) => {
@@ -154,7 +160,7 @@ function getPropertyByIfThenClause({ structure, data, params }) {
 
             if (!condition?.const) return false;
 
-            const source = properties.type === "params" ? params : data;
+            const source = isParamsMode ? params : data;
             return source?.[key] === condition.const || condition.const.includes(source?.[key]);
         });
     }
