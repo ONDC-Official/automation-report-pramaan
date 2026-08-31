@@ -147,7 +147,15 @@ function getPropertyByIfThenClause({ structure, data, params }) {
         // (e.g. fulfillment.type === "RTO"), in which case its value is an
         // object like {const:...} and it must be treated as a normal condition.
         const isParamsMode = properties?.type === "params";
-        const conditionKeys = Object.keys(properties || {}).filter((key) => !(isParamsMode && key === "type"));
+        const conditionKeys = Object.keys(properties || {}).filter((key) => {
+            if (isParamsMode && key === "type") return false;
+            // A bare string value (e.g. a documentation-only "id": "retail_bpp_..."
+            // label some if-clauses carry alongside their real condition keys) is
+            // not a match condition - only {const:...} or a nested object is. Without
+            // this, that stray key's value (no .const) forces the whole clause false.
+            if (typeof properties[key] === "string") return false;
+            return true;
+        });
         if (conditionKeys.length === 0) return false;
 
         return conditionKeys.every((key) => {

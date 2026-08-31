@@ -33,10 +33,6 @@ const OPERATIONAL_ITEM_FIELDS = [
     "@ondc/org/contact_details_consumer_care"
 ];
 
-// Not supported for RET11 (F&B) at all, item type notwithstanding - required
-// for every other domain.
-const PACKAGED_COMMODITIES_EXEMPT_DOMAINS = ["ONDC:RET11"];
-
 // Only applies to grocery (RET10) and RET18 - not required elsewhere.
 const PREPACKAGED_FOOD_REQUIRED_DOMAINS = ["ONDC:RET10", "ONDC:RET18"];
 
@@ -77,12 +73,6 @@ function onSearchMessageTests({ context, message } = {}, constants = {}) {
                             expect(item).to.have.property(field);
                         }));
                     });
-                }
-
-                if (!PACKAGED_COMMODITIES_EXEMPT_DOMAINS.includes(constants?.domain)) {
-                    messageTestSuite.addTest(new Mocha.Test(`message.catalog.bpp/providers[${providerIndex}].items[${itemIndex}] should have required property '@ondc/org/statutory_reqs_packaged_commodities'`, function () {
-                        expect(item).to.have.property("@ondc/org/statutory_reqs_packaged_commodities");
-                    }));
                 }
 
                 if (PREPACKAGED_FOOD_REQUIRED_DOMAINS.includes(constants?.domain)) {

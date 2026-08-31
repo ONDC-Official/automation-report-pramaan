@@ -81,6 +81,7 @@ module.exports = async function on_init({ context, message } = {}, logs = [], cu
 
 
         const responseTestSuite = response_verification({ context, message }, logs);
+        testSuite.addSuite(response_verification.own_sync_response_verification({ context }, logs));
         testSuite.addSuite(contextTests(context, constants, logs));
         testSuite.addSuite(onInitMessageTests({ context, message }, logs, constants));
 

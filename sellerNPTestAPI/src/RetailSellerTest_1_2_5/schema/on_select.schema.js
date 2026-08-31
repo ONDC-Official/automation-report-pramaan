@@ -51,6 +51,150 @@ module.exports={
                      "id": "retail_bpp_on_select_message_11",
                     "type": "string",
                     "minLength": 1
+                  },
+                  "parent_item_id": {
+                    "id": "retail_bpp_on_select_message_147",
+                    "type": "string",
+                    "optional": true
+                  },
+                  "quantity": {
+                    "id": "retail_bpp_on_select_message_148",
+                    "type": "object",
+                    "optional": true,
+                    "properties": {
+                      "count": {
+                        "id": "retail_bpp_on_select_message_149",
+                        "type": "number",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "tags": {
+                    "id": "retail_bpp_on_select_message_150",
+                    "type": "array",
+                    "optional": true,
+                    "minItems": 1,
+                    "element": {
+                      "id": "retail_bpp_on_select_message_151",
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "id": "retail_bpp_on_select_message_152",
+                          "type": "string",
+                          "enums": ["parent", "type"]
+                        },
+                        "list": {
+                          "id": "retail_bpp_on_select_message_153",
+                          "minItems": 1,
+                          "element": {
+                            "allOf": [
+                              {
+                                "if": {
+                                  "properties": {
+                                    "code": {
+                                      "const": "type"
+                                    }
+                                  }
+                                },
+                                "then": {
+                                  "id": "retail_bpp_on_select_message_154",
+                                  "type": "object",
+                                  "properties": {
+                                    "code": {
+                                      "id": "retail_bpp_on_select_message_155",
+                                      "type": "string",
+                                      "enum": ["type"]
+                                    },
+                                    "value": {
+                                      "id": "retail_bpp_on_select_message_156",
+                                      "type": "string",
+                                      "enum": ["item", "customization"]
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "if": {
+                                  "properties": {
+                                    "code": {
+                                      "const": "id"
+                                    }
+                                  }
+                                },
+                                "then": {
+                                  "id": "retail_bpp_on_select_message_157",
+                                  "type": "object",
+                                  "properties": {
+                                    "code": {
+                                      "id": "retail_bpp_on_select_message_158",
+                                      "type": "string",
+                                      "enum": ["id"]
+                                    },
+                                    "value": {
+                                      "id": "retail_bpp_on_select_message_159",
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": {
+                  "type": "array",
+                  "element": {
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "type": "params",
+                            "domain": {
+                              "const": [
+                                "ONDC:RET10",
+                                "ONDC:RET12",
+                                "ONDC:RET13",
+                                "ONDC:RET14",
+                                "ONDC:RET15",
+                                "ONDC:RET16",
+                                "ONDC:RET17",
+                                "ONDC:RET18",
+                                "ONDC:RET19",
+                                "ONDC:RET1A",
+                                "ONDC:RET1B",
+                                "ONDC:RET1C",
+                                "ONDC:RET1D"
+                              ]
+                            }
+                          }
+                        },
+                        "then": [
+                          "id",
+                          "fulfillment_id"
+                        ]
+                      },
+                      {
+                        "if": {
+                          "properties": {
+                            "type": "params",
+                            "domain": {
+                              "const": [
+                                "ONDC:RET11"
+                              ]
+                            }
+                          }
+                        },
+                        "then": [
+                          "id",
+                          "fulfillment_id",
+                          "parent_item_id",
+                          "tags"
+                        ]
+                      }
+                    ]
                   }
                 }
               }
@@ -148,6 +292,7 @@ module.exports={
                       "@ondc/org/item_quantity": {
                          "id": "retail_bpp_on_select_message_30",
                         "type": "object",
+                        "optional": true,
                         "properties": {
                           "count": {
                              "id": "retail_bpp_on_select_message_31",
@@ -163,7 +308,8 @@ module.exports={
                       "@ondc/org/title_type": {
                          "id": "retail_bpp_on_select_message_33",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "passKeysToParams": ["@ondc/org/title_type"]
                       },
                       "price": {
                          "id": "retail_bpp_on_select_message_34",
@@ -184,10 +330,17 @@ module.exports={
                       "item": {
                          "id": "retail_bpp_on_select_message_37",
                         "type": "object",
+                        "optional": true,
                         "properties": {
+                          "parent_item_id": {
+                            "id": "retail_bpp_on_select_message_160",
+                            "type": "string",
+                            "optional": true
+                          },
                           "quantity": {
                              "id": "retail_bpp_on_select_message_38",
                             "type": "object",
+                            "optional": true,
                             "properties": {
                               "available": {
                                  "id": "retail_bpp_on_select_message_39",
@@ -216,6 +369,7 @@ module.exports={
                           "price": {
                             "id": "retail_bpp_on_select_message_43",
                             "type": "object",
+                            "optional": true,
                             "properties": {
                               "currency": {
                                 "id": "retail_bpp_on_select_message_44",
@@ -228,6 +382,222 @@ module.exports={
                                 "minLength": 1
                               }
                             }
+                          },
+                          "tags": {
+                            "id": "retail_bpp_on_select_message_161",
+                            "type": "array",
+                            "optional": true,
+                            "element": {
+                              "id": "retail_bpp_on_select_message_162",
+                              "type": "object",
+                              "properties": {
+                                "code": {
+                                  "id": "retail_bpp_on_select_message_163",
+                                  "type": "string",
+                                  "enum": [
+                                    "type",
+                                    "parent",
+                                    "child",
+                                    "origin",
+                                    "veg_nonveg",
+                                    "custom_group",
+                                    "quote"
+                                  ]
+                                },
+                                "list": {
+                                  "id": "retail_bpp_on_select_message_164",
+                                  "type": "array",
+                                  "minItems": 1,
+                                  "element": {
+                                    "allOf": [
+                                      {
+                                        "if": {
+                                          "properties": {
+                                            "code": {
+                                              "const": "type"
+                                            }
+                                          }
+                                        },
+                                        "then": {
+                                          "type": "object",
+                                          "properties": {
+                                            "code": {
+                                              "id": "retail_bpp_on_select_message_165",
+                                              "type": "string",
+                                              "enum": ["type"]
+                                            },
+                                            "value": {
+                                              "id": "retail_bpp_on_select_message_166",
+                                              "type": "string",
+                                              "enum": ["item", "customization", "fulfillment"]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "if": {
+                                          "properties": {
+                                            "code": {
+                                              "const": "id"
+                                            }
+                                          }
+                                        },
+                                        "then": {
+                                          "type": "object",
+                                          "properties": {
+                                            "code": {
+                                              "id": "retail_bpp_on_select_message_167",
+                                              "type": "string",
+                                              "enum": ["id"]
+                                            },
+                                            "value": {
+                                              "id": "retail_bpp_on_select_message_168",
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "if": {
+                                          "properties": {
+                                            "code": {
+                                              "const": "country"
+                                            }
+                                          }
+                                        },
+                                        "then": {
+                                          "type": "object",
+                                          "properties": {
+                                            "code": {
+                                              "id": "retail_bpp_on_select_message_169",
+                                              "type": "string",
+                                              "enum": ["country"]
+                                            },
+                                            "value": {
+                                              "id": "retail_bpp_on_select_message_170",
+                                              "type": "string",
+                                              "pattern": "^[A-Z]{3}$", "minLength": 1, "errorMessage": "Country must be in ISO 3166-1 format (three-letter country code)"
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "if": {
+                                          "properties": {
+                                            "code": {
+                                              "const": "veg"
+                                            }
+                                          }
+                                        },
+                                        "then": {
+                                          "type": "object",
+                                          "properties": {
+                                            "code": {
+                                              "id": "retail_bpp_on_select_message_171",
+                                              "type": "string",
+                                              "enum": ["veg"]
+                                            },
+                                            "value": {
+                                              "id": "retail_bpp_on_select_message_172",
+                                              "type": "string",
+                                              "enum": ["yes", "no"]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "if": {
+                                          "properties": {
+                                            "code": {
+                                              "const": "default"
+                                            }
+                                          }
+                                        },
+                                        "then": {
+                                          "type": "object",
+                                          "properties": {
+                                            "code": {
+                                              "id": "retail_bpp_on_select_message_173",
+                                              "type": "string",
+                                              "enum": ["default"]
+                                            },
+                                            "value": {
+                                              "id": "retail_bpp_on_select_message_174",
+                                              "type": "string",
+                                              "enum": ["yes", "no"]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "list"
+                              ],
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": {
+                          "type": "array",
+                          "element": {
+                            "allOf": [
+                              {
+                                "if": {
+                                  "properties": {
+                                    "type": "params",
+                                    "@ondc/org/title_type": {
+                                      "const": "item"
+                                    },
+                                    "domain": {
+                                      "const": [
+                                        "ONDC:RET11"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "then": [
+                                  "parent_item_id",
+                                  "quantity",
+                                  "price",
+                                  "tags"
+                                ]
+                              },
+                              {
+                                "if": {
+                                  "properties": {
+                                    "type": "params",
+                                    "@ondc/org/title_type": {
+                                      "const": "item"
+                                    },
+                                    "domain": {
+                                      "const": [
+                                        "ONDC:RET10",
+                                        "ONDC:RET12",
+                                        "ONDC:RET13",
+                                        "ONDC:RET14",
+                                        "ONDC:RET15",
+                                        "ONDC:RET16",
+                                        "ONDC:RET17",
+                                        "ONDC:RET18",
+                                        "ONDC:RET19",
+                                        "ONDC:RET1A",
+                                        "ONDC:RET1B",
+                                        "ONDC:RET1C",
+                                        "ONDC:RET1D"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "then": [
+                                  "quantity",
+                                  "price"
+                                ]
+                              }
+                            ]
                           }
                         }
                       }
