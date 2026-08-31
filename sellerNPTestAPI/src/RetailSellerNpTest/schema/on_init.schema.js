@@ -721,7 +721,7 @@ module.exports = {
                         "tax_number": {
                             "id": "retail_bpp_on_init_message_61",
                             "type": "string",
-                             "optional": true,
+                            "optional": true,
                             "minLength": 1
                         },
                         "phone": {

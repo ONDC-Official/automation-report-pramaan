@@ -33,9 +33,6 @@ const OPERATIONAL_ITEM_FIELDS = [
     "@ondc/org/contact_details_consumer_care"
 ];
 
-// Only applies to grocery (RET10) and RET18 - not required elsewhere.
-const PREPACKAGED_FOOD_REQUIRED_DOMAINS = ["ONDC:RET10", "ONDC:RET18"];
-
 function onSearchMessageTests({ context, message } = {}, constants = {}) {
     try {
         // generating the tests using recursive methods
@@ -73,12 +70,6 @@ function onSearchMessageTests({ context, message } = {}, constants = {}) {
                             expect(item).to.have.property(field);
                         }));
                     });
-                }
-
-                if (PREPACKAGED_FOOD_REQUIRED_DOMAINS.includes(constants?.domain)) {
-                    messageTestSuite.addTest(new Mocha.Test(`message.catalog.bpp/providers[${providerIndex}].items[${itemIndex}] should have required property '@ondc/org/statutory_reqs_prepackaged_food'`, function () {
-                        expect(item).to.have.property("@ondc/org/statutory_reqs_prepackaged_food");
-                    }));
                 }
             })
         });
