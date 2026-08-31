@@ -253,7 +253,8 @@ module.exports = {
                                     "@ondc/org/title_type": {
                                         "id": "retail_bpp_on_init_message_24",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "passKeysToParams": ["@ondc/org/title_type"]
                                     },
                                     "price": {
                                         "id": "retail_bpp_on_init_message_25",
@@ -284,6 +285,7 @@ module.exports = {
                                             "price": {
                                                 "id": "retail_bpp_on_init_message_34",
                                                 "type": "object",
+                                                "optional": true,
                                                 "properties": {
                                                     "currency": {
                                                         "id": "retail_bpp_on_init_message_35",
@@ -462,6 +464,9 @@ module.exports = {
                                                         "if": {
                                                             "properties": {
                                                                 "type": "params",
+                                                                "@ondc/org/title_type": {
+                                                                    "const": "item"
+                                                                },
                                                                 "domain": {
                                                                     "const": [
                                                                         "ONDC:RET11"
@@ -480,6 +485,9 @@ module.exports = {
                                                         "if": {
                                                             "properties": {
                                                                 "type": "params",
+                                                                "@ondc/org/title_type": {
+                                                                    "const": "item"
+                                                                },
                                                                 "domain": {
                                                                     "const": [
                                                                         "ONDC:RET10",
