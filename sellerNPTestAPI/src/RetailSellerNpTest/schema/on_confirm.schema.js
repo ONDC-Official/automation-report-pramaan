@@ -60,7 +60,8 @@ module.exports = {
               },
               "parent_item_id": {
                 "id": "retail_bpp_on_init_message_164",
-                "type": "string"
+                "type": "string",
+                "optional": true
               },
               "quantity": {
                 "id": "retail_bpp_on_confirm_message_13",
@@ -80,6 +81,7 @@ module.exports = {
               "tags": {
                 "id": "retail_bpp_on_init_message_165",
                 "type": "array",
+                "optional": true,
                 "minItems": 1,
                 "element": {
                   "id": "retail_bpp_on_init_message_166",
@@ -682,6 +684,7 @@ module.exports = {
                   "@ondc/org/item_quantity": {
                     "id": "retail_bpp_on_confirm_message_103",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "count": {
                         "id": "retail_bpp_on_confirm_message_104",
@@ -713,10 +716,12 @@ module.exports = {
                   "item": {
                     "id": "retail_bpp_on_confirm_message_109",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "parent_item_id": {
                         "id": "retail_bpp_on_confirm_message_110",
-                        "type": "string"
+                        "type": "string",
+                        "optional": true
                       },
                       "price": {
                         "id": "retail_bpp_on_confirm_message_111",
@@ -737,6 +742,7 @@ module.exports = {
                       "tags": {
                         "id": "retail_bpp_on_confirm_message_114",
                         "type": "array",
+                        "optional": true,
                         "element": {
                           "id": "retail_bpp_on_confirm_message_115",
                           "type": "object",
