@@ -214,7 +214,8 @@ module.exports={
                 "tax_number": {
                   "id": "retail_bpp_on_init_message_32",
                   "type": "string",
-                  "minLength": 1
+                  "minLength": 1,
+                  "optional": true
                 },
                 "email": {
                   "id": "retail_bpp_on_init_message_33",

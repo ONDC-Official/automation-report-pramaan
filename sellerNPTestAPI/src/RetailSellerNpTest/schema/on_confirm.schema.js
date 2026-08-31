@@ -1286,38 +1286,109 @@ module.exports = {
           "type": "array",
           "minItems": 1,
           "element": {
-            "id": "retail_bpp_on_confirm_message_147",
-            "type": "object",
-            "properties": {
-              "code": {
-                "id": "retail_bpp_on_confirm_message_148",
-                "type": "string",
-                "enum": ["bpp_terms", "bap_terms"],
-                "minLength": 1
-              },
-              "list": {
-                "id": "retail_bpp_on_confirm_message_149",
-                "type": "array",
-                "minItems": 1,
-                "element": {
-                  "id": "retail_bpp_on_confirm_message_150",
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "code": {
+                      "const": "bpp_terms"
+                    }
+                  }
+                },
+                "then": {
+                  "id": "retail_bpp_on_confirm_message_147",
                   "type": "object",
                   "properties": {
                     "code": {
-                      "id": "retail_bpp_on_confirm_message_151",
+                      "id": "retail_bpp_on_confirm_message_148",
                       "type": "string",
-                      "enum": ["tax_number", "provider_tax_number", "np_type","accept_bpp_terms","accept_bap_terms","static_terms"],
+                      "enum": ["bpp_terms"],
                       "minLength": 1
                     },
-                    "value": {
-                      "id": "retail_bpp_on_confirm_message_152",
+                    "list": {
+                      "id": "retail_bpp_on_confirm_message_149",
+                      "type": "array",
+                      "minItems": 1,
+                      "element": {
+                        "id": "retail_bpp_on_confirm_message_150",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "id": "retail_bpp_on_confirm_message_151",
+                            "type": "string",
+                            "enum": [
+                              "max_liability",
+                              "max_liability_cap",
+                              "mandatory_arbitration",
+                              "court_jurisdiction",
+                              "delay_interest",
+                              "static_terms",
+                              "np_type",
+                              "tax_number",
+                              "provider_tax_number",
+                              "accept_bap_terms"
+                            ],
+                            "minLength": 1
+                          },
+                          "value": {
+                            "id": "retail_bpp_on_confirm_message_152",
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "code": {
+                      "const": "bap_terms"
+                    }
+                  }
+                },
+                "then": {
+                  "id": "retail_bpp_on_confirm_message_200",
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "id": "retail_bpp_on_confirm_message_201",
                       "type": "string",
+                      "enum": ["bap_terms"],
                       "minLength": 1
+                    },
+                    "list": {
+                      "id": "retail_bpp_on_confirm_message_202",
+                      "type": "array",
+                      "minItems": 1,
+                      "element": {
+                        "id": "retail_bpp_on_confirm_message_203",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "id": "retail_bpp_on_confirm_message_204",
+                            "type": "string",
+                            "enum": [
+                              "static_terms",
+                              "tax_number",
+                              "accept_bpp_terms"
+                            ],
+                            "minLength": 1
+                          },
+                          "value": {
+                            "id": "retail_bpp_on_confirm_message_205",
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
                     }
                   }
                 }
               }
-            }
+            ]
           }
         },
         "created_at": {

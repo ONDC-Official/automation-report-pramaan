@@ -705,7 +705,8 @@ module.exports = {
                                                 },
                                                 "symbol": {
                                                     "id": "retail_bpp_on_search_message_92",
-                                                    "type": "string"
+                                                    "type": "string",
+                                                    "optional": true
                                                 },
                                                 "short_desc": {
                                                     "id": "retail_bpp_on_search_message_93",
@@ -731,11 +732,7 @@ module.exports = {
                                                 }
                                             },
                                             "required": [
-                                                "name",
-                                                "symbol",
-                                                "short_desc",
-                                                "long_desc",
-                                                "images"
+                                                "name"
                                             ]
                                         },
                                         "quantity": {

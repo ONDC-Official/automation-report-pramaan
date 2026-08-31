@@ -150,23 +150,19 @@ module.exports = {
                 "cancellation": {
                     "id": "retail_bpp_on_cancel_message_31",
                     "type": "object",
-                     "optional": true,
                     "properties": {
                         "cancelled_by": {
                             "id": "retail_bpp_on_cancel_message_28",
                             "type": "string",
-                             "optional": true,
                             "minLength": 1
                         },
                         "reason": {
                             "id": "retail_bpp_on_cancel_message_30",
                             "type": "object",
-                             "optional": true,
                             "properties": {
                                 "id": {
                                     "id": "retail_bpp_on_cancel_message_29",
                                     "type": "string",
-                                     "optional": true,
                                     "minLength": 1
                                 }
                             }
@@ -189,6 +185,7 @@ module.exports = {
                             "@ondc/org/provider_name": {
                                 "id": "retail_bpp_on_cancel_message_34",
                                 "type": "string",
+                                "optional": true,
                                 "minLength": 1
                             },
                             "state": {
@@ -215,7 +212,8 @@ module.exports = {
                             },
                             "tracking": {
                                 "id": "retail_bpp_on_cancel_message_39",
-                                "type": "boolean"
+                                "type": "boolean",
+                                "optional": true
                             },
                             "@ondc/org/TAT": {
                                 "id": "retail_bpp_on_cancel_message_40",
@@ -227,6 +225,7 @@ module.exports = {
                             "start": {
                                 "id": "retail_bpp_on_cancel_message_58",
                                 "type": "object",
+                                "optional": true,
                                 "properties": {
                                     "location": {
                                         "id": "retail_bpp_on_cancel_message_50",
@@ -325,6 +324,7 @@ module.exports = {
                             "end": {
                                 "id": "retail_bpp_on_cancel_message_78",
                                 "type": "object",
+                                "optional": true,
                                 "properties": {
                                     "location": {
                                         "id": "retail_bpp_on_cancel_message_68",
@@ -488,7 +488,6 @@ module.exports = {
                                             "type",
                                             "state",
                                             "id",
-                                            "@ondc/org/TAT",
                                             "tags"
                                         ]
                                     },
@@ -510,6 +509,23 @@ module.exports = {
                                             "end",
                                             "tracking",
                                             "@ondc/org/provider_name"
+                                        ]
+                                    },
+                                    {
+                                        "if": {
+                                            "properties": {
+                                                "type": {
+                                                    "const": "RTO"
+                                                }
+                                            }
+                                        },
+                                        "then": [
+                                            "type",
+                                            "state",
+                                            "id",
+                                            "tags",
+                                            "start",
+                                            "end"
                                         ]
                                     }
                                 ]
@@ -561,6 +577,7 @@ module.exports = {
                                     "@ondc/org/item_quantity": {
                                         "id": "retail_bpp_on_cancel_message_140",
                                         "type": "object",
+                                        "optional": true,
                                         "properties": {
                                             "count": {
                                                 "id": "retail_bpp_on_cancel_message_141",
@@ -571,7 +588,8 @@ module.exports = {
                                     "@ondc/org/title_type": {
                                         "id": "retail_bpp_on_cancel_message_142",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "passKeysToParams": ["@ondc/org/title_type"]
                                     },
                                     "price": {
                                         "id": "retail_bpp_on_cancel_message_143",
@@ -592,14 +610,17 @@ module.exports = {
                                     "item": {
                                         "id": "retail_bpp_on_cancel_message_146",
                                         "type": "object",
+                                        "optional": true,
                                         "properties": {
                                             "parent_item_id": {
                                                 "id": "retail_bpp_on_cancel_message_147",
-                                                "type": "string"
+                                                "type": "string",
+                                                "optional": true
                                             },
                                             "price": {
                                                 "id": "retail_bpp_on_cancel_message_148",
                                                 "type": "object",
+                                                "optional": true,
                                                 "properties": {
                                                     "currency": {
                                                         "id": "retail_bpp_on_cancel_message_149",
@@ -616,6 +637,7 @@ module.exports = {
                                             "tags": {
                                                 "id": "retail_bpp_on_cancel_message_151",
                                                 "type": "array",
+                                                "optional": true,
                                                 "element": {
                                                     "id": "retail_bpp_on_cancel_message_152",
                                                     "type": "object",
@@ -798,6 +820,9 @@ module.exports = {
                                                         "if": {
                                                             "properties": {
                                                                 "type": "params",
+                                                                "@ondc/org/title_type": {
+                                                                    "const": "item"
+                                                                },
                                                                 "domain": {
                                                                     "const": [
                                                                         "ONDC:RET11"
@@ -807,7 +832,6 @@ module.exports = {
                                                         },
                                                         "then": [
                                                             "parent_item_id",
-                                                            "quantity",
                                                             "price",
                                                             "tags"
                                                         ]
@@ -816,6 +840,9 @@ module.exports = {
                                                         "if": {
                                                             "properties": {
                                                                 "type": "params",
+                                                                "@ondc/org/title_type": {
+                                                                    "const": "item"
+                                                                },
                                                                 "domain": {
                                                                     "const": [
                                                                         "ONDC:RET10",
@@ -836,7 +863,6 @@ module.exports = {
                                                             }
                                                         },
                                                         "then": [
-                                                            "quantity",
                                                             "price"
                                                         ]
                                                     }
