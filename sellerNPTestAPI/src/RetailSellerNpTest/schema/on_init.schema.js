@@ -852,11 +852,13 @@ module.exports = {
                         "type": {
                             "id": "retail_bpp_on_init_message_86",
                             "type": "string",
+                            "optional": true,
                             "minLength": 1
                         },
                         "collected_by": {
                             "id": "retail_bpp_on_init_message_87",
                             "type": "string",
+                            "optional": true,
                             "minLength": 1
                         },
                         "@ondc/org/buyer_app_finder_fee_type": {
@@ -905,7 +907,8 @@ module.exports = {
                                     "upi_address": {
                                         "id": "retail_bpp_on_init_message_96",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "beneficiary_name": {
                                         "id": "retail_bpp_on_init_message_97",
@@ -915,17 +918,20 @@ module.exports = {
                                     "settlement_type": {
                                         "id": "retail_bpp_on_init_message_98",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "enum": ["upi", "neft"]
                                     },
                                     "settlement_bank_account_no": {
                                         "id": "retail_bpp_on_init_message_99",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "settlement_ifsc_code": {
                                         "id": "retail_bpp_on_init_message_100",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "settlement_phase": {
                                         "id": "retail_bpp_on_init_message_101",
@@ -935,17 +941,62 @@ module.exports = {
                                     "settlement_status": {
                                         "id": "retail_bpp_on_init_message_102",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "bank_name": {
                                         "id": "retail_bpp_on_init_message_103",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "branch_name": {
                                         "id": "retail_bpp_on_init_message_104",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
+                                    }
+                                },
+                                "required": {
+                                    "type": "array",
+                                    "element": {
+                                        "allOf": [
+                                            {
+                                                "if": {
+                                                    "properties": {
+                                                        "settlement_type": {
+                                                            "const": "upi"
+                                                        }
+                                                    }
+                                                },
+                                                "then": [
+                                                    "settlement_counterparty",
+                                                    "settlement_phase",
+                                                    "settlement_type",
+                                                    "beneficiary_name",
+                                                    "upi_address"
+                                                ]
+                                            },
+                                            {
+                                                "if": {
+                                                    "properties": {
+                                                        "settlement_type": {
+                                                            "const": "neft"
+                                                        }
+                                                    }
+                                                },
+                                                "then": [
+                                                    "settlement_counterparty",
+                                                    "settlement_phase",
+                                                    "settlement_type",
+                                                    "beneficiary_name",
+                                                    "settlement_bank_account_no",
+                                                    "settlement_ifsc_code",
+                                                    "bank_name",
+                                                    "branch_name"
+                                                ]
+                                            }
+                                        ]
                                     }
                                 }
                             }

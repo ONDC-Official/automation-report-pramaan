@@ -961,22 +961,26 @@ module.exports = {
                                     "beneficiary_name": {
                                         "id": "retail_bpp_on_status_message_120",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "settlement_type": {
                                         "id": "retail_bpp_on_status_message_121",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "enum": ["upi", "neft", "wallet"]
                                     },
                                     "settlement_bank_account_no": {
                                         "id": "retail_bpp_on_status_message_122",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "settlement_ifsc_code": {
                                         "id": "retail_bpp_on_status_message_123",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "settlement_phase": {
                                         "id": "retail_bpp_on_status_message_124",
@@ -992,28 +996,50 @@ module.exports = {
                                     "bank_name": {
                                         "id": "retail_bpp_on_status_message_126",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "branch_name": {
                                         "id": "retail_bpp_on_status_message_127",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "settlement_amount": {
                                         "id": "retail_bpp_on_status_message_128",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                      "settlement_timestamp": {
                                                 "id": "retail_bpp_on_status_message_1290",
                                                 "type": "string",
-                                                "minLength": 1
+                                                "minLength": 1,
+                                                "optional": true
                                             }
                                 },
                                   "required": {
                                 "type": "array",
                                 "element": {
                                     "allOf": [
+                                        {
+                                            "if": {
+                                                "properties": {
+                                                    "settlement_type": {
+                                                        "const": [
+                                                            "upi"
+                                                        ]
+                                                    }
+                                                }
+                                            },
+                                            "then": [
+                                                "settlement_counterparty",
+                                                "settlement_phase",
+                                                "settlement_type",
+                                                "beneficiary_name",
+                                                "upi_address"
+                                            ]
+                                        },
                                         {
                                             "if": {
                                                 "properties": {
