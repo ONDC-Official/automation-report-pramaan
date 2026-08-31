@@ -39,6 +39,7 @@ module.exports = async function on_select(
     };
 
     const responseTestSuite = response_verification({ context, message }, logs);
+    testSuite.addSuite(response_verification.own_sync_response_verification({ context }, logs));
     testSuite.addSuite(contextTests(context, constants, logs));
     testSuite.addSuite(onSelectMessageTests({ context, message }, constants));
 

@@ -49,6 +49,7 @@ module.exports = {
                             "parent_item_id": {
                                 "id": "retail_bap_select_message_23",
                                 "type": "string",
+                                "optional": true,
                                 "minLength": 1
                             },
                             "location_id": {
@@ -69,6 +70,7 @@ module.exports = {
                             "tags": {
                                 "id": "retail_bap_select_message_24",
                                 "type": "array",
+                                "optional": true,
                                 "minItems": 1,
                                 "element": {
                                     "id": "retail_bap_select_message_25",
@@ -78,7 +80,7 @@ module.exports = {
                                             "id": "retail_bap_select_message_25",
                                             "type": "string",
                                             "minLength": 1,
-                                            "enum": ["type", "parent"]
+                                            "enum": ["type", "parent", "veg_nonveg", "custom_group"]
                                         },
                                         "list": {
                                             "id": "retail_bap_select_message_26",

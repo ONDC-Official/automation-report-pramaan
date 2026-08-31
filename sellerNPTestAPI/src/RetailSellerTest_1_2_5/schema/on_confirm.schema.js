@@ -74,11 +74,13 @@ module.exports= {
                   "parent_item_id": {
                     "id": "retail_bpp_on_confirm_message_16",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "optional": true
                   },
                   "tags": {
                     "id": "retail_bpp_on_confirm_message_17",
                     "type": "array",
+                    "optional": true,
                     "minItems": 1,
                     "element": {
                       "id": "retail_bpp_on_confirm_message_18",
@@ -456,6 +458,80 @@ module.exports= {
                 }
               }
             },
+            "cancellation_terms": {
+              "id": "retail_bpp_on_confirm_message_200",
+              "type": "array",
+              "optional": true,
+              "minItems": 1,
+              "element": {
+                "id": "retail_bpp_on_confirm_message_201",
+                "type": "object",
+                "properties": {
+                  "fulfillment_state": {
+                    "id": "retail_bpp_on_confirm_message_202",
+                    "type": "object",
+                    "properties": {
+                      "descriptor": {
+                        "id": "retail_bpp_on_confirm_message_203",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "id": "retail_bpp_on_confirm_message_204",
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "short_desc": {
+                            "id": "retail_bpp_on_confirm_message_205",
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "refund_eligible": {
+                    "id": "retail_bpp_on_confirm_message_206",
+                    "type": "boolean",
+                    "optional": true
+                  },
+                  "reason_required": {
+                    "id": "retail_bpp_on_confirm_message_207",
+                    "type": "boolean",
+                    "optional": true
+                  },
+                  "cancellation_fee": {
+                    "id": "retail_bpp_on_confirm_message_208",
+                    "type": "object",
+                    "anyOf": ["percentage", "amount"],
+                    "properties": {
+                      "percentage": {
+                        "id": "retail_bpp_on_confirm_message_209",
+                        "type": "string",
+                        "optional": true,
+                        "minLength": 1
+                      },
+                      "amount": {
+                        "id": "retail_bpp_on_confirm_message_210",
+                        "type": "object",
+                        "optional": true,
+                        "properties": {
+                          "currency": {
+                            "id": "retail_bpp_on_confirm_message_211",
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "value": {
+                            "id": "retail_bpp_on_confirm_message_212",
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "quote": {
               "id": "retail_bpp_on_confirm_message_78",
               "type": "object",
@@ -492,6 +568,7 @@ module.exports= {
                       "@ondc/org/item_quantity": {
                         "id": "retail_bpp_on_confirm_message_85",
                         "type": "object",
+                        "optional": true,
                         "properties": {
                           "count": {
                             "id": "retail_bpp_on_confirm_message_86",
@@ -507,7 +584,8 @@ module.exports= {
                       "@ondc/org/title_type": {
                         "id": "retail_bpp_on_confirm_message_88",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "passKeysToParams": ["@ondc/org/title_type"]
                       },
                       "price": {
                         "id": "retail_bpp_on_confirm_message_89",
@@ -528,15 +606,17 @@ module.exports= {
                       "item": {
                          "id": "retail_bpp_on_confirm_message_92",
                         "type": "object",
+                        "optional": true,
                         "properties": {
-                          // "parent_item_id": {
-                          //    "id": "retail_bpp_on_confirm_message_93",
-                          //   "type": "string",
-                          //   "minLength": 1
-                          // },
+                          "parent_item_id": {
+                             "id": "retail_bpp_on_confirm_message_93",
+                            "type": "string",
+                            "optional": true
+                          },
                           "price": {
                              "id": "retail_bpp_on_confirm_message_94",
                             "type": "object",
+                            "optional": true,
                             "properties": {
                               "currency": {
                                  "id": "retail_bpp_on_confirm_message_95",
@@ -554,39 +634,215 @@ module.exports= {
                              "id": "retail_bpp_on_confirm_message_97",
                             "type": "array",
                             "optional": true,
-                            "minItems": 1,
                             "element": {
                                "id": "retail_bpp_on_confirm_message_98",
                               "type": "object",
                               "properties": {
                                 "code": {
-                                   "id": "retail_bpp_on_confirm_message_99",
+                                  "id": "retail_bpp_on_confirm_message_99",
                                   "type": "string",
-                                  "minLength": 1
+                                  "enum": [
+                                    "type",
+                                    "parent",
+                                    "child",
+                                    "origin",
+                                    "veg_nonveg",
+                                    "custom_group",
+                                    "quote"
+                                  ]
                                 },
                                 "list": {
-                                   "id": "retail_bpp_on_confirm_message_100",
+                                  "id": "retail_bpp_on_confirm_message_100",
                                   "type": "array",
                                   "minItems": 1,
                                   "element": {
-                                     "id": "retail_bpp_on_confirm_message_101",
-                                    "type": "object",
-                                    "properties": {
-                                      "code": {
-                                         "id": "retail_bpp_on_confirm_message_102",
-                                        "type": "string",
-                                        "minLength": 1
+                                    "allOf": [
+                                      {
+                                        "if": {
+                                          "properties": {
+                                            "code": {
+                                              "const": "type"
+                                            }
+                                          }
+                                        },
+                                        "then": {
+                                          "type": "object",
+                                          "properties": {
+                                            "code": {
+                                              "id": "retail_bpp_on_confirm_message_101",
+                                              "type": "string",
+                                              "enum": ["type"]
+                                            },
+                                            "value": {
+                                              "id": "retail_bpp_on_confirm_message_102",
+                                              "type": "string",
+                                              "enum": ["item", "customization", "fulfillment"]
+                                            }
+                                          }
+                                        }
                                       },
-                                      "value": {
-                                         "id": "retail_bpp_on_confirm_message_103",
-                                        "type": "string",
-                                        "minLength": 1
+                                      {
+                                        "if": {
+                                          "properties": {
+                                            "code": {
+                                              "const": "id"
+                                            }
+                                          }
+                                        },
+                                        "then": {
+                                          "type": "object",
+                                          "properties": {
+                                            "code": {
+                                              "id": "retail_bpp_on_confirm_message_213",
+                                              "type": "string",
+                                              "enum": ["id"]
+                                            },
+                                            "value": {
+                                              "id": "retail_bpp_on_confirm_message_214",
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "if": {
+                                          "properties": {
+                                            "code": {
+                                              "const": "country"
+                                            }
+                                          }
+                                        },
+                                        "then": {
+                                          "type": "object",
+                                          "properties": {
+                                            "code": {
+                                              "id": "retail_bpp_on_confirm_message_215",
+                                              "type": "string",
+                                              "enum": ["country"]
+                                            },
+                                            "value": {
+                                              "id": "retail_bpp_on_confirm_message_216",
+                                              "type": "string",
+                                              "pattern": "^[A-Z]{3}$", "minLength": 1, "errorMessage": "Country must be in ISO 3166-1 format (three-letter country code)"
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "if": {
+                                          "properties": {
+                                            "code": {
+                                              "const": "veg"
+                                            }
+                                          }
+                                        },
+                                        "then": {
+                                          "type": "object",
+                                          "properties": {
+                                            "code": {
+                                              "id": "retail_bpp_on_confirm_message_217",
+                                              "type": "string",
+                                              "enum": ["veg"]
+                                            },
+                                            "value": {
+                                              "id": "retail_bpp_on_confirm_message_218",
+                                              "type": "string",
+                                              "enum": ["yes", "no"]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "if": {
+                                          "properties": {
+                                            "code": {
+                                              "const": "default"
+                                            }
+                                          }
+                                        },
+                                        "then": {
+                                          "type": "object",
+                                          "properties": {
+                                            "code": {
+                                              "id": "retail_bpp_on_confirm_message_219",
+                                              "type": "string",
+                                              "enum": ["default"]
+                                            },
+                                            "value": {
+                                              "id": "retail_bpp_on_confirm_message_220",
+                                              "type": "string",
+                                              "enum": ["yes", "no"]
+                                            }
+                                          }
+                                        }
                                       }
-                                    }
+                                    ]
                                   }
                                 }
-                              }
+                              },
+                              "required": [
+                                "code",
+                                "list"
+                              ],
+                              "additionalProperties": false
                             }
+                          }
+                        },
+                        "required": {
+                          "type": "array",
+                          "element": {
+                            "allOf": [
+                              {
+                                "if": {
+                                  "properties": {
+                                    "type": "params",
+                                    "@ondc/org/title_type": {
+                                      "const": "item"
+                                    },
+                                    "domain": {
+                                      "const": [
+                                        "ONDC:RET11"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "then": [
+                                  "parent_item_id",
+                                  "price",
+                                  "tags"
+                                ]
+                              },
+                              {
+                                "if": {
+                                  "properties": {
+                                    "type": "params",
+                                    "@ondc/org/title_type": {
+                                      "const": "item"
+                                    },
+                                    "domain": {
+                                      "const": [
+                                        "ONDC:RET10",
+                                        "ONDC:RET12",
+                                        "ONDC:RET13",
+                                        "ONDC:RET14",
+                                        "ONDC:RET15",
+                                        "ONDC:RET16",
+                                        "ONDC:RET17",
+                                        "ONDC:RET18",
+                                        "ONDC:RET19",
+                                        "ONDC:RET1A",
+                                        "ONDC:RET1B",
+                                        "ONDC:RET1C",
+                                        "ONDC:RET1D"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "then": [
+                                  "price"
+                                ]
+                              }
+                            ]
                           }
                         }
                       }
@@ -854,36 +1110,109 @@ module.exports= {
               "type": "array",
               "minItems": 1,
               "element": {
-                 "id": "retail_bpp_on_confirm_message_132",
-                "type": "object",
-                "properties": {
-                  "code": {
-                     "id": "retail_bpp_on_confirm_message_133",
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "list": {
-                     "id": "retail_bpp_on_confirm_message_134",
-                    "type": "array",
-                    "minItems": 1,
-                    "element": {
-                       "id": "retail_bpp_on_confirm_message_135",
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "code": {
+                          "const": "bpp_terms"
+                        }
+                      }
+                    },
+                    "then": {
+                      "id": "retail_bpp_on_confirm_message_132",
                       "type": "object",
                       "properties": {
                         "code": {
-                           "id": "retail_bpp_on_confirm_message_136",
+                          "id": "retail_bpp_on_confirm_message_133",
                           "type": "string",
+                          "enum": ["bpp_terms"],
                           "minLength": 1
                         },
-                        "value": {
-                           "id": "retail_bpp_on_confirm_message_137",
+                        "list": {
+                          "id": "retail_bpp_on_confirm_message_134",
+                          "type": "array",
+                          "minItems": 1,
+                          "element": {
+                            "id": "retail_bpp_on_confirm_message_135",
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "id": "retail_bpp_on_confirm_message_136",
+                                "type": "string",
+                                "enum": [
+                                  "max_liability",
+                                  "max_liability_cap",
+                                  "mandatory_arbitration",
+                                  "court_jurisdiction",
+                                  "delay_interest",
+                                  "static_terms",
+                                  "np_type",
+                                  "tax_number",
+                                  "provider_tax_number",
+                                  "accept_bap_terms"
+                                ],
+                                "minLength": 1
+                              },
+                              "value": {
+                                "id": "retail_bpp_on_confirm_message_137",
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "code": {
+                          "const": "bap_terms"
+                        }
+                      }
+                    },
+                    "then": {
+                      "id": "retail_bpp_on_confirm_message_221",
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "id": "retail_bpp_on_confirm_message_222",
                           "type": "string",
+                          "enum": ["bap_terms"],
                           "minLength": 1
+                        },
+                        "list": {
+                          "id": "retail_bpp_on_confirm_message_223",
+                          "type": "array",
+                          "minItems": 1,
+                          "element": {
+                            "id": "retail_bpp_on_confirm_message_224",
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "id": "retail_bpp_on_confirm_message_225",
+                                "type": "string",
+                                "enum": [
+                                  "static_terms",
+                                  "tax_number",
+                                  "accept_bpp_terms"
+                                ],
+                                "minLength": 1
+                              },
+                              "value": {
+                                "id": "retail_bpp_on_confirm_message_226",
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            }
+                          }
                         }
                       }
                     }
                   }
-                }
+                ]
               }
             },
             "created_at": {

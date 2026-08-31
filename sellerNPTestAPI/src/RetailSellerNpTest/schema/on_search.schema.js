@@ -23,7 +23,8 @@ module.exports = {
                                 "type": "string",
                                 "enum": [
                                     "Delivery",
-                                    "Self-Pickup"
+                                    "Self-Pickup",
+                                    "Buyer-Delivery"
                                 ]
                             }
                         },
@@ -388,6 +389,7 @@ module.exports = {
                             "@ondc/org/fssai_license_no": {
                                 "id": "retail_bpp_on_search_message_46",
                                 "type": "string",
+                                "optional": true,
                                 "compliance": "fssai"
                             },
                             "ttl": {
@@ -439,7 +441,6 @@ module.exports = {
                                                         "holidays": {
                                                             "id": "retail_bpp_on_search_message_56",
                                                             "type": "array",
-                                                            "minLength": 1,
                                                             "element": {
                                                                 "id": "retail_bpp_on_search_message_57",
                                                                 "type": "string",
@@ -1107,7 +1108,6 @@ module.exports = {
                                                         "@ondc/org/time_to_ship",
                                                         "@ondc/org/available_on_cod",
                                                         "@ondc/org/contact_details_consumer_care",
-                                                        "@ondc/org/statutory_reqs_packaged_commodities",
                                                         "tags"
                                                     ]
                                                 },
@@ -1142,6 +1142,7 @@ module.exports = {
                             "creds": {
                                 "id": "retail_bpp_on_search_message_154",
                                 "type": "array",
+                                "optional": true,
                                 "element": {
                                     "id": "retail_bpp_on_search_message_155",
                                     "type": "object",
@@ -1227,6 +1228,7 @@ module.exports = {
                             "offers": {
                                 "id": "retail_bpp_on_search_message_168",
                                 "type": "array",
+                                "optional": true,
                                 "element": {
                                     "id": "retail_bpp_on_search_message_169",
                                     "type": "object",

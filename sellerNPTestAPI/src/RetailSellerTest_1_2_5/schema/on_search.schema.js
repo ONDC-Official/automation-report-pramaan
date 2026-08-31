@@ -752,6 +752,75 @@ module.exports = {
                           "minLength": 1,
                           "optional": true
                         },
+                        "@ondc/org/statutory_reqs_packaged_commodities": {
+                          "id": "retail_bpp_on_search_message_210",
+                          "type": "object",
+                          "optional": true,
+                          "properties": {
+                            "manufacturer_or_packer_name": {
+                              "id": "retail_bpp_on_search_message_211",
+                              "type": "string"
+                            },
+                            "manufacturer_or_packer_address": {
+                              "id": "retail_bpp_on_search_message_212",
+                              "type": "string"
+                            },
+                            "common_or_generic_name_of_commodity": {
+                              "id": "retail_bpp_on_search_message_213",
+                              "type": "string"
+                            },
+                            "month_year_of_manufacture_packing_import": {
+                              "id": "retail_bpp_on_search_message_214",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "manufacturer_or_packer_name",
+                            "manufacturer_or_packer_address",
+                            "common_or_generic_name_of_commodity",
+                            "month_year_of_manufacture_packing_import"
+                          ]
+                        },
+                        "@ondc/org/statutory_reqs_prepackaged_food": {
+                          "id": "retail_bpp_on_search_message_203",
+                          "type": "object",
+                          "optional": true,
+                          "properties": {
+                            "nutritional_info": {
+                              "id": "retail_bpp_on_search_message_204",
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "additives_info": {
+                              "id": "retail_bpp_on_search_message_205",
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "brand_owner_FSSAI_license_no": {
+                              "id": "retail_bpp_on_search_message_206",
+                              "type": "string",
+                              "compliance": "fssai",
+                              "minLength": 1
+                            },
+                            "other_FSSAI_license_no": {
+                              "id": "retail_bpp_on_search_message_207",
+                              "type": "string",
+                              "compliance": "fssai",
+                              "minLength": 1
+                            },
+                            "importer_FSSAI_license_no": {
+                              "id": "retail_bpp_on_search_message_208",
+                              "type": "string",
+                              "compliance": "fssai",
+                              "minLength": 1
+                            },
+                            "ingredients_info": {
+                              "id": "retail_bpp_on_search_message_209",
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          }
+                        },
                         "tags": {
                           "id": "retail_bpp_on_search_message_137",
                           "type": "array",

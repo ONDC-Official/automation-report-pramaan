@@ -85,6 +85,7 @@ module.exports = async function on_confirm({ context, message } = {}, logs = [],
         };
 
         const responseTestSuite = response_verification({ context, message }, logs);
+        testSuite.addSuite(response_verification.own_sync_response_verification({ context }, logs));
         testSuite.addSuite(contextTests(context, constants, logs));
         testSuite.addSuite(onConfirmMessageTests({ context, message }, logs, constants));
 
