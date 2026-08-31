@@ -20,6 +20,14 @@ function onInitMessageTests({ context, message }, logs, constants) {
     try {
         // generating the tests using recursive methods
         const messageTestSuite = generateTests({ context, message }, onInitSchema, "Verification of Message");
+
+        messageTestSuite.addTest(new Mocha.Test("'message.order.id' should not be sent at on_init stage", function () {
+            expect(message.order).to.not.have.property("id");
+        }));
+        messageTestSuite.addTest(new Mocha.Test("'message.order.state' should not be sent at on_init stage", function () {
+            expect(message.order).to.not.have.property("state");
+        }));
+
         const initLogs = lastActionLog(logs, "init")
         const initCreatedAt = initLogs?.message?.order?.billing?.created_at
         const initUpdatedAt = initLogs?.message?.order?.billing?.updated_at
