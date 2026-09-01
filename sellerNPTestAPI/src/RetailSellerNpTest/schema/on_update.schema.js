@@ -50,7 +50,8 @@ const FULFILLMENT_END = {
                 "long_desc": {
                     "id": "retail_bpp_on_update_message_30",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "optional": true
                 },
                 "name": {
                     "id": "retail_bpp_on_update_message_31",
@@ -134,16 +135,19 @@ const FULFILLMENT_END = {
                 "range": {
                     "id": "retail_bpp_on_update_message_46",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                         "end": {
                             "id": "retail_bpp_on_update_message_47",
                             "type": "string",
-                            "minLength": 1
+                            "minLength": 1,
+                            "optional": true
                         },
                         "start": {
                             "id": "retail_bpp_on_update_message_48",
                             "type": "string",
-                            "minLength": 1
+                            "minLength": 1,
+                            "optional": true
                         }
                     }
                 },
@@ -498,7 +502,8 @@ const FULFILLMENT_END_RETURN = {
                 "long_desc": {
                     "id": "retail_bpp_on_update_message_30",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "optional": true
                 },
                 "name": {
                     "id": "retail_bpp_on_update_message_31",
@@ -586,16 +591,19 @@ const FULFILLMENT_END_RETURN = {
                 "range": {
                     "id": "retail_bpp_on_update_message_46",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                         "end": {
                             "id": "retail_bpp_on_update_message_47",
                             "type": "string",
-                            "minLength": 1
+                            "minLength": 1,
+                            "optional": true
                         },
                         "start": {
                             "id": "retail_bpp_on_update_message_48",
                             "type": "string",
-                            "minLength": 1
+                            "minLength": 1,
+                            "optional": true
                         }
                     }
                 },
@@ -1424,7 +1432,8 @@ module.exports = {
                                                                 "child",
                                                                 "origin",
                                                                 "veg_nonveg",
-                                                                "custom_group"
+                                                                "custom_group",
+                                                                "quote"
                                                             ]
                                                         },
                                                         "list": {
@@ -1452,7 +1461,7 @@ module.exports = {
                                                                                 "value": {
                                                                                     "id": "retail_bpp_on_update_message_148",
                                                                                     "type": "string",
-                                                                                    "enum": ["item", "customization"]
+                                                                                    "enum": ["item", "customization", "fulfillment"]
                                                                                 }
                                                                             }
                                                                         }
@@ -1568,6 +1577,22 @@ module.exports = {
                                             "type": "array",
                                             "element": {
                                                 "allOf": [
+                                                    {
+                                                        "if": {
+                                                            "properties": {
+                                                                "tags": {
+                                                                    "0": {
+                                                                        "code": {
+                                                                            "const": "quote"
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "then": [
+                                                            "tags"
+                                                        ]
+                                                    },
                                                     {
                                                         "if": {
                                                             "properties": {
