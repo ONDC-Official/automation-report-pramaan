@@ -114,8 +114,8 @@ function complianceCheck({ value, compliance, testName, property }) {
             });
             break;
         case 'gps-coord':
-            test = new Mocha.Test(`'[id: ${property?.id}_compliance]' ${testName} should be valid GPS coordinates with at least six decimal places${OPTIONAL}`, function () {
-                const gpsPattern = /^-?\d{1,3}\.\d{6,},-?\d{1,3}\.\d{6,}$/;
+            test = new Mocha.Test(`'[id: ${property?.id}_compliance]' ${testName} should be valid GPS coordinates with at least four decimal places${OPTIONAL}`, function () {
+                const gpsPattern = /^-?\d{1,3}\.\d{4,},-?\d{1,3}\.\d{4,}$/;
                 expect(value).to.match(gpsPattern);
             });
             break;

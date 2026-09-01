@@ -6,34 +6,6 @@ module.exports = {
             "id": "retail_bpp_on_search_message_2",
             "type": "object",
             "properties": {
-                "bpp/fulfillments": {
-                    "id": "retail_bpp_on_search_message_601",
-                    "type": "array",
-                    "element": {
-                        "id": "retail_bpp_on_search_message_602",
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "id": "retail_bpp_on_search_message_603",
-                                "type": "string",
-                                "business": "unique"
-                            },
-                            "type": {
-                                "id": "retail_bpp_on_search_message_604",
-                                "type": "string",
-                                "enum": [
-                                    "Delivery",
-                                    "Self-Pickup",
-                                    "Buyer-Delivery"
-                                ]
-                            }
-                        },
-                        "required": [
-                            "id",
-                            "type"
-                        ]
-                    }
-                },
                 "bpp/descriptor": {
                     "id": "retail_bpp_on_search_message_3",
                     "type": "object",
@@ -1536,8 +1508,7 @@ module.exports = {
                             },
                             "then": [
                                 "bpp/descriptor",
-                                "bpp/providers",
-                                "bpp/fulfillments"
+                                "bpp/providers"
                             ]
                         },
                         {
