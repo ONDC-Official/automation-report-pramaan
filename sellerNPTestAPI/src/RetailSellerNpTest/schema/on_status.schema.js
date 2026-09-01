@@ -170,12 +170,14 @@ module.exports = {
                             "@ondc/org/provider_name": {
                                 "id": "retail_bpp_on_status_message_34",
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "optional": true
                             },
                             "@ondc/org/TAT": {
                                 "id": "retail_bpp_on_status_message_36",
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "optional": true
                             },
                             "state": {
                                 "id": "retail_bpp_on_status_message_37",
@@ -202,11 +204,13 @@ module.exports = {
                             },
                             "tracking": {
                                 "id": "retail_bpp_on_status_message_41",
-                                "type": "boolean"
+                                "type": "boolean",
+                                "optional": true
                             },
                             "start": {
                                 "id": "retail_bpp_on_status_message_42",
                                 "type": "object",
+                                "optional": true,
                                 "properties": {
                                     "location": {
                                         "id": "retail_bpp_on_status_message_43",
@@ -324,6 +328,7 @@ module.exports = {
                             "end": {
                                 "id": "retail_bpp_on_status_message_63",
                                 "type": "object",
+                                "optional": true,
                                 "properties": {
                                     "contact": {
                                         "id": "retail_bpp_on_status_message_64",

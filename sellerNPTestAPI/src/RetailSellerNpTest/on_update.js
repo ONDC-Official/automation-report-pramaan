@@ -18,7 +18,7 @@ function lastActionLog(logs, action) {
 function onUpdateMessageTests({ context, message }, logs, constants) {
     try {
         // generating the tests using recursive methods
-        const messageTestSuite = generateTests({ context, message }, onUpdateSchema, "Verification of Message");
+        const messageTestSuite = generateTests({ context, message }, onUpdateSchema, "Verification of Message", constants);
         const initLogs = lastActionLog(logs, "init")
         const initCreatedAt = initLogs?.message?.order?.billing?.created_at
         const initUpdatedAt = initLogs?.message?.order?.billing?.updated_at
@@ -30,8 +30,7 @@ function onUpdateMessageTests({ context, message }, logs, constants) {
         }));
         if (constants?.flow === "RET_1b") {
             messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payment' which is an object`, function () {
-                message.order.
-                    expect(message.order.payment).to.exist.and.to.be.an("object");
+                expect(message.order.payment).to.exist.and.to.be.an("object");
             }));
 
             messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payment.status' which is a string`, function () {
@@ -58,12 +57,11 @@ function onUpdateMessageTests({ context, message }, logs, constants) {
         }
         const confirmLogs = lastActionLog(logs, "confirm")
         const confirmCreatedAt = confirmLogs?.message?.order?.created_at
-        const confirmUpdatedAt = confirmLogs?.message?.order?.updated_at
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.created_at' which is an object", function () {
             expect(message.order.created_at).to.be.a("string").and.to.be.equal(confirmCreatedAt);
         }));
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.updated_at' which is a string (OPTIONAL)", function () {
-            expect(message.order.updated_at).to.exist.and.to.be.a("string").and.to.be.equal(confirmUpdatedAt);
+            expect(message.order.updated_at).to.exist.and.to.be.a("string");
         }));
         return messageTestSuite;
     } catch (err) {

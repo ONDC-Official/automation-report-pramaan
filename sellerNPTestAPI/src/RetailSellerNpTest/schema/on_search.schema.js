@@ -475,12 +475,14 @@ module.exports = {
                                                             "id": "retail_bpp_on_search_message_5704",
                                                             "type": "string",
                                                             "optional": true,
-                                                            "compliance": "rfc3339-date-time",
+                                                            "pattern": "^([01]\\d|2[0-3])[0-5]\\d$",
+                                                            "errorMessage": "should be a 24-hour HHMM time (e.g. 0000, 2359)"
                                                         },
                                                         "end": {
                                                             "id": "retail_bpp_on_search_message_5705",
                                                             "type": "string",
-                                                            "compliance": "rfc3339-date-time",
+                                                            "pattern": "^([01]\\d|2[0-3])[0-5]\\d$",
+                                                            "errorMessage": "should be a 24-hour HHMM time (e.g. 0000, 2359)",
                                                             "optional": true
                                                         }
                                                     }

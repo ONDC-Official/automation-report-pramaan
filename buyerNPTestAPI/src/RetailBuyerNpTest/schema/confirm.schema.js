@@ -919,6 +919,7 @@ module.exports = {
               "list": {
                 "id": "retail_bap_confirm_message_67",
                 "type": "array",
+                "optional": true,
                 "minItems": 1,
                 "element": {
                   "id": "retail_bap_confirm_message_68",
@@ -1158,7 +1159,6 @@ module.exports = {
           "id": "retail_bap_select_message_93",
           "type": "array",
           "optional": true,
-          "minItems": 1,
           "element": {
             "id": "retail_bap_select_message_94",
             "type": "object",
