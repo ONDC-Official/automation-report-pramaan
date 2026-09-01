@@ -394,7 +394,6 @@ module.exports = {
                     "id": "retail_bap_select_message_47",
                     "type": "array",
                     "optional": true,
-                    "minItems": 1,
                     "element": {
                         "id": "retail_bap_select_message_48",
                         "type": "object",

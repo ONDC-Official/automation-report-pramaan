@@ -1,4 +1,830 @@
 // max id - 159 billing, created_at, id, payment, provider, quote, state, updated_at
+
+// Shared sub-schemas for the fulfillments[] element - reused across the
+// per-type/state property trees below (element.allOf branches) rather than
+// duplicated, since a plain "optional" flag can't be conditioned on state:
+// only ONDC:Return_Initiated legitimately omits start/end/TAT/tracking -
+// every other type/state keeps these strictly required, matching the
+// original (pre-Return_Initiated-fix) strictness.
+const FULFILLMENT_END = {
+    "id": "retail_bpp_on_update_message_22",
+    "type": "object",
+    "properties": {
+        "contact": {
+            "id": "retail_bpp_on_update_message_23",
+            "type": "object",
+            "properties": {
+                "email": {
+                    "id": "retail_bpp_on_update_message_24",
+                    "type": "string",
+                    "optional": true,
+                    "minLength": 1
+                },
+                "phone": {
+                    "id": "retail_bpp_on_update_message_25",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "instructions": {
+            "id": "retail_bpp_on_update_message_26",
+            "type": "object",
+            "optional": true,
+            "properties": {
+                "code": {
+                    "id": "retail_bpp_on_update_message_27",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "images": {
+                    "id": "retail_bpp_on_update_message_28",
+                    "type": "array",
+                    "minItems": 1,
+                    "element": {
+                        "id": "retail_bpp_on_update_message_29",
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "long_desc": {
+                    "id": "retail_bpp_on_update_message_30",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "name": {
+                    "id": "retail_bpp_on_update_message_31",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "short_desc": {
+                    "id": "retail_bpp_on_update_message_32",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "location": {
+            "id": "retail_bpp_on_update_message_33",
+            "type": "object",
+            "properties": {
+                "address": {
+                    "id": "retail_bpp_on_update_message_34",
+                    "type": "object",
+                    "properties": {
+                        "area_code": {
+                            "id": "retail_bpp_on_update_message_35",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "building": {
+                            "id": "retail_bpp_on_update_message_36",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "city": {
+                            "id": "retail_bpp_on_update_message_37",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "country": {
+                            "id": "retail_bpp_on_update_message_38",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "locality": {
+                            "id": "retail_bpp_on_update_message_39",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "name": {
+                            "id": "retail_bpp_on_update_message_40",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "state": {
+                            "id": "retail_bpp_on_update_message_41",
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
+                },
+                "gps": {
+                    "id": "retail_bpp_on_update_message_42",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "person": {
+            "id": "retail_bpp_on_update_message_43",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "id": "retail_bpp_on_update_message_44",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "time": {
+            "id": "retail_bpp_on_update_message_45",
+            "type": "object",
+            "properties": {
+                "range": {
+                    "id": "retail_bpp_on_update_message_46",
+                    "type": "object",
+                    "properties": {
+                        "end": {
+                            "id": "retail_bpp_on_update_message_47",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "start": {
+                            "id": "retail_bpp_on_update_message_48",
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
+                },
+                "timestamp": {
+                    "id": "retail_bpp_on_update_message_49",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        }
+    },
+    "required": {
+        "type": "array",
+        "element": {
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "type": "params",
+                            "state": {
+                                "type": "object",
+                                "properties": {
+                                    "descriptor": {
+                                        "type": "object",
+                                        "properties": {
+                                            "code": {
+                                                "const": "Order-delivered"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "then": [
+                        "contact",
+                        "location",
+                        "instruction",
+                        "person",
+                        "time"
+                    ]
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "type": "params",
+                            "state": {
+                                "type": "object",
+                                "properties": {
+                                    "descriptor": {
+                                        "type": "object",
+                                        "properties": {
+                                            "code": {
+                                                "const": "Pending"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "then": [
+                        "contact",
+                        "location",
+                        "instruction",
+                        "person"
+                    ]
+                }
+            ]
+        }
+    }
+};
+
+const FULFILLMENT_START = {
+    "id": "retail_bpp_on_update_message_51",
+    "type": "object",
+    "properties": {
+        "contact": {
+            "id": "retail_bpp_on_update_message_52",
+            "type": "object",
+            "properties": {
+                "email": {
+                    "id": "retail_bpp_on_update_message_53",
+                    "type": "string",
+                    "optional": true,
+                    "minLength": 1
+                },
+                "phone": {
+                    "id": "retail_bpp_on_update_message_54",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "instructions": {
+            "id": "retail_bpp_on_update_message_55",
+            "type": "object",
+            "optional": true,
+            "properties": {
+                "code": {
+                    "id": "retail_bpp_on_update_message_56",
+                    "type": "string",
+                    "minLength": 1,
+                    "optional": true
+                },
+                "images": {
+                    "id": "retail_bpp_on_update_message_57",
+                    "type": "array",
+                    "minItems": 1,
+                    "optional": true,
+                    "element": {
+                        "id": "retail_bpp_on_update_message_58",
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "long_desc": {
+                    "id": "retail_bpp_on_update_message_59",
+                    "type": "string",
+                    "minLength": 1,
+                    "optional": true
+                },
+                "name": {
+                    "id": "retail_bpp_on_update_message_60",
+                    "type": "string",
+                    "minLength": 1,
+                    "optional": true
+                },
+                "short_desc": {
+                    "id": "retail_bpp_on_update_message_61",
+                    "type": "string",
+                    "minLength": 1,
+                    "optional": true
+                }
+            }
+        },
+        "location": {
+            "id": "retail_bpp_on_update_message_62",
+            "type": "object",
+            "properties": {
+                "address": {
+                    "id": "retail_bpp_on_update_message_63",
+                    "type": "object",
+                    "properties": {
+                        "area_code": {
+                            "id": "retail_bpp_on_update_message_64",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "city": {
+                            "id": "retail_bpp_on_update_message_65",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "locality": {
+                            "id": "retail_bpp_on_update_message_66",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "state": {
+                            "id": "retail_bpp_on_update_message_67",
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
+                },
+                "descriptor": {
+                    "id": "retail_bpp_on_update_message_68",
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "id": "retail_bpp_on_update_message_69",
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
+                },
+                "gps": {
+                    "id": "retail_bpp_on_update_message_70",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "id": {
+                    "id": "retail_bpp_on_update_message_71",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "time": {
+            "id": "retail_bpp_on_update_message_72",
+            "type": "object",
+            "properties": {
+                "range": {
+                    "id": "retail_bpp_on_update_message_73",
+                    "type": "object",
+                    "optional": true,
+                    "properties": {
+                        "end": {
+                            "id": "retail_bpp_on_update_message_74",
+                            "type": "string",
+                            "minLength": 1,
+                            "optional": true
+                        },
+                        "start": {
+                            "id": "retail_bpp_on_update_message_75",
+                            "type": "string",
+                            "minLength": 1,
+                            "optional": true
+                        }
+                    }
+                },
+                "timestamp": {
+                    "id": "retail_bpp_on_update_message_76",
+                    "type": "string",
+                    "minLength": 1,
+                    "optional": true
+                }
+            }
+        }
+    }
+};
+
+const FULFILLMENT_ID = {
+    "id": "retail_bpp_on_update_message_50",
+    "type": "string",
+    "minLength": 1
+};
+
+const FULFILLMENT_STATE = {
+    "id": "retail_bpp_on_update_message_77",
+    "type": "object",
+    "properties": {
+        "descriptor": {
+            "id": "retail_bpp_on_update_message_78",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "id": "retail_bpp_on_update_message_79",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        }
+    }
+};
+
+const FULFILLMENT_TAGS_ELEMENT = {
+    "id": "retail_bpp_on_update_message_81",
+    "type": "object",
+    "properties": {
+        "code": {
+            "id": "retail_bpp_on_update_message_82",
+            "type": "string",
+            "minLength": 1
+        },
+        "list": {
+            "id": "retail_bpp_on_update_message_83",
+            "type": "array",
+            "minItems": 1,
+            "element": {
+                "id": "retail_bpp_on_update_message_84",
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "id": "retail_bpp_on_update_message_85",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "value": {
+                        "id": "retail_bpp_on_update_message_86",
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            }
+        }
+    }
+};
+
+// Delivery doesn't always send tags; Cancel/Return always have (already
+// verified against real payloads), so this optional variant is only used
+// on the Delivery/Return-full branches.
+const FULFILLMENT_TAGS_OPTIONAL = {
+    "id": "retail_bpp_on_update_message_80",
+    "type": "array",
+    "minItems": 1,
+    "optional": true,
+    "element": FULFILLMENT_TAGS_ELEMENT
+};
+
+const FULFILLMENT_TAGS_REQUIRED = {
+    "id": "retail_bpp_on_update_message_80",
+    "type": "array",
+    "minItems": 1,
+    "element": FULFILLMENT_TAGS_ELEMENT
+};
+
+const FULFILLMENT_TYPE = {
+    "id": "retail_bpp_on_update_message_88",
+    "type": "string",
+    "minLength": 1
+};
+
+// Return-specific variants of end/start: per real payloads, a Return
+// fulfillment (any state past Return_Initiated) never populates these
+// descriptive sub-fields, regardless of stage - unlike Delivery, which still
+// must send them in full. Only these leaf fields are loosened; start/end
+// themselves stay mandatory for Return (enforced by FULFILLMENT_RETURN_FULL).
+const FULFILLMENT_END_RETURN = {
+    "id": "retail_bpp_on_update_message_22",
+    "type": "object",
+    "properties": {
+        "contact": {
+            "id": "retail_bpp_on_update_message_23",
+            "type": "object",
+            "optional": true,
+            "properties": {
+                "email": {
+                    "id": "retail_bpp_on_update_message_24",
+                    "type": "string",
+                    "optional": true,
+                    "minLength": 1
+                },
+                "phone": {
+                    "id": "retail_bpp_on_update_message_25",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "instructions": {
+            "id": "retail_bpp_on_update_message_26",
+            "type": "object",
+            "optional": true,
+            "properties": {
+                "code": {
+                    "id": "retail_bpp_on_update_message_27",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "images": {
+                    "id": "retail_bpp_on_update_message_28",
+                    "type": "array",
+                    "minItems": 1,
+                    "element": {
+                        "id": "retail_bpp_on_update_message_29",
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "long_desc": {
+                    "id": "retail_bpp_on_update_message_30",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "name": {
+                    "id": "retail_bpp_on_update_message_31",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "short_desc": {
+                    "id": "retail_bpp_on_update_message_32",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "location": {
+            "id": "retail_bpp_on_update_message_33",
+            "type": "object",
+            "properties": {
+                "address": {
+                    "id": "retail_bpp_on_update_message_34",
+                    "type": "object",
+                    "properties": {
+                        "area_code": {
+                            "id": "retail_bpp_on_update_message_35",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "building": {
+                            "id": "retail_bpp_on_update_message_36",
+                            "type": "string",
+                            "minLength": 1,
+                            "optional": true
+                        },
+                        "city": {
+                            "id": "retail_bpp_on_update_message_37",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "country": {
+                            "id": "retail_bpp_on_update_message_38",
+                            "type": "string",
+                            "minLength": 1,
+                            "optional": true
+                        },
+                        "locality": {
+                            "id": "retail_bpp_on_update_message_39",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "name": {
+                            "id": "retail_bpp_on_update_message_40",
+                            "type": "string",
+                            "minLength": 1,
+                            "optional": true
+                        },
+                        "state": {
+                            "id": "retail_bpp_on_update_message_41",
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
+                },
+                "gps": {
+                    "id": "retail_bpp_on_update_message_42",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "person": {
+            "id": "retail_bpp_on_update_message_43",
+            "type": "object",
+            "optional": true,
+            "properties": {
+                "name": {
+                    "id": "retail_bpp_on_update_message_44",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "time": {
+            "id": "retail_bpp_on_update_message_45",
+            "type": "object",
+            "properties": {
+                "range": {
+                    "id": "retail_bpp_on_update_message_46",
+                    "type": "object",
+                    "properties": {
+                        "end": {
+                            "id": "retail_bpp_on_update_message_47",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "start": {
+                            "id": "retail_bpp_on_update_message_48",
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
+                },
+                "timestamp": {
+                    "id": "retail_bpp_on_update_message_49",
+                    "type": "string",
+                    "minLength": 1,
+                    "optional": true
+                }
+            }
+        }
+    }
+};
+
+const FULFILLMENT_START_RETURN = {
+    "id": "retail_bpp_on_update_message_51",
+    "type": "object",
+    "properties": {
+        "contact": {
+            "id": "retail_bpp_on_update_message_52",
+            "type": "object",
+            "optional": true,
+            "properties": {
+                "email": {
+                    "id": "retail_bpp_on_update_message_53",
+                    "type": "string",
+                    "optional": true,
+                    "minLength": 1
+                },
+                "phone": {
+                    "id": "retail_bpp_on_update_message_54",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "instructions": {
+            "id": "retail_bpp_on_update_message_55",
+            "type": "object",
+            "optional": true,
+            "properties": {
+                "code": {
+                    "id": "retail_bpp_on_update_message_56",
+                    "type": "string",
+                    "minLength": 1,
+                    "optional": true
+                },
+                "images": {
+                    "id": "retail_bpp_on_update_message_57",
+                    "type": "array",
+                    "minItems": 1,
+                    "optional": true,
+                    "element": {
+                        "id": "retail_bpp_on_update_message_58",
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "long_desc": {
+                    "id": "retail_bpp_on_update_message_59",
+                    "type": "string",
+                    "minLength": 1,
+                    "optional": true
+                },
+                "name": {
+                    "id": "retail_bpp_on_update_message_60",
+                    "type": "string",
+                    "minLength": 1,
+                    "optional": true
+                },
+                "short_desc": {
+                    "id": "retail_bpp_on_update_message_61",
+                    "type": "string",
+                    "minLength": 1,
+                    "optional": true
+                }
+            }
+        },
+        "location": {
+            "id": "retail_bpp_on_update_message_62",
+            "type": "object",
+            "properties": {
+                "address": {
+                    "id": "retail_bpp_on_update_message_63",
+                    "type": "object",
+                    "properties": {
+                        "area_code": {
+                            "id": "retail_bpp_on_update_message_64",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "city": {
+                            "id": "retail_bpp_on_update_message_65",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "locality": {
+                            "id": "retail_bpp_on_update_message_66",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "state": {
+                            "id": "retail_bpp_on_update_message_67",
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
+                },
+                "descriptor": {
+                    "id": "retail_bpp_on_update_message_68",
+                    "type": "object",
+                    "optional": true,
+                    "properties": {
+                        "name": {
+                            "id": "retail_bpp_on_update_message_69",
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
+                },
+                "gps": {
+                    "id": "retail_bpp_on_update_message_70",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "id": {
+                    "id": "retail_bpp_on_update_message_71",
+                    "type": "string",
+                    "minLength": 1,
+                    "optional": true
+                }
+            }
+        },
+        "time": {
+            "id": "retail_bpp_on_update_message_72",
+            "type": "object",
+            "properties": {
+                "range": {
+                    "id": "retail_bpp_on_update_message_73",
+                    "type": "object",
+                    "optional": true,
+                    "properties": {
+                        "end": {
+                            "id": "retail_bpp_on_update_message_74",
+                            "type": "string",
+                            "minLength": 1,
+                            "optional": true
+                        },
+                        "start": {
+                            "id": "retail_bpp_on_update_message_75",
+                            "type": "string",
+                            "minLength": 1,
+                            "optional": true
+                        }
+                    }
+                },
+                "timestamp": {
+                    "id": "retail_bpp_on_update_message_76",
+                    "type": "string",
+                    "minLength": 1,
+                    "optional": true
+                }
+            }
+        }
+    }
+};
+
+// Cancel, and Return before it's reached Return_Initiated+, only ever carry
+// these fields - no TAT/tracking/provider_name/start/end at all.
+const FULFILLMENT_MINIMAL = {
+    "id": "retail_bpp_on_update_message_19",
+    "type": "object",
+    "properties": {
+        "id": FULFILLMENT_ID,
+        "state": FULFILLMENT_STATE,
+        "tags": FULFILLMENT_TAGS_REQUIRED,
+        "type": FULFILLMENT_TYPE
+    }
+};
+
+// Return once it's past Return_Initiated (Approved/Rejected/Picked/Delivered)
+// - has start/end and provider_name, but (per real ONDC payloads) never TAT
+// or tracking, unlike a plain Delivery fulfillment.
+const FULFILLMENT_RETURN_FULL = {
+    "id": "retail_bpp_on_update_message_19",
+    "type": "object",
+    "properties": {
+        "@ondc/org/provider_name": {
+            "id": "retail_bpp_on_update_message_21",
+            "type": "string",
+            "minLength": 1
+        },
+        "end": FULFILLMENT_END_RETURN,
+        "id": FULFILLMENT_ID,
+        "start": FULFILLMENT_START_RETURN,
+        "state": FULFILLMENT_STATE,
+        "tags": FULFILLMENT_TAGS_REQUIRED,
+        "type": FULFILLMENT_TYPE
+    }
+};
+
+const FULFILLMENT_DELIVERY_FULL = {
+    "id": "retail_bpp_on_update_message_19",
+    "type": "object",
+    "properties": {
+        "@ondc/org/TAT": {
+            "id": "retail_bpp_on_update_message_20",
+            "type": "string",
+            "minLength": 1
+        },
+        "@ondc/org/provider_name": {
+            "id": "retail_bpp_on_update_message_21",
+            "type": "string",
+            "minLength": 1
+        },
+        "end": FULFILLMENT_END,
+        "id": FULFILLMENT_ID,
+        "start": FULFILLMENT_START,
+        "state": FULFILLMENT_STATE,
+        "tags": FULFILLMENT_TAGS_OPTIONAL,
+        "tracking": {
+            "id": "retail_bpp_on_update_message_87",
+            "type": "boolean",
+            "enum": [true, false]
+        },
+        "type": FULFILLMENT_TYPE
+    }
+};
+
 module.exports = {
     "id": "retail_bpp_on_update_message_01",
     "type": "object",
@@ -95,508 +921,55 @@ module.exports = {
                     "type": "array",
                     "minItems": 1,
                     "element": {
-                        "id": "retail_bpp_on_update_message_19",
-                        "type": "object",
-                        "properties": {
-                            "@ondc/org/TAT": {
-                                "id": "retail_bpp_on_update_message_20",
-                                "type": "string",
-                                "minLength": 1
+                        "allOf": [
+                            {
+                                "if": {
+                                    "properties": {
+                                        "type": {
+                                            "const": "Cancel"
+                                        }
+                                    }
+                                },
+                                "then": FULFILLMENT_MINIMAL
                             },
-                            "@ondc/org/provider_name": {
-                                "id": "retail_bpp_on_update_message_21",
-                                "type": "string",
-                                "optional": true,
-                                "minLength": 1
-                            },
-                            "end": {
-                                "id": "retail_bpp_on_update_message_22",
-                                "type": "object",
-                                "properties": {
-                                    "contact": {
-                                        "id": "retail_bpp_on_update_message_23",
-                                        "type": "object",
-                                        "properties": {
-                                            "email": {
-                                                "id": "retail_bpp_on_update_message_24",
-                                                "type": "string",
-                                                "optional": true,
-                                                "minLength": 1
-                                            },
-                                            "phone": {
-                                                "id": "retail_bpp_on_update_message_25",
-                                                "type": "string",
-                                                "minLength": 1
-                                            }
-                                        }
-                                    },
-                                    "instructions": {
-                                        "id": "retail_bpp_on_update_message_26",
-                                        "type": "object",
-                                        "properties": {
-                                            "code": {
-                                                "id": "retail_bpp_on_update_message_27",
-                                                "type": "string",
-                                                "minLength": 1
-                                            },
-                                            "images": {
-                                                "id": "retail_bpp_on_update_message_28",
-                                                "type": "array",
-                                                "minItems": 1,
-                                                "element": {
-                                                    "id": "retail_bpp_on_update_message_29",
-                                                    "type": "string",
-                                                    "minLength": 1
+                            {
+                                "if": {
+                                    "properties": {
+                                        "type": {
+                                            "const": "Return"
+                                        },
+                                        "state": {
+                                            "descriptor": {
+                                                "code": {
+                                                    "const": "Return_Initiated"
                                                 }
-                                            },
-                                            "long_desc": {
-                                                "id": "retail_bpp_on_update_message_30",
-                                                "type": "string",
-                                                "minLength": 1
-                                            },
-                                            "name": {
-                                                "id": "retail_bpp_on_update_message_31",
-                                                "type": "string",
-                                                "minLength": 1
-                                            },
-                                            "short_desc": {
-                                                "id": "retail_bpp_on_update_message_32",
-                                                "type": "string",
-                                                "minLength": 1
-                                            }
-                                        }
-                                    },
-                                    "location": {
-                                        "id": "retail_bpp_on_update_message_33",
-                                        "type": "object",
-                                        "properties": {
-                                            "address": {
-                                                "id": "retail_bpp_on_update_message_34",
-                                                "type": "object",
-                                                "properties": {
-                                                    "area_code": {
-                                                        "id": "retail_bpp_on_update_message_35",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "building": {
-                                                        "id": "retail_bpp_on_update_message_36",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "city": {
-                                                        "id": "retail_bpp_on_update_message_37",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "country": {
-                                                        "id": "retail_bpp_on_update_message_38",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "locality": {
-                                                        "id": "retail_bpp_on_update_message_39",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "name": {
-                                                        "id": "retail_bpp_on_update_message_40",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "state": {
-                                                        "id": "retail_bpp_on_update_message_41",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    }
-                                                }
-                                            },
-                                            "gps": {
-                                                "id": "retail_bpp_on_update_message_42",
-                                                "type": "string",
-                                                "minLength": 1
-                                            }
-                                        }
-                                    },
-                                    "person": {
-                                        "id": "retail_bpp_on_update_message_43",
-                                        "type": "object",
-                                        "properties": {
-                                            "name": {
-                                                "id": "retail_bpp_on_update_message_44",
-                                                "type": "string",
-                                                "minLength": 1
-                                            }
-                                        }
-                                    },
-                                    "time": {
-                                        "id": "retail_bpp_on_update_message_45",
-                                        "type": "object",
-                                        "properties": {
-                                            "range": {
-                                                "id": "retail_bpp_on_update_message_46",
-                                                "type": "object",
-                                                "properties": {
-                                                    "end": {
-                                                        "id": "retail_bpp_on_update_message_47",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "start": {
-                                                        "id": "retail_bpp_on_update_message_48",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    }
-                                                }
-                                            },
-                                            "timestamp": {
-                                                "id": "retail_bpp_on_update_message_49",
-                                                "type": "string",
-                                                "minLength": 1
                                             }
                                         }
                                     }
                                 },
-                                "required": {
-                                    "type": "array",
-                                    "element": {
-                                        "allOf": [
-                                            {
-                                                "if": {
-                                                    "properties": {
-                                                        "type": "params",
-                                                        "state": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "descriptor": {
-                                                                    "type": "object",
-                                                                    "properties": {
-                                                                        "code": {
-                                                                            "const": "Order-delivered"
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                "then": [
-                                                    "contact",
-                                                    "location",
-                                                    "instruction",
-                                                    "person",
-                                                    "time"
-                                                ]
-                                            },
-                                            {
-                                                "if": {
-                                                    "properties": {
-                                                        "type": "params",
-                                                        "state": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "descriptor": {
-                                                                    "type": "object",
-                                                                    "properties": {
-                                                                        "code": {
-                                                                            "const": "Pending"
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                "then": [
-                                                    "contact",
-                                                    "location",
-                                                    "instruction",
-                                                    "person"
-                                                ]
-                                            }
-
-                                        ]
-                                    }
-                                }
-
+                                "then": FULFILLMENT_MINIMAL
                             },
-                            "id": {
-                                "id": "retail_bpp_on_update_message_50",
-                                "type": "string",
-                                "minLength": 1
-                            },
-                            "start": {
-                                "id": "retail_bpp_on_update_message_51",
-                                "type": "object",
-                                "properties": {
-                                    "contact": {
-                                        "id": "retail_bpp_on_update_message_52",
-                                        "type": "object",
-                                        "properties": {
-                                            "email": {
-                                                "id": "retail_bpp_on_update_message_53",
-                                                "type": "string",
-                                                "optional": true,
-                                                "minLength": 1
-                                            },
-                                            "phone": {
-                                                "id": "retail_bpp_on_update_message_54",
-                                                "type": "string",
-                                                "minLength": 1
-                                            }
-                                        }
-                                    },
-                                    "instructions": {
-                                        "id": "retail_bpp_on_update_message_55",
-                                        "type": "object",
-                                        "optional": true,
-                                        "properties": {
-                                            "code": {
-                                                "id": "retail_bpp_on_update_message_56",
-                                                "type": "string",
-                                                "minLength": 1,
-                                                "optional": true,
-                                            },
-                                            "images": {
-                                                "id": "retail_bpp_on_update_message_57",
-                                                "type": "array",
-                                                "minItems": 1,
-                                                "optional": true,
-                                                "element": {
-                                                    "id": "retail_bpp_on_update_message_58",
-                                                    "type": "string",
-                                                    "minLength": 1
-                                                }
-                                            },
-                                            "long_desc": {
-                                                "id": "retail_bpp_on_update_message_59",
-                                                "type": "string",
-                                                "minLength": 1,
-                                                "optional": true,
-                                            },
-                                            "name": {
-                                                "id": "retail_bpp_on_update_message_60",
-                                                "type": "string",
-                                                "minLength": 1,
-                                                "optional": true,
-                                            },
-                                            "short_desc": {
-                                                "id": "retail_bpp_on_update_message_61",
-                                                "type": "string",
-                                                "minLength": 1,
-                                                "optional": true,
-                                            }
-                                        }
-                                    },
-                                    "location": {
-                                        "id": "retail_bpp_on_update_message_62",
-                                        "type": "object",
-                                        "properties": {
-                                            "address": {
-                                                "id": "retail_bpp_on_update_message_63",
-                                                "type": "object",
-                                                "properties": {
-                                                    "area_code": {
-                                                        "id": "retail_bpp_on_update_message_64",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "city": {
-                                                        "id": "retail_bpp_on_update_message_65",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "locality": {
-                                                        "id": "retail_bpp_on_update_message_66",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "state": {
-                                                        "id": "retail_bpp_on_update_message_67",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    }
-                                                }
-                                            },
-                                            "descriptor": {
-                                                "id": "retail_bpp_on_update_message_68",
-                                                "type": "object",
-                                                "properties": {
-                                                    "name": {
-                                                        "id": "retail_bpp_on_update_message_69",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    }
-                                                }
-                                            },
-                                            "gps": {
-                                                "id": "retail_bpp_on_update_message_70",
-                                                "type": "string",
-                                                "minLength": 1
-                                            },
-                                            "id": {
-                                                "id": "retail_bpp_on_update_message_71",
-                                                "type": "string",
-                                                "minLength": 1
-                                            }
-                                        }
-                                    },
-                                    "time": {
-                                        "id": "retail_bpp_on_update_message_72",
-                                        "type": "object",
-                                        "properties": {
-                                            "range": {
-                                                "id": "retail_bpp_on_update_message_73",
-                                                "type": "object",
-                                                "optional": true,
-                                                "properties": {
-                                                    "end": {
-                                                        "id": "retail_bpp_on_update_message_74",
-                                                        "type": "string",
-                                                        "minLength": 1,
-                                                        "optional": true
-                                                    },
-                                                    "start": {
-                                                        "id": "retail_bpp_on_update_message_75",
-                                                        "type": "string",
-                                                        "minLength": 1,
-                                                        "optional": true,
-                                                    }
-                                                }
-                                            },
-                                            "timestamp": {
-                                                "id": "retail_bpp_on_update_message_76",
-                                                "type": "string",
-                                                "minLength": 1,
-                                                "optional": true,
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "state": {
-                                "id": "retail_bpp_on_update_message_77",
-                                "type": "object",
-                                "properties": {
-                                    "descriptor": {
-                                        "id": "retail_bpp_on_update_message_78",
-                                        "type": "object",
-                                        "properties": {
-                                            "code": {
-                                                "id": "retail_bpp_on_update_message_79",
-                                                "type": "string",
-                                                "minLength": 1
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "tags": {
-                                "id": "retail_bpp_on_update_message_80",
-                                "type": "array",
-                                "minItems": 1,
-                                "optional": true,
-                                "element": {
-                                    "id": "retail_bpp_on_update_message_81",
-                                    "type": "object",
+                            {
+                                "if": {
                                     "properties": {
-                                        "code": {
-                                            "id": "retail_bpp_on_update_message_82",
-                                            "type": "string",
-                                            "minLength": 1
-                                        },
-                                        "list": {
-                                            "id": "retail_bpp_on_update_message_83",
-                                            "type": "array",
-                                            "minItems": 1,
-                                            "element": {
-                                                "id": "retail_bpp_on_update_message_84",
-                                                "type": "object",
-                                                "properties": {
-                                                    "code": {
-                                                        "id": "retail_bpp_on_update_message_85",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "value": {
-                                                        "id": "retail_bpp_on_update_message_86",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    }
-                                                }
-                                            }
+                                        "type": {
+                                            "const": "Return"
                                         }
                                     }
-                                }
+                                },
+                                "then": FULFILLMENT_RETURN_FULL
                             },
-                            "tracking": {
-                                "id": "retail_bpp_on_update_message_87",
-                                "type": "boolean",
-                                "enum": [true, false]
-                            },
-                            "type": {
-                                "id": "retail_bpp_on_update_message_88",
-                                "type": "string",
-                                "minLength": 1
-                            }
-                        },
-                        "required": {
-                            "type": "array",
-                            "element": {
-                                "allOf": [
-                                    {
-                                        "if": {
-                                            "properties": {
-                                                "type": {
-                                                    "const": "Delivery"
-                                                }
-                                            }
-                                        },
-                                        "then": [
-                                            "@ondc/org/provider_name",
-                                            "@ondc/org/TAT",
-                                            "end",
-                                            "id",
-                                            "start",
-                                            "state",
-                                            "tracking",
-                                            "type"
-                                        ]
-                                    },
-                                    {
-                                        "if": {
-                                            "properties": {
-                                                "type": {
-                                                    "const": "Return"
-                                                }
-                                            }
-                                        },
-                                        "then": [
-                                            "@ondc/org/provider_name",
-                                            "id",
-                                            "state",
-                                            "tags",
-                                            "type"
-                                        ]
-                                    },
-                                    {
-                                        "if": {
-                                            "properties": {
-                                                "type": {
-                                                    "const": "Cancel"
-                                                }
-                                            }
-                                        },
-                                        "then": [
-                                            "id",
-                                            "state",
-                                            "tags",
-                                            "type"
-                                        ]
+                            {
+                                "if": {
+                                    "properties": {
+                                        "type": {
+                                            "const": ["Delivery", "Self-Pickup", "Buyer-Delivery", "RTO"]
+                                        }
                                     }
-                                ]
+                                },
+                                "then": FULFILLMENT_DELIVERY_FULL
                             }
-                        }
+                        ]
                     }
                 },
                 "id": {
@@ -660,22 +1033,26 @@ module.exports = {
                                     "bank_name": {
                                         "id": "retail_bpp_on_update_message_101",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "beneficiary_name": {
                                         "id": "retail_bpp_on_update_message_102",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "branch_name": {
                                         "id": "retail_bpp_on_update_message_103",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "settlement_bank_account_no": {
                                         "id": "retail_bpp_on_update_message_104",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "settlement_counterparty": {
                                         "id": "retail_bpp_on_update_message_105",
@@ -685,7 +1062,8 @@ module.exports = {
                                     "settlement_ifsc_code": {
                                         "id": "retail_bpp_on_update_message_106",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
                                     },
                                     "settlement_phase": {
                                         "id": "retail_bpp_on_update_message_107",
@@ -695,12 +1073,89 @@ module.exports = {
                                     "settlement_type": {
                                         "id": "retail_bpp_on_update_message_108",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "enum": ["upi", "neft", "wallet"]
                                     },
                                     "upi_address": {
                                         "id": "retail_bpp_on_update_message_109",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "optional": true
+                                    },
+                                    "settlement_amount": {
+                                        "id": "retail_bpp_on_update_message_160",
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "optional": true
+                                    },
+                                    "settlement_timestamp": {
+                                        "id": "retail_bpp_on_update_message_161",
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "optional": true
+                                    }
+                                },
+                                "required": {
+                                    "type": "array",
+                                    "element": {
+                                        "allOf": [
+                                            {
+                                                "if": {
+                                                    "properties": {
+                                                        "settlement_type": {
+                                                            "const": [
+                                                                "upi"
+                                                            ]
+                                                        }
+                                                    }
+                                                },
+                                                "then": [
+                                                    "settlement_counterparty",
+                                                    "settlement_phase",
+                                                    "settlement_type",
+                                                    "upi_address"
+                                                ]
+                                            },
+                                            {
+                                                "if": {
+                                                    "properties": {
+                                                        "settlement_type": {
+                                                            "const": [
+                                                                "neft"
+                                                            ]
+                                                        }
+                                                    }
+                                                },
+                                                "then": [
+                                                    "settlement_counterparty",
+                                                    "settlement_phase",
+                                                    "settlement_type",
+                                                    "branch_name",
+                                                    "bank_name",
+                                                    "beneficiary_name",
+                                                    "settlement_ifsc_code",
+                                                    "settlement_bank_account_no"
+                                                ]
+                                            },
+                                            {
+                                                "if": {
+                                                    "properties": {
+                                                        "settlement_type": {
+                                                            "const": [
+                                                                "wallet"
+                                                            ]
+                                                        }
+                                                    }
+                                                },
+                                                "then": [
+                                                    "settlement_timestamp",
+                                                    "settlement_counterparty",
+                                                    "settlement_phase",
+                                                    "settlement_type",
+                                                    "settlement_amount"
+                                                ]
+                                            }
+                                        ]
                                     }
                                 }
                             }
@@ -895,6 +1350,7 @@ module.exports = {
                                     "@ondc/org/item_quantity": {
                                         "id": "retail_bpp_on_update_message_130",
                                         "type": "object",
+                                        "optional": true,
                                         "properties": {
                                             "count": {
                                                 "id": "retail_bpp_on_update_message_131",
@@ -905,7 +1361,8 @@ module.exports = {
                                     "@ondc/org/title_type": {
                                         "id": "retail_bpp_on_update_message_132",
                                         "type": "string",
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "passKeysToParams": ["@ondc/org/title_type"]
                                     },
                                     "price": {
                                         "id": "retail_bpp_on_update_message_133",
@@ -926,14 +1383,17 @@ module.exports = {
                                     "item": {
                                         "id": "retail_bpp_on_update_message_136",
                                         "type": "object",
+                                        "optional": true,
                                         "properties": {
                                             "parent_item_id": {
                                                 "id": "retail_bpp_on_update_message_137",
-                                                "type": "string"
+                                                "type": "string",
+                                                "optional": true
                                             },
                                             "price": {
                                                 "id": "retail_bpp_on_update_message_138",
                                                 "type": "object",
+                                                "optional": true,
                                                 "properties": {
                                                     "currency": {
                                                         "id": "retail_bpp_on_update_message_139",
@@ -950,6 +1410,7 @@ module.exports = {
                                             "tags": {
                                                 "id": "retail_bpp_on_update_message_141",
                                                 "type": "array",
+                                                "optional": true,
                                                 "element": {
                                                     "id": "retail_bpp_on_update_message_142",
                                                     "type": "object",
@@ -1120,7 +1581,6 @@ module.exports = {
                                                         },
                                                         "then": [
                                                             "parent_item_id",
-                                                            "quantity",
                                                             "price",
                                                             "tags"
                                                         ]
@@ -1149,7 +1609,6 @@ module.exports = {
                                                             }
                                                         },
                                                         "then": [
-                                                            "quantity",
                                                             "price"
                                                         ]
                                                     }

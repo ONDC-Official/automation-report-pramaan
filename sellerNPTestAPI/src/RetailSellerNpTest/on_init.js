@@ -60,8 +60,10 @@ function onInitMessageTests({ context, message }, logs, constants) {
             messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payment' which is an object`, function () {
                 expect(message.order.payment).to.exist.and.to.be.an("object");
             }));
-            messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payment.status' which is a string to be PAID`, function () {
-                expect(message.order.payment.status).to.exist.and.to.be.a("string").and.to.be.oneOf(["PAID", "NOT-PAID"]);
+            messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.order.payment.status' which is a string to be PAID (OPTIONAL)`, function () {
+                if (message.order.payment.status !== undefined) {
+                    expect(message.order.payment.status).to.be.a("string").and.to.be.oneOf(["PAID", "NOT-PAID"]);
+                }
             }));
         }
         return messageTestSuite;

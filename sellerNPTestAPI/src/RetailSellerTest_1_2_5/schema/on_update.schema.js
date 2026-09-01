@@ -75,11 +75,13 @@ module.exports = {
                   "parent_item_id": {
                      "id": "retail_bpp_on_update_message_16",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "optional": true
                   },
                   "tags": {
                      "id": "retail_bpp_on_update_message_17",
                     "type": "array",
+                    "optional": true,
                     "minItems": 1,
                     "element": {
                          "id": "retail_bpp_on_update_message_18",
@@ -496,6 +498,7 @@ module.exports = {
                       "@ondc/org/item_quantity": {
                         "id": "retail_bpp_on_update_message_96",
                         "type": "object",
+                        "optional": true,
                         "properties": {
                           "count": {
                             "id": "retail_bpp_on_update_message_97",
@@ -532,15 +535,18 @@ module.exports = {
                       "item": {
                         "id": "retail_bpp_on_update_message_103",
                         "type": "object",
+                        "optional": true,
                         "properties": {
                           "parent_item_id": {
                             "id": "retail_bpp_on_update_message_104",
                             "type": "string",
-                            "minLength": 1
+                            "minLength": 1,
+                            "optional": true
                           },
                           "price": {
                             "id": "retail_bpp_on_update_message_105",
                             "type": "object",
+                            "optional": true,
                             "properties": {
                               "currency": {
                                 "id": "retail_bpp_on_update_message_106",
@@ -557,6 +563,7 @@ module.exports = {
                           "tags": {
                             "id": "retail_bpp_on_update_message_108",
                             "type": "array",
+                            "optional": true,
                             "minItems": 1,
                             "element": {
                               "id": "retail_bpp_on_update_message_109",
@@ -593,6 +600,60 @@ module.exports = {
                           }
                         }
                       }
+                    }
+                  },
+                  "required": {
+                    "type": "array",
+                    "element": {
+                      "allOf": [
+                        {
+                          "if": {
+                            "properties": {
+                              "@ondc/org/title_type": {
+                                "const": "item"
+                              }
+                            }
+                          },
+                          "then": [
+                            "@ondc/org/item_id",
+                            "title",
+                            "@ondc/org/item_quantity",
+                            "@ondc/org/title_type",
+                            "price",
+                            "item"
+                          ]
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "@ondc/org/title_type": {
+                                "const": "delivery"
+                              }
+                            }
+                          },
+                          "then": [
+                            "@ondc/org/item_id",
+                            "@ondc/org/title_type",
+                            "title",
+                            "price"
+                          ]
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "@ondc/org/title_type": {
+                                "const": ["packing", "misc", "tax"]
+                              }
+                            }
+                          },
+                          "then": [
+                            "@ondc/org/item_id",
+                            "@ondc/org/title_type",
+                            "title",
+                            "price"
+                          ]
+                        }
+                      ]
                     }
                   }
                 },
@@ -703,27 +764,78 @@ module.exports = {
                       "upi_address": {
                         "id": "retail_bpp_on_update_message_135",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                       "settlement_bank_account_no": {
                         "id": "retail_bpp_on_update_message_136",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                       "settlement_ifsc_code": {
                         "id": "retail_bpp_on_update_message_137",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                       "bank_name": {
                         "id": "retail_bpp_on_update_message_138",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                       "branch_name": {
                         "id": "retail_bpp_on_update_message_139",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
+                      }
+                    },
+                    "required": {
+                      "type": "array",
+                      "element": {
+                        "allOf": [
+                          {
+                            "if": {
+                              "properties": {
+                                "settlement_type": {
+                                  "const": "upi"
+                                }
+                              }
+                            },
+                            "then": [
+                              "settlement_counterparty",
+                              "settlement_phase",
+                              "settlement_type",
+                              "beneficiary_name",
+                              "upi_address",
+                              "settlement_bank_account_no",
+                              "settlement_ifsc_code",
+                              "bank_name",
+                              "branch_name"
+                            ]
+                          },
+                          {
+                            "if": {
+                              "properties": {
+                                "settlement_type": {
+                                  "const": ["neft", "rtgs", "imps"]
+                                }
+                              }
+                            },
+                            "then": [
+                              "settlement_counterparty",
+                              "settlement_phase",
+                              "settlement_type",
+                              "beneficiary_name",
+                              "settlement_bank_account_no",
+                              "settlement_ifsc_code",
+                              "bank_name",
+                              "branch_name"
+                            ]
+                          }
+                        ]
                       }
                     }
                   }

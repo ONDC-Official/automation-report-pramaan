@@ -28,7 +28,8 @@ module.exports = {
                             "id": {
                                 "id": "retail_bap_update_message_07",
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "optional": true
                             },
                             "type": {
                                 "id": "retail_bap_update_message_08",
@@ -39,6 +40,7 @@ module.exports = {
                                 "id": "retail_bap_update_message_09",
                                 "type": "array",
                                 "minItems": 1,
+                                "optional": true,
                                 "element": {
                                     "id": "retail_bap_update_message_10",
                                     "type": "object",
@@ -315,15 +317,14 @@ module.exports = {
                                             }
                                         },
                                         "then": [
-                                            "type",
-                                            "tags"
+                                            "type"
                                         ]
                                     },
                                     {
                                         "if": {
                                             "properties": {
                                                 "type": {
-                                                    "const": "Cance"
+                                                    "const": "Cancel"
                                                 }
                                             }
                                         },

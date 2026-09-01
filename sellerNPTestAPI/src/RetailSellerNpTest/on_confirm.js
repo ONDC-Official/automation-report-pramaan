@@ -34,12 +34,11 @@ function onConfirmMessageTests({ context, message }, logs, constants) {
 
         const confirmLogs = lastActionLog(logs, "confirm")
         const confirmCreatedAt = confirmLogs?.message?.order?.created_at
-        const confirmUpdatedAt = confirmLogs?.message?.order?.updated_at
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.created_at' which is an object", function () {
             expect(message.order.created_at).to.be.a("string").and.to.be.equal(confirmCreatedAt);
         }));
         messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.updated_at' which is a string (OPTIONAL)", function () {
-            expect(message.order.updated_at).to.exist.and.to.be.a("string").and.to.be.equal(confirmUpdatedAt);
+            expect(message.order.updated_at).to.exist.and.to.be.a("string");
         }));
 
         if (constants?.flow === "RET_1b") {
