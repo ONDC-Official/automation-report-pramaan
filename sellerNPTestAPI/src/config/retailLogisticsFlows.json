@@ -84,23 +84,23 @@
                 "action": "on_confirm"
             },
             {
-                "test": "on_status",
+                "test": "on_status_pending",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_packed",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_assign_agent",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_pickup",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_out_for_delivery",
                 "action": "on_status"
             },
             {
@@ -108,7 +108,7 @@
                 "action": "on_track"
             },
             {
-                "test": "on_status",
+                "test": "on_status_delivered",
                 "action": "on_status"
             }
         ]
@@ -1107,23 +1107,23 @@
                 "action": "on_confirm"
             },
             {
-                "test": "on_status",
+                "test": "on_status_pending",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_packed",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_assign_agent",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_pickup",
                 "action": "on_status"
             },
             {
-                "test": "on_status",
+                "test": "on_status_out_for_delivery",
                 "action": "on_status"
             },
             {
@@ -1131,7 +1131,7 @@
                 "action": "on_track"
             },
             {
-                "test": "on_status",
+                "test": "on_status_delivered",
                 "action": "on_status"
             }
         ]
