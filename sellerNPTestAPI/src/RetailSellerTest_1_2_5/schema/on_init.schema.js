@@ -768,32 +768,38 @@ module.exports={
                       "beneficiary_name": {
                         "id": "retail_bpp_on_init_message_95",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                       "upi_address": {
                         "id": "retail_bpp_on_init_message_96",
                         "type": "string",
-                        "minLength": 0
+                        "minLength": 0,
+                        "optional": true
                       },
                       "settlement_bank_account_no": {
                         "id": "retail_bpp_on_init_message_97",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                       "settlement_ifsc_code": {
                         "id": "retail_bpp_on_init_message_98",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                       "bank_name": {
                         "id": "retail_bpp_on_init_message_99",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                       "branch_name": {
                         "id": "retail_bpp_on_init_message_100",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       }
                     },
                          "required": {

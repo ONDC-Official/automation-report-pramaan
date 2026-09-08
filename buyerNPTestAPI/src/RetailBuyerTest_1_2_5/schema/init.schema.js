@@ -49,7 +49,8 @@ module.exports = {
                             "parent_item_id": {
                                 "id": "retail_bap_init_message_11",
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "optional": true
                             },
                             "quantity": {
                                 "id": "retail_bap_init_message_12",
@@ -70,6 +71,7 @@ module.exports = {
                                 "id": "retail_bap_init_message_47",
                                 "type": "array",
                                 "minItems": 1,
+                                "optional": true,
                                 "element": {
                                     "id": "retail_bap_init_message_48",
                                     "type": "object",

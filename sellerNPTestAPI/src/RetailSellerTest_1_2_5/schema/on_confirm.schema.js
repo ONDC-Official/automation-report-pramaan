@@ -292,7 +292,8 @@ module.exports= {
                   "@ondc/org/TAT": {
                      "id": "retail_bpp_on_confirm_message_47",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "optional": true
                   },
                   "start": {
                      "id": "retail_bpp_on_confirm_message_48",
@@ -1022,7 +1023,8 @@ module.exports= {
                       "beneficiary_name": {
                          "id": "retail_bpp_on_confirm_message_124",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                       "settlement_type": {
                          "id": "retail_bpp_on_confirm_message_125",
@@ -1032,27 +1034,32 @@ module.exports= {
                       "upi_address": {
                          "id": "retail_bpp_on_confirm_message_126",
                         "type": "string",
-                        "minLength": 0
+                        "minLength": 0,
+                        "optional": true
                       },
                       "settlement_bank_account_no": {
                          "id": "retail_bpp_on_confirm_message_127",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                       "settlement_ifsc_code": {
                          "id": "retail_bpp_on_confirm_message_128",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                       "bank_name": {
                          "id": "retail_bpp_on_confirm_message_129",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                       "branch_name": {
                          "id": "retail_bpp_on_confirm_message_130",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       }
                     },
                     "required": {

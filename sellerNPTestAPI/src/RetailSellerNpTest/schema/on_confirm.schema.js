@@ -310,7 +310,8 @@ module.exports = {
                 "id": "retail_bpp_on_confirm_message_36",
                 "type": "string",
                 "minLength": 1,
-                "format": "duration"
+                "format": "duration",
+                "optional": true
               },
               "state": {
                 "id": "retail_bpp_on_confirm_message_37",

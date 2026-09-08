@@ -210,7 +210,8 @@ module.exports = {
                   "@ondc/org/fssai_license_no": {
                     "id": "retail_bpp_on_search_message_42",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "optional": true
                   },
                   "ttl": {
                     "id": "retail_bpp_on_search_message_43",
@@ -379,7 +380,8 @@ module.exports = {
                         "parent_category_id": {
                           "id": "retail_bpp_on_search_message_75",
                           "type": "string",
-                          "minLength": 1
+                          "minLength": 1,
+                          "optional": true
                         },
                         "descriptor": {
                           "id": "retail_bpp_on_search_message_76",
@@ -393,17 +395,20 @@ module.exports = {
                             "short_desc": {
                               "id": "retail_bpp_on_search_message_78",
                               "type": "string",
-                              "minLength": 1
+                              "minLength": 1,
+                              "optional": true
                             },
                             "long_desc": {
                               "id": "retail_bpp_on_search_message_79",
                               "type": "string",
-                              "minLength": 1
+                              "minLength": 1,
+                              "optional": true
                             },
                             "images": {
                               "id": "retail_bpp_on_search_message_80",
                               "type": "array",
                               "minItems": 1,
+                              "optional": true,
                               "element": {
                                  "id": "retail_bpp_on_search_message_81",
                                 "type": "object",
@@ -597,6 +602,7 @@ module.exports = {
                               "id": "retail_bpp_on_search_message_116",
                               "type": "array",
                               "minItems": 1,
+                              "optional": true,
                               "element": {
                                 "id": "retail_bpp_on_search_message_117",
                                 "type": "object",
@@ -671,8 +677,7 @@ module.exports = {
                                         "then": [
                                            "currency",
                                             "value",
-                                            "maximum_value",
-                                            "tags"
+                                            "maximum_value"
                                         ]
                                     }
                                 ]
@@ -688,6 +693,7 @@ module.exports = {
                            "id": "retail_bpp_on_search_message_124",
                           "type": "array",
                           "minItems": 1,
+                          "optional": true,
                           "element": {
                              "id": "retail_bpp_on_search_message_125",
                             "type": "object",
@@ -708,11 +714,13 @@ module.exports = {
                         },
                         "related": {
                           "id": "retail_bpp_on_search_message_128",
-                          "type": "boolean"
+                          "type": "boolean",
+                          "optional": true
                         },
                         "recommended": {
                           "id": "retail_bpp_on_search_message_129",
-                          "type": "boolean"
+                          "type": "boolean",
+                          "optional": true
                         },
                         "@ondc/org/returnable": {
                           "id": "retail_bpp_on_search_message_130",
@@ -919,11 +927,8 @@ module.exports = {
                                             "quantity",
                                             "price",
                                             "category_id",
-                                            "category_ids",
                                             "fulfillment_id",
                                             "location_id",
-                                            "related",
-                                            "recommended",
                                             "@ondc/org/returnable",
                                             "@ondc/org/cancellable",
                                             "@ondc/org/return_window",

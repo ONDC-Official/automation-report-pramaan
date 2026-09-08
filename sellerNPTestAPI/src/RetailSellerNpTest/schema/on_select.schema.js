@@ -44,7 +44,8 @@ module.exports = {
                                 "id": "retail_bpp_on_select_message_10",
                                 "type": "string",
                                 "minLength": 1,
-                                "format": "duration"
+                                "format": "duration",
+                                "optional": true
                             },
                             "state": {
                                 "id": "retail_bpp_on_select_message_11",

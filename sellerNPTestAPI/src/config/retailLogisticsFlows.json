@@ -547,7 +547,7 @@
                 "action": "on_search"
             },
             {
-                "test": "on_select",
+                "test": "on_select_out_of_stock",
                 "action": "on_select"
             }
         ]

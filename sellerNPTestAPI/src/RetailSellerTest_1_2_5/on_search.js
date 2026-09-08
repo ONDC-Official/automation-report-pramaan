@@ -181,11 +181,11 @@ function onSearchMessageTests({ context, message } = {}, logs = [], constants = 
             }
 
             messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.catalog.bpp/providers' which is an array", function () {
-                expect(message.catalog['bpp/providers']).to.exist.and.to.be.an("array");
+                expect(message?.catalog?.['bpp/providers']).to.exist.and.to.be.an("array");
             }));
 
-            if (message?.catalog['bpp/providers'] && message?.catalog['bpp/providers'].length > 0) {
-                message?.catalog['bpp/providers'].forEach((provider, providerIndex) => {
+            if (message?.catalog?.['bpp/providers'] && message?.catalog?.['bpp/providers'].length > 0) {
+                message?.catalog?.['bpp/providers'].forEach((provider, providerIndex) => {
 
                     messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.bpp/providers[${providerIndex}]' which is an object`, function () {
                         expect(provider).to.exist.and.to.be.an("object");
@@ -1391,9 +1391,9 @@ function onSearchMessageTests({ context, message } = {}, logs = [], constants = 
             return messageTestSuite;
         } else {
             const messageTestSuite = generateTests({ context, message }, onSearchSchema, "Verification of Message", constants);
-            const providers = message?.catalog['bpp/providers'] || [];
-            if (message?.catalog['bpp/providers'] && message?.catalog['bpp/providers'].length > 0) {
-                message?.catalog['bpp/providers'].forEach((provider, providerIndex) => {
+            const providers = message?.catalog?.['bpp/providers'] || [];
+            if (message?.catalog?.['bpp/providers'] && message?.catalog?.['bpp/providers'].length > 0) {
+                message?.catalog?.['bpp/providers'].forEach((provider, providerIndex) => {
 
                     if (provider?.items && provider?.items.length > 0) {
                         provider?.items.forEach((item, i) => {
@@ -1406,9 +1406,9 @@ function onSearchMessageTests({ context, message } = {}, logs = [], constants = 
                                     expect(item.parent_item_id).to.exist.and.to.be.a("string").and.to.be.empty;
                                 }))
                             }
-                            else {
+                            else if (item?.parent_item_id !== undefined) {
                                 messageTestSuite.addTest(new Mocha.Test(`Verify the presence of 'message.catalog.bpp/providers[${providerIndex}].items[${i}].parent_item_id' which is a string (OPTIONAL)`, function () {
-                                    expect(item.parent_item_id).to.exist.and.to.be.a("string");
+                                    expect(item.parent_item_id).to.be.a("string");
                                 }))
                             }
                         })

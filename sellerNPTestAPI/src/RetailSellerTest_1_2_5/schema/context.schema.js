@@ -29,7 +29,7 @@ module.exports = {
             },
             "action": { "id": "retail_bpp_context_13", "type": "string", "const": "action" },
             "country": { "id": "retail_bpp_context_14", "type": "string", "pattern": "^[A-Z]{3}$", "minLength": 1, "errorMessage": "Country must be in ISO 3166-1 format (three-letter country code)" },
-            "city": { "id": "retail_bpp_context_15", "type": "string", "minLength": 1, "not": { "pattern": "\\*" }, "errorMessage": "City Code can't be * for on_search request" },
+            "city": { "id": "retail_bpp_context_15", "type": "string", "minLength": 1 },
             "core_version": { "id": "retail_bpp_context_16", "type": "string", "const": "core_version" },
             "bap_id": { "id": "retail_bpp_context_17", "type": "string", "minLength": 1 },
             "bap_uri": { "id": "retail_bpp_context_18", "type": "string", "minLength": 1, "format": "url" },

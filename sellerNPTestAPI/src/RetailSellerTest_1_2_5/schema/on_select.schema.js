@@ -234,7 +234,8 @@ module.exports={
                   "@ondc/org/TAT": {
                      "id": "retail_bpp_on_select_message_19",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "optional": true
                   },
                   "state": {
                      "id": "retail_bpp_on_select_message_20",

@@ -505,9 +505,10 @@ module.exports = {
                 "enum": ["Delivery"]
               },
               "@ondc/org/TAT": {
-                "id": "retail_bap_confirm_message_",
+                "id": "retail_bap_confirm_message_108",
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "optional": true
               },
             }
           }

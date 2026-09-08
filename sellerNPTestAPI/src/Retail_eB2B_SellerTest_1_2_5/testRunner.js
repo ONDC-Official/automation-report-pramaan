@@ -36,6 +36,7 @@ const onStatusEnumMap = {
     "on_update_buyer_instructions": "Pending",
     "on_status_assign_agent": "Agent-assigned",
     "on_status_pickup": "Order-picked-up",
+    "on_status_picked_up": "Order-picked-up",
     "on_cancel_return_cancelled": "Cancelled",
     "on_status_out_for_delivery": "Out-for-delivery",
     "on_status_delivered": "Order-delivered",
@@ -164,6 +165,7 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                             return () => on_rating(particularLogs?.request, logs, constants);
                         return () => on_rating({}, logs, constants);
                     case "on_cancel":
+                    case "on_cancel_merchant":
                     case "on_cancel_rto_initiated":
                         if (particularLogs[cancelIndex[currentStep.test]]?.request)
                             return () => on_cancel(particularLogs[cancelIndex[currentStep.test]]?.request, currentStep.test, logs, constants);
@@ -178,6 +180,7 @@ module.exports = function testRunnerRetail(givenTest, logs, domain, type = "") {
                     case "on_status_packed":
                     case "on_status_assign_agent":
                     case "on_status_pickup":
+                    case "on_status_picked_up":
                     case "on_status_out_for_delivery":
                     case "on_status_delivered":
                         const on_status_forward_log = findAppropriateOnStatus(logs, "on_status", "Delivery", onStatusEnumMap[currentStep.test])
