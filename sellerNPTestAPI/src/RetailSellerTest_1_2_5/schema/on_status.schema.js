@@ -74,12 +74,14 @@ module.exports = {
               "parent_item_id": {
                 "id": "retail_bpp_on_status_message_16",
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "optional": true
               },
               "tags": {
                 "id": "retail_bpp_on_status_message_17",
                 "type": "array",
                 "minItems": 1,
+                "optional": true,
                 "element": {
                   "id": "retail_bpp_on_status_message_18",
                   "type": "object",
@@ -218,7 +220,8 @@ module.exports = {
               "@ondc/org/TAT": {
                 "id": "retail_bpp_on_status_message_44",
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "optional": true
               },
               "state": {
                 "id": "retail_bpp_on_status_message_45",
@@ -317,13 +320,15 @@ module.exports = {
                       "duration": {
                         "id": "retail_bpp_on_status_message_161",
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "optional": true
                       },
                     }
                   },
                   "person": {
                     "id": "retail_bpp_on_status_message_60",
                     "type": "object",
+                    "optional": true,
                     "properties": {
                       "name": {
                         "id": "retail_bpp_on_status_message_162",
@@ -444,6 +449,7 @@ module.exports = {
               "vehicle": {
                 "id": "retail_bpp_on_status_message_192",
                 "type": "object",
+                "optional": true,
                 "properties": {
                   "registration": {
                     "id": "retail_bpp_on_status_message_193",
@@ -944,12 +950,14 @@ module.exports = {
             "uri": {
               "id": "retail_bpp_on_status_message_118",
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "optional": true
             },
             "tl_method": {
               "id": "retail_bpp_on_status_message_119",
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "optional": true
             },
             "params": {
               "id": "retail_bpp_on_status_message_120",
@@ -1169,6 +1177,7 @@ module.exports = {
           "id": "retail_bpp_on_status_message_146",
           "type": "array",
           "minItems": 1,
+          "optional": true,
           "element": {
             "id": "retail_bpp_on_status_message_147",
             "type": "object",
