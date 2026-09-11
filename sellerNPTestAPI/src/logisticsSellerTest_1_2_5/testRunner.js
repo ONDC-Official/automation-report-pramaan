@@ -29,7 +29,7 @@ function findAppropriateOnStatus(logs, action = "", type = "", key = "") {
             if (logs[i]?.request?.context?.action === action) {
                 for (let j = 0; j < logs[i]?.request?.message?.order?.fulfillments.length; j++) {
                     const fulfillment = logs[i]?.request?.message?.order?.fulfillments[j];
-                    if (fulfillment?.type === type && fulfillment?.state?.descriptor?.code === key) {
+                    if (fulfillment?.type?.toLowerCase() === type?.toLowerCase() && fulfillment?.state?.descriptor?.code === key) {
                         requiredLog = logs[i];
                         break;
                     }
@@ -121,10 +121,15 @@ module.exports = function testRunnerLogistics(givenTest, logs) {
                     case "on_status_at_delivery":
                     case "on_status_out_for_delivery":
                     case "on_status_delivered":
-                    case "on_status_rto_delivered":
                         const on_status_log = findAppropriateOnStatus(logs, "on_status", "Delivery", onStatusEnumMap[currentStep.test])
                         if (on_status_log) {
                             return () => on_status(on_status_log?.request, onStatusEnumMap[currentStep.test], logs, flowId, testCaseId)
+                        }
+                        return () => on_status({}, onStatusEnumMap[currentStep.test], logs, flowId, testCaseId);
+                    case "on_status_rto_delivered":
+                        const on_status_rto_log = findAppropriateOnStatus(logs, "on_status", "RTO", onStatusEnumMap[currentStep.test])
+                        if (on_status_rto_log) {
+                            return () => on_status(on_status_rto_log?.request, onStatusEnumMap[currentStep.test], logs, flowId, testCaseId)
                         }
                         return () => on_status({}, onStatusEnumMap[currentStep.test], logs, flowId, testCaseId);
                     default:
