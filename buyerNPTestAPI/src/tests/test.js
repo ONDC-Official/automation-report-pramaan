@@ -70,7 +70,7 @@ const testRunnerHotelBooking = require("../hotelBuyerNPTest/testRunner");
 const testRunnerLifeInsurance = require("../lifeInsuranceBuyertest/testRunner");
 
 const { FLOWS } = require("../config");
-const { analyticsAPI, PW_LOGS_API, PW_LOGS_API_KEY } = require("../utils/env");
+const { PW_LOGS_API, PW_LOGS_API_KEY } = require("../utils/env");
 
 const reportDir = path.resolve(__dirname, "../output");
 
@@ -316,14 +316,6 @@ module.exports = async function ({
 
         await fs.unlink(reportPath);
 
-          axios.post(analyticsAPI, {
-            route: "save_flow",
-            test_id: test_id,
-            flow_id: flow_id,
-            role: "Buyer"
-          }, {
-            headers: { "Content-Type": "application/json" }
-          });
       })
     );
   } catch (err) {

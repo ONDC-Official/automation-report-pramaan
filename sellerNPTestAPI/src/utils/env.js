@@ -44,12 +44,6 @@ if (!SELLER_TESTING_URI) {
     process.exit(1);
 }
 
-const analyticsAPI = process.env['analyticsAPI']
-if (!analyticsAPI) {
-    console.log("No analyticsAPI string. Set 'analyticsAPI' environment variable.");
-    process.exit(1);
-}
-
 const PW_LOGS_API = process.env['PW_LOGS_API'];
 if (!PW_LOGS_API) {
     console.log("No PW_LOGS_API string. Set PW_LOGS_API environment variable");
@@ -67,7 +61,6 @@ module.exports = {
     PORT,
     HOST,
     FLUSHPERIOD,
-    analyticsAPI,
     SELLER_DB_URI,
     BUYER_TESTING_URI,
     SELLER_TESTING_URI,

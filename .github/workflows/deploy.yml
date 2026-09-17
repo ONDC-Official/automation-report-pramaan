@@ -26,7 +26,6 @@ jobs:
       SELLER_DB_NAME: seller-db
       BUYER_TESTING_URI: https://dev-automation.ondc.org/pramaan/buyer
       SELLER_TESTING_URI: https://dev-automation.ondc.org/pramaan/seller
-      ANALYTICS_API: https://pramaan.ondc.org/beta/analytics-api
       PW_LOGS_API: https://dev-automation.ondc.org/report
       FLUSHPERIOD: P90D
 
@@ -65,7 +64,6 @@ jobs:
           cat > "\$REPO_DIR/buyerNPTestAPI/.env" <<BUYERENV
           PORT=3005
           HOST=0.0.0.0
-          analyticsAPI=${ANALYTICS_API}
           MONGODB_URI=mongodb://mongo:27017/${BUYER_DB_NAME}
           FLUSHPERIOD=${FLUSHPERIOD}
           PW_LOGS_API_KEY=${{ secrets.PW_LOGS_API_KEY }}
@@ -77,7 +75,6 @@ jobs:
           cat > "\$REPO_DIR/sellerNPTestAPI/.env" <<SELLERENV
           PORT=3005
           HOST=0.0.0.0
-          analyticsAPI=${ANALYTICS_API}
           MONGODB_URI=mongodb://mongo:27017/${SELLER_DB_NAME}
           SELLER_DB_URI=mongodb://mongo:27017/${SELLER_DB_NAME}
           PW_LOGS_API_KEY=${{ secrets.PW_LOGS_API_KEY }}
@@ -133,7 +130,6 @@ jobs:
       SELLER_DB_NAME: seller-db
       BUYER_TESTING_URI: https://workbench.ondc.tech/pramaan/buyer
       SELLER_TESTING_URI: https://workbench.ondc.tech/pramaan/seller
-      ANALYTICS_API: https://pramaan.ondc.org/beta/analytics-api
       PW_LOGS_API: https://workbench.ondc.tech/report
       FLUSHPERIOD: P90D
 
@@ -171,7 +167,6 @@ jobs:
           cat > "\$REPO_DIR/buyerNPTestAPI/.env" <<BUYERENV
           PORT=3005
           HOST=0.0.0.0
-          analyticsAPI=${ANALYTICS_API}
           MONGODB_URI=mongodb://mongo:27017/${BUYER_DB_NAME}
           FLUSHPERIOD=${FLUSHPERIOD}
           PW_LOGS_API_KEY=${{ secrets.PW_LOGS_API_KEY }}
@@ -183,7 +178,6 @@ jobs:
           cat > "\$REPO_DIR/sellerNPTestAPI/.env" <<SELLERENV
           PORT=3005
           HOST=0.0.0.0
-          analyticsAPI=${ANALYTICS_API}
           MONGODB_URI=mongodb://mongo:27017/${SELLER_DB_NAME}
           SELLER_DB_URI=mongodb://mongo:27017/${SELLER_DB_NAME}
           PW_LOGS_API_KEY=${{ secrets.PW_LOGS_API_KEY }}
