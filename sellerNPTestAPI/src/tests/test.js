@@ -76,7 +76,7 @@ const testRunnerLogisticsBuyer_1_2_5 = require("../logisticsBuyerTest_1_2_5/test
 
 // Logistics Buyer Test Runner for on network tests
 const testRunnerLogisticsBuyer = require("../logisticsBuyerNpTest/testRunner");
-const { analyticsAPI, PW_LOGS_API, PW_LOGS_API_KEY } = require("../utils/env");
+const { PW_LOGS_API, PW_LOGS_API_KEY } = require("../utils/env");
 
 const testRunnerHotelBooking = require("../hotelSellerNPTest/testRunner");
 
@@ -415,14 +415,6 @@ module.exports = async function (
         });
         
         await fs.unlink(reportPath);
-        axios.post(analyticsAPI, {
-          route: "save_flow",
-          test_id: test_id,
-          flow_id: flow_id,
-          role: "Seller"
-        }, {
-          headers: { "Content-Type": "application/json" }
-        });
       })
     );
   } catch (err) {
