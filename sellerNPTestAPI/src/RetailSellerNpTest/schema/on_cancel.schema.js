@@ -1,4 +1,395 @@
-// max id - 169 id, state, provider, billing, cancellation, quote, payment, created_at, updated_at
+// max id - 171 id, state, provider, billing, cancellation, quote, payment, created_at, updated_at
+const FULFILLMENT_GENERIC = {
+    "id": "retail_bpp_on_cancel_message_86",
+    "type": "object",
+                "properties": {
+                    "id": {
+                        "id": "retail_bpp_on_cancel_message_33",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "@ondc/org/provider_name": {
+                        "id": "retail_bpp_on_cancel_message_34",
+                        "type": "string",
+                        "optional": true,
+                        "minLength": 1
+                    },
+                    "state": {
+                        "id": "retail_bpp_on_cancel_message_37",
+                        "type": "object",
+                        "properties": {
+                            "descriptor": {
+                                "id": "retail_bpp_on_cancel_message_36",
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "id": "retail_bpp_on_cancel_message_35",
+                                        "type": "string",
+                                        "minLength": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "type": {
+                        "id": "retail_bpp_on_cancel_message_38",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "tracking": {
+                        "id": "retail_bpp_on_cancel_message_39",
+                        "type": "boolean",
+                        "optional": true
+                    },
+                    "@ondc/org/TAT": {
+                        "id": "retail_bpp_on_cancel_message_40",
+                        "type": "string",
+                        "minLength": 1,
+                        "format": "duration",
+                        "optional": true
+                    },
+                    "start": {
+                        "id": "retail_bpp_on_cancel_message_58",
+                        "type": "object",
+                        "optional": true,
+                        "properties": {
+                            "location": {
+                                "id": "retail_bpp_on_cancel_message_50",
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "id": "retail_bpp_on_cancel_message_41",
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "descriptor": {
+                                        "id": "retail_bpp_on_cancel_message_43",
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "id": "retail_bpp_on_cancel_message_42",
+                                                "type": "string",
+                                                "minLength": 1
+                                            }
+                                        }
+                                    },
+                                    "gps": {
+                                        "id": "retail_bpp_on_cancel_message_44",
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "address": {
+                                        "id": "retail_bpp_on_cancel_message_49",
+                                        "type": "object",
+                                        "properties": {
+                                            "locality": {
+                                                "id": "retail_bpp_on_cancel_message_45",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "city": {
+                                                "id": "retail_bpp_on_cancel_message_46",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "area_code": {
+                                                "id": "retail_bpp_on_cancel_message_47",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "state": {
+                                                "id": "retail_bpp_on_cancel_message_48",
+                                                "type": "string",
+                                                "minLength": 1
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "time": {
+                                "id": "retail_bpp_on_cancel_message_54",
+                                "type": "object",
+                                "properties": {
+                                    "range": {
+                                        "id": "retail_bpp_on_cancel_message_53",
+                                        "type": "object",
+                                        "properties": {
+                                            "start": {
+                                                "id": "retail_bpp_on_cancel_message_51",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "end": {
+                                                "id": "retail_bpp_on_cancel_message_52",
+                                                "type": "string",
+                                                "minLength": 1
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "contact": {
+                                "id": "retail_bpp_on_cancel_message_57",
+                                "type": "object",
+                                "properties": {
+                                    "phone": {
+                                        "id": "retail_bpp_on_cancel_message_55",
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "email": {
+                                        "id": "retail_bpp_on_cancel_message_56",
+                                        "type": "string",
+                                        "optional": true,
+                                        "minLength": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "end": {
+                        "id": "retail_bpp_on_cancel_message_78",
+                        "type": "object",
+                        "optional": true,
+                        "properties": {
+                            "location": {
+                                "id": "retail_bpp_on_cancel_message_68",
+                                "type": "object",
+                                "properties": {
+                                    "gps": {
+                                        "id": "retail_bpp_on_cancel_message_59",
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "address": {
+                                        "id": "retail_bpp_on_cancel_message_67",
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "id": "retail_bpp_on_cancel_message_60",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "building": {
+                                                "id": "retail_bpp_on_cancel_message_61",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "locality": {
+                                                "id": "retail_bpp_on_cancel_message_62",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "city": {
+                                                "id": "retail_bpp_on_cancel_message_63",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "state": {
+                                                "id": "retail_bpp_on_cancel_message_64",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "country": {
+                                                "id": "retail_bpp_on_cancel_message_65",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "area_code": {
+                                                "id": "retail_bpp_on_cancel_message_66",
+                                                "type": "string",
+                                                "minLength": 1
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "time": {
+                                "id": "retail_bpp_on_cancel_message_72",
+                                "type": "object",
+                                "optional": true,
+                                "properties": {
+                                    "range": {
+                                        "id": "retail_bpp_on_cancel_message_71",
+                                        "type": "object",
+                                        "optional": true,
+                                        "properties": {
+                                            "start": {
+                                                "id": "retail_bpp_on_cancel_message_69",
+                                                "type": "string",
+                                                "optional": true,
+                                                "minLength": 1
+                                            },
+                                            "end": {
+                                                "id": "retail_bpp_on_cancel_message_70",
+                                                "type": "string",
+                                                "optional": true,
+                                                "minLength": 1
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "person": {
+                                "id": "retail_bpp_on_cancel_message_74",
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "id": "retail_bpp_on_cancel_message_73",
+                                        "type": "string",
+                                        "minLength": 1
+                                    }
+                                }
+                            },
+                            "contact": {
+                                "id": "retail_bpp_on_cancel_message_77",
+                                "type": "object",
+                                "properties": {
+                                    "phone": {
+                                        "id": "retail_bpp_on_cancel_message_75",
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "email": {
+                                        "id": "retail_bpp_on_cancel_message_76",
+                                        "type": "string",
+                                        "optional": true,
+                                        "minLength": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "tags": {
+                        "id": "retail_bpp_on_cancel_message_79",
+                        "type": "array",
+                        "minItems": 1,
+                        "element": {
+                            "id": "retail_bpp_on_cancel_message_85",
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "id": "retail_bpp_on_cancel_message_80",
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "list": {
+                                    "id": "retail_bpp_on_cancel_message_81",
+                                    "type": "array",
+                                    "minItems": 1,
+                                    "element": {
+                                        "id": "retail_bpp_on_cancel_message_84",
+                                        "type": "object",
+                                        "properties": {
+                                            "code": {
+                                                "id": "retail_bpp_on_cancel_message_82",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "value": {
+                                                "id": "retail_bpp_on_cancel_message_83",
+                                                "type": "string",
+                                                "minLength": 1
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+};
+
+// ---- per-type fulfillment trees ------------------------------------------
+// A plain "optional" flag can't depend on fulfillment type, so Delivery and
+// RTO fulfillments get their own property trees (element.allOf below).
+// Cancel / Return / other types keep FULFILLMENT_GENERIC (the original tree).
+const str = (id, extra = {}) => ({ "id": `retail_bpp_on_cancel_message_${id}`, "type": "string", "minLength": 1, ...extra });
+const obj = (id, properties, extra = {}) => ({ "id": `retail_bpp_on_cancel_message_${id}`, "type": "object", ...extra, "properties": properties });
+
+const shortAddress = (ids) => obj(ids[0], {
+    "locality": str(ids[1]), "city": str(ids[2]), "area_code": str(ids[3]), "state": str(ids[4])
+});
+const contactTree = (ids) => obj(ids[0], { "phone": str(ids[1]), "email": str(ids[2], { "optional": true }) });
+const rangeTime = (ids, extra = {}) => obj(ids[0], {
+    "range": obj(ids[1], { "start": str(ids[2]), "end": str(ids[3]) })
+}, extra);
+const timestampTime = (id, tsId) => obj(id, { "timestamp": str(tsId) });
+
+// Delivery: start = store, end = buyer. time is only sent for slotted delivery.
+const DELIVERY_START = obj(58, {
+    "location": obj(50, {
+        "id": str(41),
+        "descriptor": obj(43, { "name": str(42) }),
+        "gps": str(44),
+        "address": shortAddress([49, 45, 46, 47, 48])
+    }),
+    "time": rangeTime([54, 53, 51, 52], { "optional": true }),
+    "contact": contactTree([57, 55, 56])
+});
+const DELIVERY_END = obj(78, {
+    "location": obj(68, {
+        "gps": str(59),
+        "address": obj(67, {
+            "name": str(60), "building": str(61), "locality": str(62), "city": str(63),
+            "state": str(64), "country": str(65), "area_code": str(66)
+        })
+    }),
+    "time": rangeTime([72, 71, 69, 70], { "optional": true }),
+    "person": obj(74, { "name": str(73) }),
+    "contact": contactTree([77, 75, 76])
+});
+
+// RTO: start = buyer address, end = back at the store; time is a timestamp.
+const RTO_START = obj(58, {
+    "location": obj(50, {
+        "gps": str(44),
+        "address": shortAddress([49, 45, 46, 47, 48])
+    }),
+    "time": timestampTime(54, 170)
+});
+const RTO_END = obj(78, {
+    "location": obj(68, {
+        "id": str(41, { "optional": true }),
+        "descriptor": obj(43, { "name": str(42) }, { "optional": true }),
+        "gps": str(59),
+        "address": shortAddress([67, 62, 63, 66, 64])
+    }),
+    "time": timestampTime(72, 171)
+});
+
+const commonProps = (tagsOptional) => ({
+    "id": str(33),
+    "@ondc/org/provider_name": str(34, { "optional": true }),
+    "state": obj(37, { "descriptor": obj(36, { "code": str(35) }) }),
+    "type": str(38),
+    "tags": FULFILLMENT_GENERIC.properties.tags
+});
+
+const FULFILLMENT_DELIVERY = {
+    "id": "retail_bpp_on_cancel_message_86",
+    "type": "object",
+    "properties": {
+        ...commonProps(),
+        "@ondc/org/provider_name": str(34),
+        "tracking": { "id": "retail_bpp_on_cancel_message_39", "type": "boolean" },
+        "@ondc/org/TAT": str(40, { "format": "duration" }),
+        "start": DELIVERY_START,
+        "end": DELIVERY_END
+    }
+};
+
+const FULFILLMENT_RTO = {
+    "id": "retail_bpp_on_cancel_message_86",
+    "type": "object",
+    "properties": {
+        ...commonProps(),
+        "tags": { ...FULFILLMENT_GENERIC.properties.tags, "optional": true, "minItems": undefined },
+        "start": RTO_START,
+        "end": RTO_END
+    }
+};
+
 module.exports = {
     "id": "retail_bpp_on_cancel_message_132",
     "type": "object",
@@ -174,364 +565,11 @@ module.exports = {
                     "type": "array",
                     "minItems": 1,
                     "element": {
-                        "id": "retail_bpp_on_cancel_message_86",
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "id": "retail_bpp_on_cancel_message_33",
-                                "type": "string",
-                                "minLength": 1
-                            },
-                            "@ondc/org/provider_name": {
-                                "id": "retail_bpp_on_cancel_message_34",
-                                "type": "string",
-                                "optional": true,
-                                "minLength": 1
-                            },
-                            "state": {
-                                "id": "retail_bpp_on_cancel_message_37",
-                                "type": "object",
-                                "properties": {
-                                    "descriptor": {
-                                        "id": "retail_bpp_on_cancel_message_36",
-                                        "type": "object",
-                                        "properties": {
-                                            "code": {
-                                                "id": "retail_bpp_on_cancel_message_35",
-                                                "type": "string",
-                                                "minLength": 1
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "type": {
-                                "id": "retail_bpp_on_cancel_message_38",
-                                "type": "string",
-                                "minLength": 1
-                            },
-                            "tracking": {
-                                "id": "retail_bpp_on_cancel_message_39",
-                                "type": "boolean",
-                                "optional": true
-                            },
-                            "@ondc/org/TAT": {
-                                "id": "retail_bpp_on_cancel_message_40",
-                                "type": "string",
-                                "minLength": 1,
-                                "format": "duration",
-                                "optional": true
-                            },
-                            "start": {
-                                "id": "retail_bpp_on_cancel_message_58",
-                                "type": "object",
-                                "optional": true,
-                                "properties": {
-                                    "location": {
-                                        "id": "retail_bpp_on_cancel_message_50",
-                                        "type": "object",
-                                        "properties": {
-                                            "id": {
-                                                "id": "retail_bpp_on_cancel_message_41",
-                                                "type": "string",
-                                                "minLength": 1
-                                            },
-                                            "descriptor": {
-                                                "id": "retail_bpp_on_cancel_message_43",
-                                                "type": "object",
-                                                "properties": {
-                                                    "name": {
-                                                        "id": "retail_bpp_on_cancel_message_42",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    }
-                                                }
-                                            },
-                                            "gps": {
-                                                "id": "retail_bpp_on_cancel_message_44",
-                                                "type": "string",
-                                                "minLength": 1
-                                            },
-                                            "address": {
-                                                "id": "retail_bpp_on_cancel_message_49",
-                                                "type": "object",
-                                                "properties": {
-                                                    "locality": {
-                                                        "id": "retail_bpp_on_cancel_message_45",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "city": {
-                                                        "id": "retail_bpp_on_cancel_message_46",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "area_code": {
-                                                        "id": "retail_bpp_on_cancel_message_47",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "state": {
-                                                        "id": "retail_bpp_on_cancel_message_48",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "time": {
-                                        "id": "retail_bpp_on_cancel_message_54",
-                                        "type": "object",
-                                        "properties": {
-                                            "range": {
-                                                "id": "retail_bpp_on_cancel_message_53",
-                                                "type": "object",
-                                                "properties": {
-                                                    "start": {
-                                                        "id": "retail_bpp_on_cancel_message_51",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "end": {
-                                                        "id": "retail_bpp_on_cancel_message_52",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "contact": {
-                                        "id": "retail_bpp_on_cancel_message_57",
-                                        "type": "object",
-                                        "properties": {
-                                            "phone": {
-                                                "id": "retail_bpp_on_cancel_message_55",
-                                                "type": "string",
-                                                "minLength": 1
-                                            },
-                                            "email": {
-                                                "id": "retail_bpp_on_cancel_message_56",
-                                                "type": "string",
-                                                "optional": true,
-                                                "minLength": 1
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "end": {
-                                "id": "retail_bpp_on_cancel_message_78",
-                                "type": "object",
-                                "optional": true,
-                                "properties": {
-                                    "location": {
-                                        "id": "retail_bpp_on_cancel_message_68",
-                                        "type": "object",
-                                        "properties": {
-                                            "gps": {
-                                                "id": "retail_bpp_on_cancel_message_59",
-                                                "type": "string",
-                                                "minLength": 1
-                                            },
-                                            "address": {
-                                                "id": "retail_bpp_on_cancel_message_67",
-                                                "type": "object",
-                                                "properties": {
-                                                    "name": {
-                                                        "id": "retail_bpp_on_cancel_message_60",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "building": {
-                                                        "id": "retail_bpp_on_cancel_message_61",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "locality": {
-                                                        "id": "retail_bpp_on_cancel_message_62",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "city": {
-                                                        "id": "retail_bpp_on_cancel_message_63",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "state": {
-                                                        "id": "retail_bpp_on_cancel_message_64",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "country": {
-                                                        "id": "retail_bpp_on_cancel_message_65",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "area_code": {
-                                                        "id": "retail_bpp_on_cancel_message_66",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "time": {
-                                        "id": "retail_bpp_on_cancel_message_72",
-                                        "type": "object",
-                                        "optional": true,
-                                        "properties": {
-                                            "range": {
-                                                "id": "retail_bpp_on_cancel_message_71",
-                                                "type": "object",
-                                                "optional": true,
-                                                "properties": {
-                                                    "start": {
-                                                        "id": "retail_bpp_on_cancel_message_69",
-                                                        "type": "string",
-                                                        "optional": true,
-                                                        "minLength": 1
-                                                    },
-                                                    "end": {
-                                                        "id": "retail_bpp_on_cancel_message_70",
-                                                        "type": "string",
-                                                        "optional": true,
-                                                        "minLength": 1
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "person": {
-                                        "id": "retail_bpp_on_cancel_message_74",
-                                        "type": "object",
-                                        "properties": {
-                                            "name": {
-                                                "id": "retail_bpp_on_cancel_message_73",
-                                                "type": "string",
-                                                "minLength": 1
-                                            }
-                                        }
-                                    },
-                                    "contact": {
-                                        "id": "retail_bpp_on_cancel_message_77",
-                                        "type": "object",
-                                        "properties": {
-                                            "phone": {
-                                                "id": "retail_bpp_on_cancel_message_75",
-                                                "type": "string",
-                                                "minLength": 1
-                                            },
-                                            "email": {
-                                                "id": "retail_bpp_on_cancel_message_76",
-                                                "type": "string",
-                                                "optional": true,
-                                                "minLength": 1
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "tags": {
-                                "id": "retail_bpp_on_cancel_message_79",
-                                "type": "array",
-                                "minItems": 1,
-                                "element": {
-                                    "id": "retail_bpp_on_cancel_message_85",
-                                    "type": "object",
-                                    "properties": {
-                                        "code": {
-                                            "id": "retail_bpp_on_cancel_message_80",
-                                            "type": "string",
-                                            "minLength": 1
-                                        },
-                                        "list": {
-                                            "id": "retail_bpp_on_cancel_message_81",
-                                            "type": "array",
-                                            "minItems": 1,
-                                            "element": {
-                                                "id": "retail_bpp_on_cancel_message_84",
-                                                "type": "object",
-                                                "properties": {
-                                                    "code": {
-                                                        "id": "retail_bpp_on_cancel_message_82",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    },
-                                                    "value": {
-                                                        "id": "retail_bpp_on_cancel_message_83",
-                                                        "type": "string",
-                                                        "minLength": 1
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "required": {
-                            "type": "array",
-                            "element": {
-                                "allOf": [
-                                    {
-                                        "if": {
-                                            "properties": {
-                                                "type": {
-                                                    "const": "Cancel"
-                                                }
-                                            }
-                                        },
-                                        "then": [
-                                            "type",
-                                            "state",
-                                            "id",
-                                            "tags"
-                                        ]
-                                    },
-                                    {
-                                        "if": {
-                                            "properties": {
-                                                "type": {
-                                                    "const": "Delivery"
-                                                }
-                                            }
-                                        },
-                                        "then": [
-                                            "type",
-                                            "state",
-                                            "id",
-                                            "@ondc/org/TAT",
-                                            "tags",
-                                            "start",
-                                            "end",
-                                            "tracking",
-                                            "@ondc/org/provider_name"
-                                        ]
-                                    },
-                                    {
-                                        "if": {
-                                            "properties": {
-                                                "type": {
-                                                    "const": "RTO"
-                                                }
-                                            }
-                                        },
-                                        "then": [
-                                            "type",
-                                            "state",
-                                            "id",
-                                            "tags",
-                                            "start",
-                                            "end"
-                                        ]
-                                    }
-                                ]
-                            }
-                        }
-
+                        "allOf": [
+                            { "if": { "properties": { "type": { "const": "RTO" } } }, "then": FULFILLMENT_RTO },
+                            { "if": { "properties": { "type": { "const": "Delivery" } } }, "then": FULFILLMENT_DELIVERY },
+                            { "if": { "properties": { "type": { "const": ["Cancel", "Return", "Self-Pickup", "Buyer-Delivery"] } } }, "then": FULFILLMENT_GENERIC }
+                        ]
                     }
                 },
                 "quote": {
