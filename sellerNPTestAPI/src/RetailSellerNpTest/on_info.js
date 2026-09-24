@@ -26,6 +26,7 @@ module.exports = async function on_info({ context, message } = {}, logs = [], co
         };
 
         const responseTestSuite = response_verification({ context, message }, logs);
+        testSuite.addSuite(response_verification.own_sync_response_verification({ context }, logs));
         testSuite.addSuite(contextTests(context, constants, logs));
         testSuite.addSuite(onInfoMessageTests({ context, message }, constants));
 

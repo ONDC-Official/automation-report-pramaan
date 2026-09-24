@@ -131,6 +131,7 @@ const FULFILLMENT_END = {
         "time": {
             "id": "retail_bpp_on_update_message_45",
             "type": "object",
+            "optional": true,
             "properties": {
                 "range": {
                     "id": "retail_bpp_on_update_message_46",
@@ -340,6 +341,7 @@ const FULFILLMENT_START = {
         "time": {
             "id": "retail_bpp_on_update_message_72",
             "type": "object",
+            "optional": true,
             "properties": {
                 "range": {
                     "id": "retail_bpp_on_update_message_73",
