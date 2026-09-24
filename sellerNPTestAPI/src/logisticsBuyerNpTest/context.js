@@ -68,7 +68,7 @@ module.exports = function contextTests(context, constants) {
             }
 
             if (property?.format) {
-                const test = formatCheck({ value: context[prop], format: property.format, testName: `context.${prop}` })
+                const test = formatCheck({ value: context?.[prop], format: property.format, testName: `context.${prop}` })
                 if (test) {
                     contextTestSuite.addTest(test)
                 }
