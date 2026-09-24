@@ -390,6 +390,23 @@ const FULFILLMENT_RTO = {
     }
 };
 
+// Cancel / Return / Self-Pickup / Buyer-Delivery fulfillments only carry a
+// pointer-style start/end (or none at all), and RTO-shaped data when they
+// describe the return leg - so the Delivery-shaped start/end checks don't
+// apply. Delivery keeps FULFILLMENT_DELIVERY, RTO keeps FULFILLMENT_RTO.
+const FULFILLMENT_OTHER = JSON.parse(JSON.stringify(FULFILLMENT_GENERIC));
+{
+    // (not every schema version defines every node, e.g. start.time)
+    const nodeAt = (keys) => keys.slice(1).reduce((n, k) => n?.properties?.[k], FULFILLMENT_OTHER.properties[keys[0]]);
+    [["start", "location", "id"], ["start", "location", "descriptor"], ["start", "time"], ["start", "time", "range"], ["start", "contact"],
+     ["end", "location", "address", "building"], ["end", "location", "address", "country"], ["end", "location", "address", "name"],
+     ["end", "person"], ["end", "contact"]
+    ].forEach((keys) => { const n = nodeAt(keys); if (n) n.optional = true; });
+    // tags must be present, but may be empty, and a list entry may be code-only
+    delete FULFILLMENT_OTHER.properties.tags.minItems;
+    FULFILLMENT_OTHER.properties.tags.element.properties.list.element.properties.value.optional = true;
+}
+
 module.exports = {
     "id": "retail_bpp_on_cancel_message_132",
     "type": "object",
@@ -568,7 +585,7 @@ module.exports = {
                         "allOf": [
                             { "if": { "properties": { "type": { "const": "RTO" } } }, "then": FULFILLMENT_RTO },
                             { "if": { "properties": { "type": { "const": "Delivery" } } }, "then": FULFILLMENT_DELIVERY },
-                            { "if": { "properties": { "type": { "const": ["Cancel", "Return", "Self-Pickup", "Buyer-Delivery"] } } }, "then": FULFILLMENT_GENERIC }
+                            { "if": { "properties": { "type": { "const": ["Cancel", "Return", "Self-Pickup", "Buyer-Delivery"] } } }, "then": FULFILLMENT_OTHER }
                         ]
                     }
                 },

@@ -97,6 +97,10 @@ module.exports = async function on_status({ context, message } = {}, step = "", 
     try {
         let orderState = "In-progress";
         switch (step) {
+            case "Pending":
+                // Fulfillment is still Pending, so the order hasn't moved past Accepted.
+                orderState = "Accepted";
+                break;
             case "Order-delivered":
                 orderState = "Completed";
                 break;

@@ -4,6 +4,15 @@ const contextTests = require("./context");
 const onStatusSchema = require("./schema/on_status.schema");
 const { generateTests } = require("./common");
 const response_verification = require("../centralizedUtilities/responseVerification");
+const {
+    lastActionLog,
+    verifyProviderIdMatchesSearch,
+    verifyItemAndLocationIdsMatchSearch,
+    verifyFulfillmentIdsAndCoordsMatchSearch,
+    verifyQuotePriceTrail,
+    verifyOrderState,
+    verifyTimestamps,
+} = require("./orderReferenceChecks");
 
 function paymentMessageTests(message, flowId, testCaseId) {
 
@@ -33,11 +42,23 @@ function paymentMessageTests(message, flowId, testCaseId) {
 }
 
 
-function onStatusMessageTests({ context, message }, flowId, testCaseId) {
+function onStatusMessageTests({ context, message }, flowId, testCaseId, logs) {
     try {
         // generating the tests using recursive methods
         const messageTestSuite = generateTests({ context, message }, onStatusSchema, "Verification of Message");
         messageTestSuite.addSuite(paymentMessageTests(message, flowId, testCaseId));
+
+        // Cross-checks against on_search/confirm/on_init (GitHub issue #266)
+        const onSearchLog = lastActionLog(logs, "on_search");
+        const confirmLog = lastActionLog(logs, "confirm");
+        const onInitLog = lastActionLog(logs, "on_init");
+
+        verifyProviderIdMatchesSearch(messageTestSuite, message, onSearchLog);
+        verifyItemAndLocationIdsMatchSearch(messageTestSuite, message, onSearchLog);
+        verifyFulfillmentIdsAndCoordsMatchSearch(messageTestSuite, message, onSearchLog);
+        verifyOrderState(messageTestSuite, message, ["In-progress", "Completed"]);
+        verifyTimestamps(messageTestSuite, message, context, { createdMatchesLog: confirmLog });
+        verifyQuotePriceTrail(messageTestSuite, message, onInitLog);
 
         //ItemCategoryID
 
@@ -393,7 +414,7 @@ module.exports = async function on_status({ context, message } = {}, state = "",
         const constants = { action: "on_status", core_version: "1.2.5", state: state, testCaseId, flowId };
 
         testSuite.addSuite(contextTests(context, constants, logs));
-        testSuite.addSuite(onStatusMessageTests({ context, message }, testCaseId, flowId));
+        testSuite.addSuite(onStatusMessageTests({ context, message }, testCaseId, flowId, logs));
         const responseTestSuite = response_verification({ context, message }, logs);
 
         return [responseTestSuite, testSuite];

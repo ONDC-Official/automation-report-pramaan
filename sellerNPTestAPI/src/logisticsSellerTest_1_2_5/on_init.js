@@ -3,16 +3,13 @@ const { expect } = require("chai");
 const onInitSchema = require("./schema/on_init.schema");
 const { generateTests } = require("./common");
 const response_verification = require("../centralizedUtilities/responseVerification");
-
-function lastActionLog(logs, action) {
-    try {
-        const log = logs?.filter((log) => log?.request?.context?.action === action);
-
-        return log && log.length ? log?.pop()?.request : false;
-    } catch (err) {
-        console.log(err);
-    }
-}
+const {
+    lastActionLog,
+    verifyProviderIdMatchesSearch,
+    verifyItemAndLocationIdsMatchSearch,
+    verifyFulfillmentIdsAndCoordsMatchSearch,
+    verifyQuotePriceMatchesSearchItem,
+} = require("./orderReferenceChecks");
 
 function onInitMessageTests({ context, message, logs, flowId }) {
     try {
@@ -167,6 +164,12 @@ function onInitMessageTests({ context, message, logs, flowId }) {
         const onSearchRequest = lastActionLog(logs, "on_search");
         const lspTags = onSearchRequest?.message?.catalog?.["bpp/providers"]?.[0]?.tags || [];
         const hasLsp01A = lspTags.some(tag => tag?.descriptor?.code === "lsp_feature" && tag?.list?.some(item => item?.code === "01A"));
+
+        // Cross-checks against the on_search response (GitHub issue #263)
+        verifyProviderIdMatchesSearch(messageTestSuite, message, onSearchRequest);
+        verifyItemAndLocationIdsMatchSearch(messageTestSuite, message, onSearchRequest);
+        verifyFulfillmentIdsAndCoordsMatchSearch(messageTestSuite, message, onSearchRequest);
+        verifyQuotePriceMatchesSearchItem(messageTestSuite, message, onSearchRequest);
 
         if (hasLsp01A) {
             messageTestSuite.addTest(new Mocha.Test('message.order.cancellation_terms must be a non-empty array', function () {

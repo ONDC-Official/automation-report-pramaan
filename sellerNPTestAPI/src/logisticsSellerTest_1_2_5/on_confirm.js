@@ -4,6 +4,18 @@ const contextTests = require("./context");
 const onConfirmSchema = require("./schema/on_confirm.schema");
 const { generateTests } = require("./common");
 const response_verification = require("../centralizedUtilities/responseVerification");
+const {
+    lastActionLog,
+    verifyProviderIdMatchesSearch,
+    verifyItemAndLocationIdsMatchSearch,
+    verifyFulfillmentIdsAndCoordsMatchSearch,
+    verifyQuotePriceTrail,
+    verifyOrderState,
+    verifyTimestamps,
+    verifyOrderIdMatches,
+    verifyReadyToShipTag,
+    IMMEDIATE_DELIVERY_FLOW_IDS,
+} = require("./orderReferenceChecks");
 
 function paymentMessageTests(message, flowId, testCaseId) {
 
@@ -52,11 +64,52 @@ function paymentMessageTests(message, flowId, testCaseId) {
 }
 
 
-function onConfirmMessageTests({ context, message }, constants, flowId, testCaseId) {
+function onConfirmMessageTests({ context, message }, constants, flowId, testCaseId, logs) {
     try {
         // generating the tests using recursive methods
         const messageTestSuite = generateTests({ context, message }, onConfirmSchema, "Verification of Message", constants);
         messageTestSuite.addSuite(paymentMessageTests(message, flowId, testCaseId));
+
+        const onSearchLog = lastActionLog(logs, "on_search");
+        const onInitLog = lastActionLog(logs, "on_init");
+        const confirmLog = lastActionLog(logs, "confirm");
+        const isImmediateFlow = IMMEDIATE_DELIVERY_FLOW_IDS.includes(flowId);
+
+        // "confirm" (the outgoing request the harness itself sent) - GitHub issue #264
+        if (confirmLog) {
+            verifyProviderIdMatchesSearch(messageTestSuite, confirmLog.message, onSearchLog, "'confirm' request: ");
+            verifyItemAndLocationIdsMatchSearch(messageTestSuite, confirmLog.message, onSearchLog, "'confirm' request: ");
+            verifyFulfillmentIdsAndCoordsMatchSearch(messageTestSuite, confirmLog.message, onSearchLog, "'confirm' request: ");
+            verifyOrderState(messageTestSuite, confirmLog.message, ["Created", "Accepted"], "'confirm' request: ");
+            verifyTimestamps(messageTestSuite, confirmLog.message, confirmLog.context, {}, "'confirm' request: ");
+            if (confirmLog.message?.order?.created_at !== undefined && confirmLog.message?.order?.updated_at !== undefined) {
+                messageTestSuite.addTest(new Mocha.Test("'confirm' request: 'message.order.created_at' should equal 'message.order.updated_at'", function () {
+                    expect(confirmLog.message.order.created_at).to.equal(confirmLog.message.order.updated_at);
+                }));
+            }
+            verifyQuotePriceTrail(messageTestSuite, confirmLog.message, onInitLog, "'confirm' request: ");
+            if (!isImmediateFlow) {
+                verifyReadyToShipTag(messageTestSuite, confirmLog.message, "no", "'confirm' request: ");
+            }
+        }
+
+        // on_confirm (the seller's response) - GitHub issue #264
+        verifyProviderIdMatchesSearch(messageTestSuite, message, onSearchLog);
+        verifyItemAndLocationIdsMatchSearch(messageTestSuite, message, onSearchLog);
+        verifyFulfillmentIdsAndCoordsMatchSearch(messageTestSuite, message, onSearchLog);
+        verifyOrderState(messageTestSuite, message, ["Created", "Accepted"]);
+        verifyTimestamps(messageTestSuite, message, context, {});
+        if (message?.order?.created_at !== undefined && message?.order?.updated_at !== undefined) {
+            messageTestSuite.addTest(new Mocha.Test("'message.order.created_at' should equal 'message.order.updated_at'", function () {
+                expect(message.order.created_at).to.equal(message.order.updated_at);
+            }));
+        }
+        verifyQuotePriceTrail(messageTestSuite, message, onInitLog);
+        verifyOrderIdMatches(messageTestSuite, message, confirmLog);
+        if (!isImmediateFlow) {
+            verifyReadyToShipTag(messageTestSuite, message, "no");
+        }
+
         console.log(flowId)
 
 
@@ -389,7 +442,7 @@ module.exports = async function on_confirm({ context, message } = {}, logs = [],
         const constants = { action: "on_confirm", core_version: "1.2.5", state: "Accepted", flowId, testCaseId };
 
         testSuite.addSuite(contextTests(context, constants, logs));
-        testSuite.addSuite(onConfirmMessageTests({ context, message }, constants, flowId, testCaseId));
+        testSuite.addSuite(onConfirmMessageTests({ context, message }, constants, flowId, testCaseId, logs));
         const responseTestSuite = response_verification({ context, message }, logs);
 
         return [responseTestSuite, testSuite];
