@@ -31,7 +31,7 @@ module.exports = function contextTests(context, constants) {
             const property = validSchema?.properties[prop];
 
             if (property?.type) {
-                contextTestSuite.addTest(new Mocha.Test(`'[id: ${property?.id}_type]' 'context.${prop}' should be a ${property.type}${prop === "transaction_id" ? " (" + context[prop] + ")" : ""}`, function () {
+                contextTestSuite.addTest(new Mocha.Test(`'[id: ${property?.id}_type]' 'context.${prop}' should be a ${property.type}${prop === "transaction_id" ? " (" + context?.[prop] + ")" : ""}`, function () {
                     expect(context[prop]).to.be.a(property.type);
                 }));
             }
@@ -67,7 +67,7 @@ module.exports = function contextTests(context, constants) {
             }
 
             if (property?.format) {
-                const test = formatCheck({ value: context[prop], format: property.format, testName: `context.${prop}` })
+                const test = formatCheck({ value: context?.[prop], format: property.format, testName: `context.${prop}` })
                 if (test) {
                     contextTestSuite.addTest(test)
                 }
