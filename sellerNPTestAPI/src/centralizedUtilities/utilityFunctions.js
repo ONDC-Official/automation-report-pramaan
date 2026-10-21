@@ -8,21 +8,38 @@ function processComparison(operation, dataOne, dataTwo, testSuite) {
         const { valTwo, textTwo } = dataTwo;
 
         testSuite.addTest(new Mocha.Test(`should verify ${valOne} (${textOne}) ${operation} ${valTwo} (${textTwo}) `, function () {
+            let v1 = valOne;
+            let v2 = valTwo;
+            if (operation !== "===") {
+                const num1 = typeof v1 === "number" ? v1 : (typeof v1 === "string" && v1.trim() !== "" ? Number(v1) : NaN);
+                const num2 = typeof v2 === "number" ? v2 : (typeof v2 === "string" && v2.trim() !== "" ? Number(v2) : NaN);
+                if (!isNaN(num1) && !isNaN(num2)) {
+                    v1 = num1;
+                    v2 = num2;
+                } else {
+                    const d1 = new Date(v1);
+                    const d2 = new Date(v2);
+                    if (!isNaN(d1.getTime()) && !isNaN(d2.getTime())) {
+                        v1 = d1.getTime();
+                        v2 = d2.getTime();
+                    }
+                }
+            }
             switch (operation) {
                 case "===":
                     expect(valOne).to.equal(valTwo);
                     break;
                 case "<=":
-                    expect(valOne).to.be.at.most(valTwo);
+                    expect(v1).to.be.at.most(v2);
                     break;
                 case ">=":
-                    expect(valOne).to.be.at.least(valTwo);
+                    expect(v1).to.be.at.least(v2);
                     break;
                 case "<":
-                    expect(valOne).to.be.below(valTwo);
+                    expect(v1).to.be.below(v2);
                     break;
                 case ">":
-                    expect(valOne).to.be.above(valTwo);
+                    expect(v1).to.be.above(v2);
                     break;
                 default:
                     throw new Error(`Unsupported operation: ${operation}`);

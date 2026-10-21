@@ -36,8 +36,9 @@ function onUpdateMessageTests({ context, message }, logs = []) {
             expect(message.order.created_at).to.exist.and.to.be.a("string").and.to.be.deep.equal(createdAt);
         }));
 
-        messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.created_at' which is a string ", function () {
-            expect(message.order.updated_at).to.exist.and.to.be.a("string").and.to.be.greaterThan(updatedAt);
+        messageTestSuite.addTest(new Mocha.Test("Verify the presence of 'message.order.updated_at' which is a string ", function () {
+            expect(message.order.updated_at).to.exist.and.to.be.a("string");
+            expect(new Date(message.order.updated_at).getTime()).to.be.greaterThan(new Date(updatedAt).getTime());
         }));
 
         return messageTestSuite;
