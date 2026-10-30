@@ -86,6 +86,7 @@ function own_sync_response_verification({ context } = {}, logs = []) {
 module.exports = function response_verification({ context, message } = {}, logs = [], constants = {}) {
     const counterLog = logs?.find((log) => (log?.message_id === context?.message_id) && !log?.action?.startsWith("on_"));
     const { context: responseContext, message: responseMessage, error: responseError } = counterLog?.response || {};
+    const contextFreeLogisticsAck = context?.domain === "nic2004:60232" && context?.core_version === "1.2.0";
     let count = 1;
     const domain = logs[0]?.request?.context?.domain
     const responseAction = counterLog?.request?.context?.action;
@@ -127,9 +128,15 @@ module.exports = function response_verification({ context, message } = {}, logs 
         let count = 1;
 
 
-        const test_id_template = `${domain}_bpp_sync_${actionMap[responseContext?.action]}_response`;
+        const responseIdAction = contextFreeLogisticsAck ? responseAction : actionMap[responseContext?.action];
+        const test_id_template = `${domain}_bpp_sync_${responseIdAction}_response`;
 
-        if (/ONDC:RET|ONDC:LOG|nic/.test(context?.domain || "")) {
+        // The published logistics 1.2.0 response schema allows message/error only.
+        if (contextFreeLogisticsAck) {
+            testSuite.addTest(new Mocha.Test(`'[id: ${test_id_template}_${count++}_type]' response should not contain 'context'`, function () {
+                expect(counterLog.response).to.not.have.property("context");
+            }));
+        } else if (/ONDC:RET|ONDC:LOG|nic/.test(context?.domain || "")) {
             testSuite.addTest(new Mocha.Test(`'[id: ${test_id_template}_${count++}_type]' 'context' should be an object`, function () {
                 expect(responseContext).to.be.an("object");
             }));
